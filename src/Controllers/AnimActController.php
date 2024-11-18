@@ -8,6 +8,7 @@ use Controllers\BaseController;
 use Models\Activite;
 use Models\Animation;
 use Models\TypeAnimation;
+use PDO;
 
 
 final class AnimActController extends BaseController
@@ -44,11 +45,12 @@ final class AnimActController extends BaseController
      * Méthode permettant de récupérer toutes les informations d'une animation grâce à son code
      * @return array - Résultat de la requête SQL (array des animations)
      */
-    public function getAnimationByCodeAnim(string $code_anim): array {
+    public function getAnimationByCodeAnim(string $code_anim, int $mode=4): array {
         //clean value
         $cleaned_code_anim = $this->sanitize($code_anim);
+        $cleaned_mode = $this->sanitize($mode);
 
-        return $this->animation->getAnimationInformationsByCodeAnim($cleaned_code_anim);
+        return $this->animation->getAnimationInformationsByCodeAnim($cleaned_code_anim, $mode);
     }
 
 
@@ -117,7 +119,7 @@ final class AnimActController extends BaseController
         //sanitizing every array values
         $cleaned_anim = $this->sanitizeArray($anim_to_add);
 
-        //check return if validation criteria are not met
+        // return if validation criteria are not met
         if (!$this->checkAnimValuesValidity($anim_to_add)) {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'Valeurs invalides!'];
         }
@@ -129,7 +131,7 @@ final class AnimActController extends BaseController
 //        //sanitizing every array values
 //        $cleaned_anim = $this->sanitizeArray($anim_to_add);
 //
-//        //check return if validation criteria are not met
+//        // return if validation criteria are not met
 //        if (!$this->checkAnimValuesValidity($anim_to_add))
 //        {
 //            return false;
@@ -409,6 +411,152 @@ final class AnimActController extends BaseController
         $cleaned_date_act = $this->sanitize($date_act);
 
         return $this->activite->restoreActivite($cleaned_act_id, $cleaned_date_act);
+    }
+
+
+    /**
+     *  Méthode permettant de faire le lien entre l'exterieur (la vue) et l'intérieur (le modele) pour la méthode de
+     * mise à jour d'une animation. Les valeurs sont néttoyées avant d'être envoyées au modele
+     * @param array $anim - Array contenant les nouvelles valeurs de l'animation
+     * @return array - Format de valeur en json contenant le statut de success de la requête, le titre et
+     *    le méssage du popup à afficher
+     */
+    public function updateAnimation(array $anim): array {
+        //clean array
+        $cleaned_anim = $this->sanitizeArray($anim);
+
+        //return if no changes where made to values
+        $old_anim = $this->animation->getAnimationInformationsByCodeAnim($cleaned_anim[0], PDO::FETCH_NUM);
+        if ($this->areArraysDifferent($cleaned_anim, $old_anim)) {
+//            return ['success' => false, 'title' => 'Erreur', 'message' => $anim[5] . ' ' . $old_anim[5]];
+            return ['success' => false, 'title' => 'Erreur', 'message' => 'Aucuns changements ont été effectués sur l\'animation!'];
+        }
+
+        // return if validation criteria are not met
+        if (!$this->checkAnimValueForUpdate($cleaned_anim, $old_anim[3])) {
+            return ['success' => false, 'title' => 'Erreur', 'message' => 'Valeurs invalides!'];
+        }
+
+        return $this->animation->updateAnimation($cleaned_anim);
+//        return ['success' => true, 'title' => 'You\'ve been trolled!', 'message' => 'HAHAHAHAH!'];
+    }
+
+
+    /**
+     * Méthode that compare 2 array of same size
+     * @param array $array_1 - Array 1 to compare
+     * @param array $array_2 - Array 2 to compare
+     * @return bool - Return true if no differences are found between the 2 arrays and return false if differences are
+     * found
+     */
+    private function areArraysDifferent(array $array_1, array $array_2): bool {
+        // return false if arrays are not the same size
+        if (sizeof($array_1) != sizeof($array_2)) {
+            return true;
+        }
+
+//        //looping through every item in array to check if they are the same
+//        for ($i = 0; $i < sizeof($array_1); $i++) {
+//            if ($array_1[$i] != $array_2[$i]) {
+//                return true;
+//            }
+//        }
+
+        return $array_1 == $array_2;
+    }
+
+    /**
+     *  Méthode testant à partir de conditions précises la validités de chaques valeur avant de mettre à jour
+     * l'animation
+     * @param array $anim_array - Array contenant les nouvelles valeurs de l'animation
+     * @param string $old_validity_date - ancienne date de validité de l'animation afin de la comparer avec la nouvelle
+     * (pour éviter que la nouvelle soit en dessous de l'ancienne)
+     * @return boolean - retourne true si les valeurs sont valides, sinon false
+     */
+    private function checkAnimValueForUpdate($anim_array, $old_validity_date): bool {
+        //validité code anim
+        if (strlen($anim_array[0]) > 8){
+//            echo 'blocage code anim';
+            return false;
+        }
+
+        //validité type anim
+        if (!in_array($anim_array[1], $this->type_anim->getTypesName())) {
+//            echo 'blocage type anim';
+            return false;
+        }
+
+        //validité titre anim
+        if (strlen($anim_array[2]) > 40) {
+//            echo 'blocage titre anim';
+            return false;
+        }
+
+        //validité date validité anim
+        if ($anim_array[3] < $old_validity_date) {
+//            echo 'blocage date validité anim <br> ' . date('Y-m-d');
+            return false;
+        }
+
+        //validation for duree
+        if (!is_numeric($anim_array[4])) {
+//            echo 'blocage durée anim1';
+            return false;
+        }
+        if (intval($anim_array[4]) < 1) {
+//            echo 'blocage durée anim2';
+            return false;
+        }
+
+        //validation for limite age
+        if (!is_numeric($anim_array[5])) {
+//            echo 'blocage limite age1';
+            return false;
+        }
+        if (intval($anim_array[5]) < 4 || intval($anim_array[5]) > 100) {
+//            echo 'blocage limite age 2';
+            return false;
+        }
+
+        //validation for tarif
+        if (!is_numeric($anim_array[6])) {
+//            echo 'blocage tarif1';
+            return false;
+        }
+        if (intval($anim_array[6]) < 0) {
+//            echo 'blocage tarif2';
+            return false;
+        }
+
+        //validation for nb place
+        if (!is_numeric($anim_array[7])) {
+//            echo 'blocage nb place1';
+            return false;
+        }
+        if (intval($anim_array[7]) < 1 || intval($anim_array[7]) > 50) {
+//            echo 'blocage nb place2';
+            return false;
+        }
+
+        //validation for desciption
+        if (strlen($anim_array[8]) > 250) {
+//            echo 'blocage desc anim';
+            return false;
+        }
+
+        //validation for commentaire
+        if (strlen($anim_array[9]) > 250) {
+//            echo 'blocage comment anim';
+            return false;
+        }
+
+        //validation for difficulté
+        if (strlen($anim_array[10]) > 40) {
+//            echo 'blocage diff anim';
+            return false;
+        }
+
+        return true;
     }
 
 }

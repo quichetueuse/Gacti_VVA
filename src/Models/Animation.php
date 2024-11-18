@@ -32,12 +32,12 @@ class Animation
      * @param string $code_anim - code de l'animation
      * @return array - informations de l'animation
      */
-    public function getAnimationInformationsByCodeAnim(string $code_anim): array {
+    public function getAnimationInformationsByCodeAnim(string $code_anim, int $mode): array {
         $sqlQuery = 'SELECT CODEANIM, CODETYPEANIM, NOMANIM, DATEVALIDITEANIM, DUREEANIM, LIMITEAGE, TARIFANIM, NBREPLACEANIM, DESCRIPTANIM, COMMENTANIM, DIFFICULTEANIM FROM animation WHERE CODEANIM=:code_anim'; //todo verifier si CODEANIM et CODETYPEANIM sont nécessaire
         $animstatement = $this->pdoClient->prepare($sqlQuery);
         $animstatement->execute(['code_anim' => $code_anim]);
 
-        $result = $animstatement->fetch();
+        $result = $animstatement->fetch($mode);
         //if no animation is found
         if ($result === false)
         {
@@ -188,5 +188,37 @@ class Animation
         $animstatement = $this->pdoClient->prepare($sqlQuery);
         $animstatement->execute();
         return $animstatement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Méthode se connectant à la base de données afin de mettre à jour une animation
+     * @param array $anim - Array contenant toutes les valeurs à mettre à jour
+     * @return array - Format de valeur en json contenant le statut de success de la requête, le titre et
+     *  le méssage du popup à afficher
+     */
+    public function updateAnimation($anim): array {
+        $sqlQuery = 'UPDATE animation SET NOMANIM=:nom_anim, DATEVALIDITEANIM=:date_validite_anim, 
+                     DUREEANIM=:duree_anim, LIMITEAGE=:limite_age, TARIFANIM=:tarif, NBREPLACEANIM=:nbre_place, 
+                     DESCRIPTANIM=:desc_anim, COMMENTANIM=:comment_anim, DIFFICULTEANIM=:difficulte_anim WHERE CODEANIM=:code_anim';
+        $animstatement = $this->pdoClient->prepare($sqlQuery);
+        $animstatement->execute(
+            ['code_anim' => $anim[0],
+                'nom_anim' => $anim[2],
+                'date_validite_anim' => $anim[3],
+                'duree_anim' => $anim[4],
+                'limite_age' => $anim[6],
+                'tarif' => $anim[5],
+                'nbre_place' => $anim[7],
+                'desc_anim' => $anim[8],
+                'comment_anim' => $anim[9],
+                'difficulte_anim' => $anim[10]]);
+//        echo $this->pdoClient->lastInsertId();
+        if ($animstatement->rowCount() > 0)
+        {
+            return ['success' => true, 'title' => 'Animation mise à jour!', 'message' => ''];
+        }
+        else {
+            return ['success' => false, 'title' => 'Erreur', 'message' => 'Erreur durant l\'éxécution de la requête'];
+        }
     }
 }

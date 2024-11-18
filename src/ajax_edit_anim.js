@@ -24,7 +24,11 @@ var valid_difficulte = false;
 
 
 
-
+/**
+ * Fonction qui demande à l'utilisateur une confirmation avant l'envoie du formulaire, une vérification de la validité
+ * des données saisies est effectuée
+ * @return
+ */
 function confirmFormSubmission()
 {
     Swal.fire({
@@ -49,16 +53,17 @@ function confirmFormSubmission()
         }
     });
 }
-
+/**
+ * Fonction qui effectue l'envoie du formulaire d'édition d'animation
+ * @return
+ */
 function submitForm()
 {
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            // document.getElementById("est1").innerHTML = this.responseText;
             $json_response = JSON.parse(this.responseText);
-            console.log($json_response)
             if ($json_response['success'])
             {
                 generateSweetAlertPopup($json_response['title'], $json_response['message'], 'success', null);
@@ -75,7 +80,7 @@ function submitForm()
             }
         }
     }
-    xmlhttp.open("POST", "../Controllers/add_anim_ajax.php", true);
+    xmlhttp.open("POST", "../Controllers/edit_anim_ajax.php", true);
     xmlhttp.setRequestHeader(
         "Content-type",
         "application/x-www-form-urlencoded"
@@ -85,6 +90,11 @@ function submitForm()
     xmlhttp.send(ajax_str);
 }
 
+/**
+ * Fonction qui génère la chaine de caractère contenant les valeurs du formulaire afin de simuler l'envoie d'une requête
+ * POST
+ * @return {string} - POST string
+ */
 function generateAjaxString(){
     $code_anim = document.getElementById('edit-num-anim').value;
     $type_anim = document.getElementById('edit-type-anim').value;
@@ -115,20 +125,10 @@ function generateAjaxString(){
 
 }
 
-function isValidDatevalidite(date_time_validite)
-{
-    if (date_time_validite.toString() < new Date( ).toLocaleDateString('en-CA'))
-    {
-        document.getElementById('error-date-validite').innerHTML = 'Date invalide, veuillez rentrer une date supérieure à celle d\'aujourdh\'hui!'
-        valid_date_validite = false;
-    }
-    else
-    {
-        document.getElementById('error-date-validite').innerHTML = ''
-        valid_date_validite = true;
-    }
-}
-
+/**
+ * Fonction qui teste les conditions de validité enregistrées pour chaque champs
+ * @return
+ */
 function validate_field(sender_id, sender_value)
 {
     // console.log(sender_id, sender_value)
@@ -238,12 +238,16 @@ function validate_field(sender_id, sender_value)
     }
 }
 
+/**
+ * Fonction simulant une intéraction des champs par l'utilisateur afin de générer la les messages d'érreur sur les
+ * donn"es invalides du formulaire d'édition d'animation
+ * @return
+ */
 function updateFieldsValidity() {
     validate_field('edit-titre-anim', document.getElementById('edit-titre-anim').value);
     validate_field('edit-desc-anim', document.getElementById('edit-desc-anim').value);
-    isValidDatevalidite('edit-date-validite-anim', document.getElementById('edit-date-validite-anim').value)
 
-
+    isValidDatevalidite(document.getElementById('edit-date-validite-anim').value)
     validate_field('edit-comment-anim', document.getElementById('edit-comment-anim').value);
     validate_field('edit-difficulte-anim', document.getElementById('edit-difficulte-anim').value);
     validate_field('edit-duree-anim', document.getElementById('edit-duree-anim').value);
@@ -253,9 +257,31 @@ function updateFieldsValidity() {
     return;
 }
 
+/**
+ * Fonction vérifiant si la date de validité de l'animation est inférieure à celle avant changement
+ * @return
+ */
+function isValidDatevalidite(date_time_validite, old_date='')
+{
+    if (date_time_validite.toString() < old_date)
+    {
+        document.getElementById('error-date-validite').innerHTML = 'Date invalide, veuillez rentrer une date supérieure à celle d\'aujourdh\'hui!'
+        valid_date_validite = false;
+    }
+    else
+    {
+        document.getElementById('error-date-validite').innerHTML = ''
+        valid_date_validite = true;
+    }
+}
 
 
-
+/**
+ * Fonction testant la taile d'une chaine de caractère
+ * @param {string} value - Chaine de caractère dont on veut tester la longeur
+ * @param {int} length - Entier contenant la taille du la chaine
+ * @return
+ */
 function isValidString(value, length) {
     // console.log("^[a-z]{0," + length + "}$")
     // console.log(value)
@@ -271,10 +297,13 @@ function isValidString(value, length) {
     }
 }
 
-
+/**
+ * Fonction testant la validité de tous les champs du formulaire d'édition d'animation
+ * @return {boolean} - retourne true si tous les champs ont des valeurs valides, sinon false
+ */
 function areFieldsValid() {
-    return valid_date_validite &&
-        valid_title &&
+    return valid_title &&
+        valid_date_validite &&
         valid_desc &&
         valid_comment &&
         valid_duree &&
@@ -284,6 +313,13 @@ function areFieldsValid() {
         valid_difficulte;
 }
 
+/**
+ * Fonction testant si un nombre est compris dans un interval
+ * @param {int} value - Valeur à tester
+ * @param {int} min - [optionnal] valeur minimale de l'interval
+ * @param {int} max - [optionnal] valeur maximale de l'interval
+ * @return {boolean} - retourne true si la valeur est comprise dans la plage, sinon false
+ */
 function isIntInRange(value, min = 0, max = 1000000) {
     return min <= value && value <= max;
 

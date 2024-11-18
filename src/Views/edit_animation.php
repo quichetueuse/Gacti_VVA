@@ -14,10 +14,10 @@ require_once('../autoloader.php');
 $animation_controller = new AnimActController();
 
 //getting animation id
-$code_anim = "code"; //$_GET['code_anim'];
+$code_anim = "testtest"; //$_GET['code_anim'];
 
 //getting all animation's informations
-$anim = $animation_controller->getAnimationByCodeAnim($code_anim);
+$anim = $animation_controller->getAnimationByCodeAnim($code_anim, PDO::FETCH_ASSOC);
 
 //if array is empty (mean no animation with given id/code exists) //todo réactiver
 if (empty($anim)) {
@@ -62,23 +62,7 @@ $difficulte = $anim['DIFFICULTEANIM'];
 
                 <input type="hidden" class="form-control" aria-label="Username" aria-describedby="basic-addon1" id="edit-num-anim" name="edit-num-anim" value="<?php echo $code_anim; ?>" required onchange="validate_field(this.id, this.value);"><!--onfocusout="checkActionNumber('<?php echo SITE_URL; ?>');">-->
 
-                <input type="hidden" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo $type_anim ?>" id="add-type-anim" name="add-type-anim" required onchange="isValidDatevalidite(this.value)">
-
-<!--            <p class="error-p" id="error-code-anim"></p>-->
-<!--            <div class="input-group mb-3">-->
-<!--                <div class="input-group-prepend">-->
-<!--                    <span class="input-group-text" id="basic-addon1">Code de l'animation</span>-->
-<!--                </div>-->
-<!--                <input type="hidden" class="form-control" aria-label="Username" aria-describedby="basic-addon1" id="edit-num-anim" name="edit-num-anim" required onchange="validate_field(this.id, this.value);">
-            </div>-->
-<!---->
-<!--            <p class="error-p" id="error-code-type-anim"></p>-->
-<!--            <div class="input-group mb-3">-->
-<!--                <div class="input-group-prepend">-->
-<!--                    <label class="input-group-text" for="add-type-anim">Type de l'animation</label>-->
-<!--                </div>-->
-<!--                <input type="hidden" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="--><?php //echo $type_anim ?><!--" id="add-type-anim" name="add-type-anim" required onchange="isValidDatevalidite(this.value)">-->
-<!--            </div>-->
+                <input type="hidden" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo $type_anim ?>" id="edit-type-anim" name="edit-type-anim" required>
 
             <!-- Champ de la date de validité de l'animation -->
             <p class="error-p" id="error-date-validite"></p>
@@ -86,7 +70,7 @@ $difficulte = $anim['DIFFICULTEANIM'];
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Date de Validité de l'animation</span>
                 </div>
-                <input type="date" class="form-control" placeholder="Saississez une Date de validité pour l'animation" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo $date_validite_anim ?>" id="edit-date-validite-anim" name="edit-date-validite-anim" required onchange="isValidDatevalidite(this.value)">
+                <input type="date" class="form-control" placeholder="Saississez une Date de validité pour l'animation" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo $date_validite_anim ?>" id="edit-date-validite-anim" name="edit-date-validite-anim" required onchange="isValidDatevalidite(this.value, '<?php echo $date_validite_anim ?>')">
             </div>
 
             <!-- Champ du titre de l'animation -->
@@ -169,7 +153,7 @@ $difficulte = $anim['DIFFICULTEANIM'];
         </div>
         <div class="flex-row-center middle-table-div-button-container">
             <button class="middle-table-div-button" type="reset" form="edit-anim-form" style="width: 33%;">Vider le formulaire</button>
-            <button type="button" class="middle-table-div-button" form="edit-anim-form" id="submit-btn" onclick="confirmFormSubmission();" style="width: 33%;">Éditer</button>
+            <button type="button" class="middle-table-div-button" form="edit-anim-form" id="submit-btn" onclick="confirmFormSubmission();" style="width: 33%;">Appliquer les changements</button>
             <button class="middle-table-div-button" onclick="window.history.go(-1); return false;" style="width: 33%;">Retour</button>
         </div>
     </form>

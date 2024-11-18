@@ -1,5 +1,5 @@
 ajout animation: yes
-modifier animation: no
+modifier animation: yes
 supprimer animation (opt): no
 
 ajout activité: yes
@@ -29,7 +29,7 @@ vacancier et non connecté = activité valides dont la date n'est pas passée
 encadrant = activités valide et invalide (peut importe la date)
 
 
-todo dans formulaire ajout anim + act => inter changer les boutons 'vider le formulaire' et 'ajouter' pour que le bouton ajouter soit le plus gros
+ dans formulaire ajout anim + act => inter changer les boutons 'vider le formulaire' et 'ajouter' pour que le bouton ajouter soit le plus gros
 
 todo faire en sorte qui si aucune activité n'est disponible pour une animation => afficher 'Aucune animation disponible'
 
@@ -39,4 +39,13 @@ todo verifier que la date de validité n'est pas passé quand on ajoute une acti
 //todo faire fonction qui clear les formulaire (ne pas oublier un updateFieldValidity pour enlever les érreurs)
 
 
-todo edit_anim => ne pas oublier de comparer chacunes des valeurs avec un getAnimationInformationByCodeAnim pour s'assurer qu'aucunes des valeurs sont similaires
+ edit_anim => ne pas oublier de comparer chacunes des valeurs avec un getAnimationInformationByCodeAnim pour s'assurer qu'aucunes des valeurs sont similaires
+
+ vérifier bugs dans édit animation
+
+
+ enlever l'affichage des json dans la console pour les formulaires
+
+todo [optionnal] faire une session à temps limité (15mins)
+
+todo liste déroulante à faire en ajax dans formulaire modif (selection de l'animation => champs remplient automatiquement)
