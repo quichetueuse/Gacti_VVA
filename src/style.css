@@ -338,6 +338,22 @@ body {
 }
 
 
+.edit-btn {
+    color: black;
+    background-color: orange;
+    font-weight: bold;
+    border: 1px solid white;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+    width: 100%;
+    height: 50px;
+}
+.edit-btn:hover {
+    transition: 0.3s ease-in-out;
+    background-color: #ce8500;
+}
+
+
 
 
 .error-p {

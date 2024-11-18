@@ -49,3 +49,6 @@ todo verifier que la date de validité n'est pas passé quand on ajoute une acti
 todo [optionnal] faire une session à temps limité (15mins)
 
 todo liste déroulante à faire en ajax dans formulaire modif (selection de l'animation => champs remplient automatiquement)
+
+
+todo [optionnal] refaire la page de connexion avec ajax + mySweetAlert2

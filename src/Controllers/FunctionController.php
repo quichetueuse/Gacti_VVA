@@ -98,8 +98,10 @@ final class FunctionController extends BaseController
 //               <button title="Voir les inscrits">Voir les inscrits</button>
 //               <button title="Supprimer l\'activité" class="delete-btn" onclick="showConfirmDelete(`'. $act_id .'`, `'. $date_act .'`);">Supprimer</button>
 //               </div>';
+            $get_method_string = "?act_id='". $act_id ."'&date_act='". $date_act ."'";
             $button = '<div style="display: flex; flex-direction: row; column-gap: 10px; justify-content: center; width: 100%; margin-top: auto;">
-               <button title="Voir les inscrits">Voir les inscrits</button>';
+               <button title="Voir les inscrits">Voir les inscrits</button>
+               <button class="edit-btn" title="éditer l\'animation" onclick="document.location.href = `../Views/edit_activite.php'. $get_method_string . '`">Éditer</button>';
             if ($act_cancelled) {
                 $button .= '<button title="Restaurer l\'activité" class="add-btn" onclick="showConfirmRestore(`'. $act_id .'`, `'. $date_act .'`);">Restaurer</button>';
             }
