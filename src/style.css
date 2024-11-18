@@ -1,0 +1,401 @@
+.body-middle-div {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../Assets/images/photo-alpes.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+body {
+    height: 100vh;
+    background-image: url('../Assets/images/photo-alpes.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+
+.middle-table-div {
+    width: 50%;
+    background-color: cornsilk;
+    height: 60%;
+    padding: 10px;
+    border: 1px solid red;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.middle-form-div {
+    width: 50vw;
+    background-color: cornsilk;
+    height: 80vh;
+    padding: 10px;
+    border: 1px solid red;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.middle-table-div-button-container {
+    height: 50px;
+    width: 100%;
+    gap: 50px;
+}
+
+
+
+.table-overflow-container {
+    overflow: auto;
+    height: 100%;
+    margin-bottom: 10px;
+}
+
+.form-overflow-container {
+    overflow: auto;
+    height: 80%;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.sticky-header {
+    position: sticky;
+    top: 2px;
+}
+
+
+.middle-table-div-button {
+    height: 50px;
+    width: 100px;
+    background-color: palegreen;
+    border-radius: 10px;
+    border: none;
+}
+
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.flex-column-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.text-center {
+    text-align: center;
+}
+
+.grey-border {
+    text-shadow: #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
+    #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.white-title {
+    color: white;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+
+.add-form {
+    height: 100%;
+    margin-bottom: 10px;
+}
+
+.header-div {
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /*width: 100%;*/
+    width: 100vw;
+}
+
+
+
+
+.anim-control-div {
+    height: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.act-card-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: 70vh;
+    border: 1px solid red;
+    flex-wrap: wrap;
+    padding: 10px;
+    overflow: auto;
+
+}
+
+.add-card {
+    min-height: 350px;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+
+}
+
+.add-card .add-btn {
+    transition: 0.3s ease-in-out;
+    width: 150px;
+    height: 150px;
+    padding: 0;
+    border-radius: 50%;
+    background-color: cornflowerblue;
+    border: 1px solid white;
+}
+
+.add-card .add-btn:hover {
+    transition: 0.3s ease-in-out;
+    background-color: #4c7cda;
+    transform: scale(1.10);
+}
+
+.card {
+    /*height: 350px;*/
+    min-height: 350px;
+    max-width: 300px;
+    background-color: cornflowerblue;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid white;
+    transition: 0.3s ease-in-out;
+    flex-grow: 1;
+}
+
+.canceled-card {
+    /*height: 350px;*/
+    min-height: 350px;
+    max-width: 300px;
+    background-color: #f5dbff;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid white;
+    transition: 0.3s ease-in-out;
+    flex-grow: 1;
+}
+
+.card:hover {
+    transition: 0.3s ease-in-out;
+    background-color: #4c7cda;
+    transform: scale(1.01);
+}
+
+.canceled-card:hover {
+    transition: 0.3s ease-in-out;
+    background-color: #ecc7fc;
+    transform: scale(1.01);
+}
+
+.card-title {
+    color: white;
+}
+
+/*.card-p {*/
+
+/*}*/
+
+/*.card button {*/
+/*    height: 50px;*/
+/*    width: 100%;*/
+/*    border: 1px solid white;*/
+/*    border-radius: 5px;*/
+/*    background-color: lightgrey;*/
+/*    color: white;*/
+/*    text-shadow: #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,*/
+/*    #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px;*/
+/*    -webkit-font-smoothing: antialiased;*/
+/*}*/
+
+
+.user-logoff-button
+{
+    background-color: indianred;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    transition: 0.3s ease-in-out;
+    margin-right: 10px;
+}
+
+.user-logoff-button:hover
+{
+    background-color: red;
+    /*transform: scale(1.01);*/
+}
+
+.user-login-button {
+    background-color: lightskyblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    transition: 0.3s ease-in-out;
+    margin-right: 10px;
+}
+
+.user-login-button:hover {
+    background-color: darkturquoise;
+}
+
+
+.card button, .canceled-card button {
+    height: 50px;
+    width: 100%;
+    border: 1px solid white;
+    border-radius: 5px;
+    /*background-color: lightgrey;*/
+    text-shadow: #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
+    #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px;
+    -webkit-font-smoothing: antialiased;
+    color: white;
+}
+
+.delete-btn {
+    color: black;
+    background-color: #ff0000;
+    font-weight: bold;
+    border: 1px solid white;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+    width: 100%;
+    height: 50px;
+}
+.delete-btn:hover {
+    transition: 0.3s ease-in-out;
+    background-color: #b00202;
+}
+
+.add-btn {
+    color: black;
+    background-color: #2eab02;
+    font-weight: bold;
+    border: 1px solid white;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+    width: 100%;
+    height: 50px;
+}
+.add-btn:hover {
+    transition: 0.3s ease-in-out;
+    background-color: #248f00;
+}
+
+
+
+
+.error-p {
+    background-color: black;
+    opacity: 75%;
+    margin-bottom: 5px;
+    color: red;
+    padding-left: 5px;
+}
+
+.card button, .card div:has(button) {
+    margin-top: auto;
+    width: 100%;
+}
+
+.canceled-card button, .cancelled-card div:has(button) {
+    margin-top: auto;
+    width: 100%;
+}
+
+
+
+.card .btn-card-connect, .cancelled-card .btn-card-connect {
+    background-color: darkcyan;
+    transition: 0.3s ease-in-out;
+    /*position: relative;*/
+    /*border: none;*/
+}
+
+.card .btn-card-connect:hover, .canceled-card .btn-card-connect:hover {
+    transition: 0.3s ease-in-out;
+    background-color: #007070;
+
+}
+
+
+/*.card .btn-card-connect::after, .card .btn-card-connect::before {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    height: 100%;*/
+/*    width: 100%;*/
+/*    background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #006aff, #ff0095, #ff4545);*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    translate: -50% -50%;*/
+/*    !*inset: 0;*!*/
+/*    z-index: -1;*/
+/*    padding: 5px;*/
+/*    border-radius: 10px; !*taille bordure rgb*!*/
+/*    animation: 3s spin linear infinite;*/
+
+/*}*/
+
+
+.card .act-full-btn, .canceled-card .act-full-btn {
+    background-color: lightslategrey;
+}
+
+.card .act-full-btn:hover {
+
+}

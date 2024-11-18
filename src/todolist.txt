@@ -1,0 +1,42 @@
+ajout animation: yes
+modifier animation: no
+supprimer animation (opt): no
+
+ajout activité: yes
+modifier activité : no
+supprimer : yes
+s'inscrire à une activite: yes
+se désinscrire d'une activite: yes
+
+
+
+
+
+Ajout d'une animation :
+    - s'assurer que l'envois du formulaire ne peut pas être réalisé si erreur js (valeurs invalides)
+
+Modifier activité/animation:
+    - S'assurer que le type d'anim / l'animation choisi n'est pas changeable
+
+
+lors d'une inscription :
+    - Vérifier si l'activité est annuléee
+
+
+
+vacancier et non connecté = activité valides dont la date n'est pas passée
+
+encadrant = activités valide et invalide (peut importe la date)
+
+
+todo dans formulaire ajout anim + act => inter changer les boutons 'vider le formulaire' et 'ajouter' pour que le bouton ajouter soit le plus gros
+
+todo faire en sorte qui si aucune activité n'est disponible pour une animation => afficher 'Aucune animation disponible'
+
+
+todo verifier que la date de validité n'est pas passé quand on ajoute une activité à une animation
+
+//todo faire fonction qui clear les formulaire (ne pas oublier un updateFieldValidity pour enlever les érreurs)
+
+
+todo edit_anim => ne pas oublier de comparer chacunes des valeurs avec un getAnimationInformationByCodeAnim pour s'assurer qu'aucunes des valeurs sont similaires
