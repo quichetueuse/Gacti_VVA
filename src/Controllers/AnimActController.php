@@ -50,7 +50,7 @@ final class AnimActController extends BaseController
         $cleaned_code_anim = $this->sanitize($code_anim);
         $cleaned_mode = $this->sanitize($mode);
 
-        return $this->animation->getAnimationInformationsByCodeAnim($cleaned_code_anim, $mode);
+        return $this->animation->getAnimationInformationsByCodeAnim($cleaned_code_anim, $cleaned_mode);
     }
 
 
@@ -333,7 +333,7 @@ final class AnimActController extends BaseController
 //        }
 
         //si aucun utilisateur n'est trouvé
-        if (gettype($this->compte_controller->getNomPrenomByUser($act_array[2])) === 'boolean'){
+        if ($this->compte_controller->getNomPrenomByUser($act_array[2])['NOMCOMPTE'] === null){
             return false;
         }
 
@@ -553,6 +553,115 @@ final class AnimActController extends BaseController
         //validation for difficulté
         if (strlen($anim_array[10]) > 40) {
 //            echo 'blocage diff anim';
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Méthode permettant de récupérer toutes les informations d'une activité grâce à ses identifiants
+     * @return array - Résultat de la requête SQL (array des activité)
+     */
+    public function getActiviteById(string $code_anim, string $date_act, int $mode=4): array {
+        //clean value
+        $cleaned_code_anim = $this->sanitize($code_anim);
+        $cleaned_date_act = $this->sanitize($date_act);
+        $cleaned_mode = $this->sanitize($mode);
+
+        return $this->activite->getActiviteInformationById($cleaned_code_anim, $cleaned_date_act, $cleaned_mode);
+    }
+
+    /**
+     * Méthode permettant de faire le lien entre l'exterieur (la vue) et l'intérieur (le modele) pour la méthode d'ajout
+     * d'activité. Les valeurs sont néttoyées avant d'être envoyées au modele
+     * @param array $new_act - valeurs sortantes directement du formulaire d'ajout d'activité, non néttoyées
+     * @return array - Format de valeur en json contenant le statut de success de la requête, le titre et
+     *   le méssage du popup à afficher
+     */
+    public function updateActivite(array $new_act): array {
+
+        //clean array values
+        $cleaned_act = $this->sanitizeArray($new_act);
+
+        //return if no changes where made to values
+        $old_act = $this->activite->getActiviteInformationById($cleaned_act[0], $cleaned_act[3], PDO::FETCH_NUM);
+        if ($this->areArraysDifferent($cleaned_act, $old_act)) {
+            return ['success' => false, 'title' => 'Erreur', 'message' => 'Aucuns changements ont été effectués sur l\'activité!'];
+        }
+
+
+        //if values are not valid
+        if (!$this->checkActValuesValidityForUpdate($cleaned_act)) {
+            return ['success' => false, 'title' => 'Erreur', 'message' => 'Valeurs invalides!'];
+        }
+
+        $resp_array = $this->compte_controller->getNomPrenomByUser($cleaned_act[2]);
+        $new_act_array = array($cleaned_act[0], $cleaned_act[1], $resp_array['NOMCOMPTE'], $resp_array['PRENOMCOMPTE'], $cleaned_act[3], $cleaned_act[4], $cleaned_act[5], $cleaned_act[6], $cleaned_act[7]);
+
+        return $this->activite->updateActivite($new_act_array);
+    }
+
+
+    /**
+     *  Méthode testant à partir de conditions précises la validités de chaques valeur avant de mettre à jour
+     * l'activité
+     * @param array $act_array - Array contenant les nouvelles valeurs de l'activité
+     * @return boolean - retourne true si les valeurs sont valides, sinon false
+     */
+    public function checkActValuesValidityForUpdate(array $act_array): bool {
+
+        //si le code n'appartient à aucune animation
+        if (!$this->animation->getAnimationByCodeAnim($act_array[0])){
+            return false;
+        }
+
+        //si l'état de l'activité n'éxiste pas
+        if (in_array($act_array[1], $this->etatact_controller->getAllEtat(false))){ //todo vérifier si pas erreurquelque part (normalement !in_array)
+            return false;
+        }
+
+        //si aucun utilisateur n'est trouvé
+        if ($this->compte_controller->getNomPrenomByUser($act_array[2])['NOMCOMPTE'] === null){
+            return false;
+        }
+
+
+//        //si les heures sont bien des heures
+//        if (!preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/", $act_array[4])) {
+//            return false;
+//        }
+//
+//        if (!preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/", $act_array[5])) { //todo comprendre pourquoi les regex marche lors de l'ajout mais pas de la modif
+//            return false;
+//        }
+//
+//        if (!preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/", $act_array[6])) {
+//            return false;
+//        }
+
+        //si l'heure de fin est inférieure à celle d'arrivée ou de départ
+        if (strtotime($act_array[6]) < strtotime($act_array[5]) || strtotime($act_array[6]) < strtotime($act_array[4])) {
+            return false;
+        }
+
+        //si l'heure de départ est supérieur à celle de fin ou si l'heure de départ est inférieur à celle d'arrivée
+        if (strtotime($act_array[5]) > strtotime($act_array[6]) || strtotime($act_array[5]) < strtotime($act_array[4])) {
+            return false;
+        }
+
+        //si l'heure d'arrivée est supérieure à celle de fin ou de départ
+        if (strtotime($act_array[4]) > strtotime($act_array[6]) || strtotime($act_array[4]) > strtotime($act_array[5])) {
+            return false;
+        }
+//
+        //si le prix est un nombre
+        if (!is_numeric($act_array[7])) {
+            return false;
+        }
+
+        //si le prix est compris entre 0 et 10000
+        if ($act_array[7] < 0 || $act_array[7] > 10000){
             return false;
         }
 

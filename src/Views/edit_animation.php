@@ -60,7 +60,7 @@ $difficulte = $anim['DIFFICULTEANIM'];
         <div class="form-overflow-container">
 
 
-                <input type="hidden" class="form-control" aria-label="Username" aria-describedby="basic-addon1" id="edit-num-anim" name="edit-num-anim" value="<?php echo $code_anim; ?>" required onchange="validate_field(this.id, this.value);"><!--onfocusout="checkActionNumber('<?php echo SITE_URL; ?>');">-->
+                <input type="hidden" class="form-control" aria-label="Username" aria-describedby="basic-addon1" id="edit-num-anim" name="edit-num-anim" value="<?php echo $code_anim; ?>" required><!--onfocusout="checkActionNumber('<?php echo SITE_URL; ?>');">-->
 
                 <input type="hidden" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo $type_anim ?>" id="edit-type-anim" name="edit-type-anim" required>
 

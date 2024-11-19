@@ -242,4 +242,62 @@ class Activite
         return false;
     }
 
+
+
+    /**
+     * Méthode Qui retourne true si une activité possédant le même code d'animation et la même date d'animation éxiste sinon false
+     * @param string $code_anim - Code de l'animation de l'activité dont on souhaite vérifier l'éxistence
+     * @param string $date_act - Date de l'activité dont on souhaite vérifier l'éxistence
+     * @return bool - Est ce que l'activité éxiste
+     */
+    public function getActiviteInformationById(string $code_anim, string $date_act, int $mode): array {
+        $sqlQuery = 'SELECT act.CODEANIM, act.CODEETATACT, compte.USER, act.DATEACT, act.HRRDVACT, act.HRDEBUTACT, act.HRFINACT, act.PRIXACT FROM activite as act 
+            INNER JOIN compte ON compte.PRENOMCOMPTE = act.PRENOMRESP AND compte.NOMCOMPTE = act.NOMRESP 
+            WHERE CODEANIM=:code_anim AND DATEACT=:date_act;'; //todo enlever CODEANIM et DATEACt car on l'a déja (faire pour getAniumationInformationsByCode aussi)
+        $actStatement = $this->pdoClient->prepare($sqlQuery);
+        $actStatement->execute(['code_anim' =>$code_anim, 'date_act' => $date_act]);
+
+        $result = $actStatement->fetch($mode);
+        //if no activite is found
+        if ($result === false)
+        {
+            return array();
+        }
+
+        return $result;
+    }
+
+
+    /**
+     * Méthode se connectant à la base de données afin de mettre à jour une activité
+     * @param array $new_act - Array contenant toutes les valeurs à mettre à jour
+     * @return array - Format de valeur en json contenant le statut de success de la requête, le titre et
+     * le méssage du popup à afficher
+     */
+    public function updateActivite(array $act): array {
+        $sqlQuery = 'UPDATE activite SET CODEETATACT=:code_act, HRRDVACT=:heure_arrive, HRDEBUTACT=:heure_depart, 
+                     HRFINACT=:heure_fin, PRIXACT=:tarif, NOMRESP=:nom_resp, PRENOMRESP=:prenom_resp 
+                     WHERE CODEANIM=:code_anim AND DATEACT=:date_act
+                     ';
+        $animstatement = $this->pdoClient->prepare($sqlQuery);
+        $animstatement->execute(
+            ['code_anim' => $act[0],
+                'date_act' => $act[4],
+                'code_act' => $act[1],
+                'heure_arrive' => $act[5],
+                'heure_depart' => $act[6],
+                'heure_fin' => $act[7],
+                'tarif' => $act[8],
+                'nom_resp' => $act[2],
+                'prenom_resp' => $act[3] ]);
+        if ($animstatement->rowCount() > 0)
+        {
+            return ['success' => true, 'title' => 'Activité mise à jour!', 'message' => ''];
+        }
+        else {
+            return ['success' => false, 'title' => 'Erreur', 'message' => 'Erreur durant l\'éxécution de la requête'];
+        }
+
+    }
+
 }

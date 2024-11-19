@@ -52,3 +52,8 @@ todo liste déroulante à faire en ajax dans formulaire modif (selection de l'an
 
 
 todo [optionnal] refaire la page de connexion avec ajax + mySweetAlert2
+
+todo lors d'une modification d'animation vérifier qu'une autre animation existe avec les mêmes valeurs
+
+
+todo faire en sorte que si une activité soit annulé, elle ne puisse pas être éditée
