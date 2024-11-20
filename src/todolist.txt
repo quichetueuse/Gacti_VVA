@@ -58,3 +58,7 @@ todo lors d'une modification d'animation vérifier qu'aucune autre animation exi
 // faire en sorte que si une activité soit annulé, elle ne puisse pas être éditée
 
 todo sécuriser les controllers
+
+//vérifier que le vacancier est dans la période de vacance lors d'une inscription
+
+centrer le titre 'VVA' (surement avec un position absolute translate 50%)

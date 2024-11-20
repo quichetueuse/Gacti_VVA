@@ -132,4 +132,31 @@ class Inscription extends BaseModel
         }
         return 0;
     }
+
+
+    public function getCountInscriptionByUser(string $nom_compte, string $prenom_compte): int {
+        $sqlQuery = 'SELECT COUNT(ins.NOINSCRIP) as total_inscript FROM inscription as ins
+                    INNER JOIN compte as c ON c.USER = ins.USER
+                    WHERE c.NOMCOMPTE=:nom AND c.PRENOMCOMPTE=:prenom';
+
+        $ins_statement = $this->pdoClient->prepare($sqlQuery);
+        $ins_statement->execute(['nom'=> $nom_compte, 'prenom' => $prenom_compte]);
+
+        if ($ins_statement->rowCount() > 0)
+        {
+            return $ins_statement->fetch()['total_inscript'];
+        }
+        // si aucune inscription n'est trouvé
+        return 0;
+    }
+
+
+    public function getAllUserInscrit(string $code_anim, string $date_act): array {
+        $sqlQuery = 'SELECT ins.NOINSCRIP, ins.DATEACT, ins.DATEINSCRIP, c.NOMCOMPTE, c.PRENOMCOMPTE, c.DATEDEBSEJOUR, c.DATEFINSEJOUR FROM inscription as ins
+                    INNER JOIN compte as c ON c.USER = ins.USER
+                    WHERE CODEANIM=:code_anim AND DATEACT=:date_act';
+        $ins_statement = $this->pdoClient->prepare($sqlQuery);
+        $ins_statement->execute(['code_anim' => $code_anim, 'date_act' => $date_act]);
+        return $ins_statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

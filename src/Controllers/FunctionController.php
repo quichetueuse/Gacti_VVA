@@ -98,10 +98,11 @@ final class FunctionController extends BaseController
 //               <button title="Voir les inscrits">Voir les inscrits</button>
 //               <button title="Supprimer l\'activité" class="delete-btn" onclick="showConfirmDelete(`'. $act_id .'`, `'. $date_act .'`);">Supprimer</button>
 //               </div>';
+            $get_method_string = "?act_id='". $act_id ."'&date_act='". $date_act ."'"; //todo faire en sorte qu'on ne puisse pas éditer une activité dont la date_act est pour le jour même ou passé
             $button = '<div style="display: flex; flex-direction: row; column-gap: 10px; justify-content: center; width: 100%; margin-top: auto;">
-               <button title="Voir les inscrits">Voir les inscrits</button>';
+               <button title="Voir les inscrits" class="show-inscrit-btn" onclick="document.location.href = `../Views/show_inscrits.php'. $get_method_string . '`">Voir les inscrits</button>';
             if (!$act_cancelled){
-                $get_method_string = "?act_id='". $act_id ."'&date_act='". $date_act ."'"; //todo faire en sorte qu'on ne puisse pas éditer une activité dont la date_act est pour le jour même ou passé
+//                $get_method_string = "?act_id='". $act_id ."'&date_act='". $date_act ."'";
                 $button .= '<button class="edit-btn" title="éditer l\'animation" onclick="document.location.href = `../Views/edit_activite.php'. $get_method_string . '`">Éditer</button>';
             }
             if ($act_cancelled) {
@@ -248,5 +249,29 @@ final class FunctionController extends BaseController
             </div>';
         return $div;
     }
+
+    public function generateInscritUserCard(string $code_anim, string $date_act): string {
+        $user_card = '';
+
+        $users_inscits = $this->inscription_controller->getAllUserInscriptionById($code_anim, $date_act);
+        foreach ($users_inscits as $user) {
+            //get total inscription from this user on every activity
+            $total_user_inscription = $this->inscription_controller->getCountInscriptionByUser($user['NOMCOMPTE'], $user['PRENOMCOMPTE']);
+            $user_card = '
+                <div class="user-summary-card">
+                    <h3 class="card-title text-center grey-border bold" style="border-bottom: 1px solid white; padding-bottom: 1rem;">Mr '. $user["NOMCOMPTE"] . $user["PRENOMCOMPTE"] .'</h3>
+                    <p style="padding-top: 1rem;"><strong>En vacances du <span style="font-size: 15pt; color: palegreen" class=" grey-border">'. $user["DATEDEBSEJOUR"] .'</span> au <span style="font-size: 15pt; color: palegreen" class=" grey-border">'. $user["DATEFINSEJOUR"] . '</span></strong></p>
+                    <p><strong>Date d\'inscription:&nbsp<span style="font-size: 15pt; color: palegreen" class=" grey-border">'. $user["DATEINSCRIP"] .'</span></strong></p>
+                    <p><strong>Code de l\'inscription:&nbsp<span style="font-size: 15pt; color: palegreen" class=" grey-border">'. $user["NOINSCRIP"] .'</span></strong></p>
+                    <p><strong>Inscrit à<span style="font-size: 15pt; color: palegreen" class=" grey-border">&nbsp'. $total_user_inscription .'&nbsp</span>activités au total</strong></p>
+                </div>
+            ';
+
+
+
+        }
+        return $user_card;
+    }
+
 
 }

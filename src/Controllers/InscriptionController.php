@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Controllers\BaseController;
 use Models\Inscription;
+use PDO;
 
 class InscriptionController extends BaseController
 {
@@ -39,10 +40,14 @@ class InscriptionController extends BaseController
         $cleaned_code_anim = $this->sanitize($code_anim);
         $cleaned_date_act = $this->sanitize($date_act);
 
-
         //verify if user is already inscrit
         if ($this->inscription->isUserAlreadyInscrit($cleaned_user_id, $cleaned_code_anim, $cleaned_date_act)) {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'Vous êtes déja inscrit à cette activité!'];
+        }
+
+        //verify if activite is in user's holidays
+        if ($date_act < $_SESSION['date_debut_sejour'] || $date_act > $_SESSION['date_fin_sejour']) {
+            return ['success' => false, 'title' => 'L\'inscription à échouée!', 'message' => 'Votre période de séjour ne concorde pas avec celle de l\'activité. Contacter un administrateur afin qu\'il supprime votre compte'];
         }
 
         //si nb_place disponible
@@ -139,5 +144,24 @@ class InscriptionController extends BaseController
         $cleaned_date_act = $this->sanitize($date_act);
 
         return $this->inscription->getNumberInscritByActCodeAnim($cleaned_code_anim, $cleaned_date_act);
+    }
+
+
+
+    public function getAllUserInscriptionById(string $code_anim, string $date_act): array {
+        //clean values
+        $cleaned_code_anim = $this->sanitize($code_anim);
+        $cleaned_date_act = $this->sanitize($date_act);
+
+        return $this->inscription->getAllUserInscrit($cleaned_code_anim, $cleaned_date_act);
+    }
+
+
+    public function getCountInscriptionByUser(string $nom, string $prenom): int {
+        // clean values
+        $cleaned_nom = $this->sanitize($nom);
+        $cleaned_prenom = $this->sanitize($prenom);
+
+        return $this->inscription->getCountInscriptionByUser($cleaned_nom, $cleaned_prenom);
     }
 }

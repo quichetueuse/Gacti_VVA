@@ -41,7 +41,7 @@ class User
 
 
     public function getAllUser(): array {
-        $sqlQuery = 'SELECT USER, NOMCOMPTE, PRENOMCOMPTE FROM compte';
+        $sqlQuery = 'SELECT USER, NOMCOMPTE, PRENOMCOMPTE, TYPEPROFIL FROM compte';
         $userStatement = $this->pdoClient->prepare($sqlQuery);
         $userStatement->execute();
         return $userStatement->fetchAll(PDO::FETCH_ASSOC);

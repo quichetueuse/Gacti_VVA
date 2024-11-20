@@ -115,10 +115,14 @@ $resp = $activite['USER'];
                     <?php
                     foreach ($compte_controller->getAllUser() as $user)
                     {
-                         if ($user['USER'] == $resp)
-                             echo '<option selected="selected" value="'. $user["USER"] .'">'. $user["PRENOMCOMPTE"].' | '. $user["NOMCOMPTE"] .'</option>';
-                         else
-                                echo '<option value="'. $user["USER"] .'">'. $user["PRENOMCOMPTE"].' | '. $user["NOMCOMPTE"] .'</option>';
+                        if ($user['TYPEPROFIL'] == 0){ //todo vérifier si ça marche (car activité encardré par vacancier :/)
+                            continue;
+                        }
+
+                        if ($user['USER'] == $resp)
+                            echo '<option selected="selected" value="'. $user["USER"] .'">'. $user["PRENOMCOMPTE"].' | '. $user["NOMCOMPTE"] .'</option>';
+                        else
+                            echo '<option value="'. $user["USER"] .'">'. $user["PRENOMCOMPTE"].' | '. $user["NOMCOMPTE"] .'</option>';
                     } ?>
                 </select>
             </div>

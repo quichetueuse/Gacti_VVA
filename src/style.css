@@ -354,6 +354,21 @@ body {
 }
 
 
+.show-inscrit-btn {
+    color: black;
+    background-color: mediumpurple;
+    font-weight: bold;
+    border: 1px solid white;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+    width: 100%;
+    height: 50px;
+}
+
+.show-inscrit-btn:hover {
+    background-color: #cb00cb;
+    transition: 0.3s ease-in-out;
+}
 
 
 .error-p {
@@ -414,4 +429,48 @@ body {
 
 .card .act-full-btn:hover {
 
+}
+
+
+.return-control-div {
+    width: 100vw;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-summary-card-container {
+    box-sizing: border-box;
+    overflow-y: auto;
+    width: 100vw;
+    height: 80vh;
+    border: 1px solid black;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.user-summary-card {
+    /*height: 350px;*/
+    /*min-height: 350px;*/
+    max-height: 20rem;
+    height: auto;
+    max-width: 300px;
+    background-color: cornflowerblue;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid white;
+    transition: 0.3s ease-in-out;
+    flex-grow: 1;
+}
+
+.user-summary-card:hover {
+    transition: 0.3s ease-in-out;
+    background-color: #4c7cda;
+    transform: scale(1.01);
 }

@@ -89,10 +89,11 @@ $etatact_controller = new EtatActController();
                     <?php
                     foreach ($compte_controller->getAllUser() as $user)
                     {
-//                         if ($user['username'] == $resp_suivi)
-//                             echo '<option selected="selected" value="'. $user["username"] .'">'. $user['username']. ' | ' . $user['email'] . ' | ' . $user['trigramm'] .'</option>';
-//                         else
-                        echo '<option value="'. $user["USER"] .'">'. $user["PRENOMCOMPTE"].' | '. $user["NOMCOMPTE"] .'</option>';
+                         if ($user['TYPEPROFIL'] == 0){
+                             continue;
+                         }
+                         else
+                            echo '<option value="'. $user["USER"] .'">'. $user["PRENOMCOMPTE"].' | '. $user["NOMCOMPTE"] .'</option>';
                     } ?>
                 </select>
             </div>

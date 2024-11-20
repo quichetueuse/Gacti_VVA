@@ -25,6 +25,9 @@ final class LoginController extends BaseController
         $_SESSION['prenom'] = $record['PRENOMCOMPTE'];
         $_SESSION['type_profil'] = $record['TYPEPROFIL'];
         $_SESSION['user'] = $record['USER'];
+        $_SESSION['date_debut_sejour'] = $record['DATEDEBSEJOUR'];
+        $_SESSION['date_fin_sejour'] = $record['DATEFINSEJOUR'];
+
         $this->redirect();
     }
 
