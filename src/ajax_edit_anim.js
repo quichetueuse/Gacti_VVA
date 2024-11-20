@@ -195,7 +195,7 @@ function validate_field(sender_id, sender_value)
             }
             else {
                 document.getElementById("error-duree").innerHTML = "";
-                valid_difficulte = true;
+                valid_duree = true;
             }
             break
         }
@@ -302,6 +302,16 @@ function isValidString(value, length) {
  * @return {boolean} - retourne true si tous les champs ont des valeurs valides, sinon false
  */
 function areFieldsValid() {
+    console.log('title:' + valid_title);
+    console.log('date:' + valid_date_validite);
+    console.log('desc:' + valid_desc);
+    console.log('comment:' + valid_comment);
+    console.log('duree:' + valid_duree);
+    console.log('tarif:' + valid_tarif);
+    console.log('limite:' + valid_limite_age);
+    console.log('nb place:' + valid_nb_place);
+    console.log('diff:' + valid_difficulte);
+
     return valid_title &&
         valid_date_validite &&
         valid_desc &&
@@ -342,4 +352,42 @@ function generateSweetAlertPopup(title, text, icon, timer= null) {
         timer: timer
     });
 }
+
+
+function getAnimationByCodeAnim(anim)
+{
+    if (anim === "") {
+        return;
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                json_response = JSON.parse(this.responseText);
+                console.log();
+
+                //setting values in field
+                document.getElementById('edit-num-anim').value = json_response['CODEANIM'];
+                document.getElementById('edit-type-anim').value = json_response['CODETYPEANIM'];
+                document.getElementById('edit-date-validite-anim').value = json_response['DATEVALIDITEANIM'];
+                document.getElementById('edit-titre-anim').value = json_response['NOMANIM'];
+                document.getElementById('edit-desc-anim').value = json_response['DESCRIPTANIM'];
+                document.getElementById('edit-comment-anim').value = json_response['COMMENTANIM'];
+                document.getElementById('edit-duree-anim').value = json_response['DUREEANIM'];
+                document.getElementById('edit-tarif-anim').value = json_response['TARIFANIM'];
+                document.getElementById('edit-limiteage-anim').value = json_response['LIMITEAGE'];
+                document.getElementById('edit-nbplace-anim').value = json_response['NBREPLACEANIM'];
+                document.getElementById('edit-difficulte-anim').value = json_response['DIFFICULTEANIM'];
+
+                updateFieldsValidity();
+
+
+
+
+            }
+        };
+        xmlhttp.open("GET", "../Controllers/get_anim_by_code_ajax.php?code_anim=" + anim, true);
+        xmlhttp.send();
+    }
+}
+
 

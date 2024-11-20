@@ -13,10 +13,10 @@ se désinscrire d'une activite: yes
 
 
 Ajout d'une animation :
-    - s'assurer que l'envois du formulaire ne peut pas être réalisé si erreur js (valeurs invalides)
+    - s'assurer que l'envois du formulaire ne peut pas être réalisé si erreur js (valeurs invalides): yes
 
 Modifier activité/animation:
-    - S'assurer que le type d'anim / l'animation choisi n'est pas changeable
+    - S'assurer que le type d'anim / l'animation choisi n'est pas changeable : yes
 
 
 lors d'une inscription :
@@ -53,7 +53,8 @@ todo liste déroulante à faire en ajax dans formulaire modif (selection de l'an
 
 todo [optionnal] refaire la page de connexion avec ajax + mySweetAlert2
 
-todo lors d'une modification d'animation vérifier qu'une autre animation existe avec les mêmes valeurs
+todo lors d'une modification d'animation vérifier qu'aucune autre animation existe avec les mêmes valeurs
 
+// faire en sorte que si une activité soit annulé, elle ne puisse pas être éditée
 
-todo faire en sorte que si une activité soit annulé, elle ne puisse pas être éditée
+todo sécuriser les controllers

@@ -179,14 +179,6 @@ function showConfirmDisconnect(){
     });
 }
 
-function filterActivitiesByAnim(){
-    // var truc = 'new_animation2.php?code_anim=' + document.getElementById('select-anim').value;
-    // console.log(truc)
-    // window.location.href = truc;
-    showActivitiesByAnim(document.getElementById('select-anim').value)
-    // console.log(truc)
-}
-
 
 function showActivitiesByAnim(anim)
 {

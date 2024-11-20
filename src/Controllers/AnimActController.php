@@ -5,6 +5,7 @@ require_once('../autoloader.php');
 
 use Controllers\CompteController;
 use Controllers\BaseController;
+use DateTime;
 use Models\Activite;
 use Models\Animation;
 use Models\TypeAnimation;
@@ -279,6 +280,7 @@ final class AnimActController extends BaseController
 
         //clean array values
         $cleaned_act = $this->sanitizeArray($new_act);
+//        return ['success' => false, 'title' => $cleaned_act[4] . ' | ' . gettype($cleaned_act[5]) . ' | '. $cleaned_act[6] . ' | ' . preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/", $cleaned_act[4]), 'message' => ''];
 
         //if values are not valid
         if (!$this->checkActValuesValidity($new_act)) {
@@ -583,6 +585,7 @@ final class AnimActController extends BaseController
 
         //clean array values
         $cleaned_act = $this->sanitizeArray($new_act);
+//        return ['success' => false, 'title' => $cleaned_act[4] . ' | ' . $cleaned_act[5] . ' | '. $cleaned_act[6] . ' | ' . preg_match("/^((?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$)/", $cleaned_act[4]), 'message' => ''];
 
         //return if no changes where made to values
         $old_act = $this->activite->getActiviteInformationById($cleaned_act[0], $cleaned_act[3], PDO::FETCH_NUM);
@@ -626,19 +629,33 @@ final class AnimActController extends BaseController
             return false;
         }
 
+//        //if hour string can be converted to datertime (it mean the time is valid)
+//        if (!DateTime::createFromFormat('H:i', $act_array[4]) !== false) {
+//            return false;
+//        }
+//
+//        //if hour string can be converted to datertime (it mean the time is valid)
+//        if (!DateTime::createFromFormat('H:i', $act_array[5]) !== false) {
+//            return false;
+//        }
+//
+//        //if hour string can be converted to datertime (it mean the time is valid)
+//        if (!DateTime::createFromFormat('H:i', $act_array[5]) !== false) {
+//            return false;
+//        }
 
-//        //si les heures sont bien des heures
-//        if (!preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/", $act_array[4])) {
-//            return false;
-//        }
-//
-//        if (!preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/", $act_array[5])) { //todo comprendre pourquoi les regex marche lors de l'ajout mais pas de la modif
-//            return false;
-//        }
-//
-//        if (!preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/", $act_array[6])) {
-//            return false;
-//        }
+        //si les heures sont bien des heures
+        if (!preg_match("/^((?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$)/", $act_array[4])) {
+            return false;
+        }
+
+        if (!preg_match("/^((?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$)/", $act_array[5])) {
+            return false;
+        }
+
+        if (!preg_match("/^((?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$)/", $act_array[6])) {
+            return false;
+        }
 
         //si l'heure de fin est inférieure à celle d'arrivée ou de départ
         if (strtotime($act_array[6]) < strtotime($act_array[5]) || strtotime($act_array[6]) < strtotime($act_array[4])) {

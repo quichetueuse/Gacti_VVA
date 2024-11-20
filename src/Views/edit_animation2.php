@@ -60,9 +60,29 @@ $difficulte = $anim['DIFFICULTEANIM'];
         <div class="form-overflow-container">
 
 
-            <input type="hidden" class="form-control" aria-label="Username" aria-describedby="basic-addon1" id="edit-num-anim" name="edit-num-anim" value="<?php echo $code_anim; ?>" required><!--onfocusout="checkActionNumber('<?php echo SITE_URL; ?>');">-->
+            <!-- Champ du choix de l'animation -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="choice-code-anim">Animation</label>
+                </div>
+                <select class="form-control" id="choice-code-anim" name="choice-code-anim" required onchange="getAnimationByCodeAnim(this.value)">
+                    <option value="" disabled selected>Selectionnez une d'animation à éditer</option>
+                    <?php
+                    foreach ($animation_controller->getAllCodeAnim() as $code_anim)
+                    {
+//                         if ($user['username'] == $resp_suivi)
+//                             echo '<option selected="selected" value="'. $user["username"] .'">'. $user['username']. ' | ' . $user['email'] . ' | ' . $user['trigramm'] .'</option>';
+//                         else
+                        echo '<option value="'. $code_anim["CODEANIM"] .'">'. $code_anim['NOMANIM'].'</option>';
+                    } ?>
+                </select>
+            </div>
 
-            <input type="hidden" class="form-control" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo $type_anim ?>" id="edit-type-anim" name="edit-type-anim" required>
+
+
+            <input type="hidden" class="form-control" aria-label="Username" aria-describedby="basic-addon1" id="edit-num-anim" name="edit-num-anim" required><!--onfocusout="checkActionNumber('<?php echo SITE_URL; ?>');">-->
+
+            <input type="hidden" class="form-control" aria-label="Username" aria-describedby="basic-addon1" id="edit-type-anim" name="edit-type-anim" required>
 
             <!-- Champ de la date de validité de l'animation -->
             <p class="error-p" id="error-date-validite"></p>
@@ -70,7 +90,7 @@ $difficulte = $anim['DIFFICULTEANIM'];
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Date de Validité de l'animation</span>
                 </div>
-                <input type="date" class="form-control" placeholder="Saississez une Date de validité pour l'animation" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo $date_validite_anim ?>" id="edit-date-validite-anim" name="edit-date-validite-anim" required onchange="isValidDatevalidite(this.value, '<?php echo $date_validite_anim ?>')">
+                <input type="date" class="form-control" placeholder="Saississez une date de validité pour l'animation" aria-label="Username" aria-describedby="basic-addon1"  id="edit-date-validite-anim" name="edit-date-validite-anim" required onchange="isValidDatevalidite(this.value, '<?php echo $date_validite_anim ?>')">
             </div>
 
             <!-- Champ du titre de l'animation -->
@@ -79,7 +99,7 @@ $difficulte = $anim['DIFFICULTEANIM'];
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Titre de l'animation</span>
                 </div>
-                <input type="text" class="form-control" placeholder="Saississez le Titre pour l'animation" aria-label="Username" aria-describedby="basic-addon1" id="edit-titre-anim" name="edit-titre-anim" value="<?php echo $titre_anim; ?>" required onkeyup="validate_field(this.id, this.value);"><!--onfocusout="checkActionNumber('<?php echo SITE_URL; ?>');">-->
+                <input type="text" class="form-control" placeholder="Saississez le titre pour l'animation" aria-label="Username" aria-describedby="basic-addon1" id="edit-titre-anim" name="edit-titre-anim"  required onkeyup="validate_field(this.id, this.value);"><!--onfocusout="checkActionNumber('<?php echo SITE_URL; ?>');">-->
             </div>
 
 
@@ -90,7 +110,7 @@ $difficulte = $anim['DIFFICULTEANIM'];
                     <span class="input-group-text" id="basic-addon1">Description de l'animation</span>
                 </div>
                 <div class="input-group">
-                    <textarea class="form-control" aria-label="With textarea" style="height: auto;" placeholder="Saississez une description pour l'animation" id="edit-desc-anim" name="edit-desc-anim" onkeyup="validate_field(this.id, this.value);"><?php echo $desc_anim; ?></textarea>
+                    <textarea class="form-control" aria-label="With textarea" style="height: auto;" placeholder="Saississez une description pour l'animation" id="edit-desc-anim" name="edit-desc-anim" onkeyup="validate_field(this.id, this.value);"></textarea>
                 </div>
             </div>
 
@@ -102,7 +122,7 @@ $difficulte = $anim['DIFFICULTEANIM'];
                     <span class="input-group-text" id="basic-addon1">Commentaire de l'animation</span>
                 </div>
                 <div class="input-group">
-                    <textarea class="form-control" aria-label="With textarea" style="height: auto;" placeholder="Saississez un commentaire pour l'animation" id="edit-comment-anim" name="edit-comment-anim" onkeyup="validate_field(this.id, this.value);"><?php echo $comment_anim; ?></textarea>
+                    <textarea class="form-control" aria-label="With textarea" style="height: auto;" placeholder="Saississez un commentaire pour l'animation" id="edit-comment-anim" name="edit-comment-anim" onkeyup="validate_field(this.id, this.value);"></textarea>
                 </div>
             </div>
 
@@ -112,7 +132,7 @@ $difficulte = $anim['DIFFICULTEANIM'];
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Durée de l'animation</span>
                 </div>
-                <input type="number" min="1" class="form-control" placeholder="Saississez une Durée pour l'animation" aria-label="Username" aria-describedby="basic-addon1" value='<?php echo $duree_anim; ?>' id="edit-duree-anim" name="edit-duree-anim" required onkeyup="validate_field(this.id, this.value);">
+                <input type="number" min="1" class="form-control" placeholder="Saississez une durée pour l'animation" aria-label="Username" aria-describedby="basic-addon1" id="edit-duree-anim" name="edit-duree-anim" required onkeyup="validate_field(this.id, this.value);">
             </div>
 
             <!-- Champ du tarif de l'animation -->
@@ -121,7 +141,7 @@ $difficulte = $anim['DIFFICULTEANIM'];
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Tarif de l'animation</span>
                 </div>
-                <input type="number" min="0" class="form-control" placeholder="Saississez un tarif pour l'animation" aria-label="Username" aria-describedby="basic-addon1" value='<?php echo $tarif; ?>' id="edit-tarif-anim" name="edit-tarif-anim" required onkeyup="validate_field(this.id, this.value);">
+                <input type="number" min="0" class="form-control" placeholder="Saississez un tarif pour l'animation" aria-label="Username" aria-describedby="basic-addon1" id="edit-tarif-anim" name="edit-tarif-anim" required onkeyup="validate_field(this.id, this.value);">
             </div>
 
             <!-- Champ de la limite d'age de l'animation -->
@@ -130,7 +150,7 @@ $difficulte = $anim['DIFFICULTEANIM'];
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Limite d'age de l'animation</span>
                 </div>
-                <input type="number" min="4" max="100" class="form-control" placeholder="Saississez une Limite d'age pour l'animation" aria-label="Username" aria-describedby="basic-addon1" value='<?php echo $limite_age; ?>' id="edit-limiteage-anim" name="edit-limiteage-anim" required onkeyup="validate_field(this.id, this.value);">
+                <input type="number" min="4" max="100" class="form-control" placeholder="Saississez une limite d'age pour l'animation" aria-label="Username" aria-describedby="basic-addon1" id="edit-limiteage-anim" name="edit-limiteage-anim" required onkeyup="validate_field(this.id, this.value);">
             </div>
 
             <!-- Champ du nombre de place de l'animation -->
@@ -139,7 +159,7 @@ $difficulte = $anim['DIFFICULTEANIM'];
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Nombre de place  de l'animation</span>
                 </div>
-                <input type="number" min="1" max="50" class="form-control" placeholder="Saississez un nombre de place pour l'animation" aria-label="Username" aria-describedby="basic-addon1" value='<?php echo $nb_place; ?>' id="edit-nbplace-anim" name="edit-nbplace-anim" required onkeyup="validate_field(this.id, this.value);">
+                <input type="number" min="1" max="50" class="form-control" placeholder="Saississez un nombre de place pour l'animation" aria-label="Username" aria-describedby="basic-addon1" id="edit-nbplace-anim" name="edit-nbplace-anim" required onkeyup="validate_field(this.id, this.value);">
             </div>
 
             <!-- Champ de la difficulté de l'animation -->
@@ -148,7 +168,7 @@ $difficulte = $anim['DIFFICULTEANIM'];
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Difficulté de l'animation</span>
                 </div>
-                <input type="text" class="form-control" placeholder="Saississez une difficulté pour l'animation" aria-label="Username" aria-describedby="basic-addon1" id="edit-difficulte-anim" name="edit-difficulte-anim" value="<?php echo $difficulte; ?>" onkeyup="validate_field(this.id, this.value);"><!--onfocusout="checkActionNumber('<?php echo SITE_URL; ?>');">-->
+                <input type="text" class="form-control" placeholder="Saississez une difficulté pour l'animation" aria-label="Username" aria-describedby="basic-addon1" id="edit-difficulte-anim" name="edit-difficulte-anim" onkeyup="validate_field(this.id, this.value);"><!--onfocusout="checkActionNumber('<?php echo SITE_URL; ?>');">-->
             </div>
         </div>
         <div class="flex-row-center middle-table-div-button-container">

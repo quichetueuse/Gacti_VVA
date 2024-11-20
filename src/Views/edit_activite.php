@@ -42,6 +42,15 @@ $heure_arrive = $activite['HRRDVACT'];
 $heure_depart = $activite['HRDEBUTACT'];
 $heure_fin = $activite['HRFINACT'];
 
+//$heure_arrive = date('H:i', strtotime($activite['HRRDVACT']));
+//$heure_depart = date('H:i', strtotime($activite['HRDEBUTACT']));
+//$heure_fin = date('H:i', strtotime($activite['HRFINACT']));
+
+
+//$heure_arrive = DateTime::createFromFormat('H:i', $activite['HRRDVACT']);
+//$heure_depart = DateTime::createFromFormat('H:i', $activite['HRDEBUTACT']);
+//$heure_fin = DateTime::createFromFormat('H:i', $activite['HRFINACT']);
+
 $tarif = $activite['PRIXACT'];
 $resp = $activite['USER'];
 
