@@ -1,15 +1,8 @@
 <?php
-session_start();
-//if ($_SESSION['type_profil'] == '0' or !array_key_exists('type_profil',$_SESSION)){
-//    header('location: new_animation2.php');
-//}
-//if (!array_key_exists('type_profil',$_SESSION)) {
-//    if ($_SESSION['type_profil'] == '0') {
-//        header('location: new_animation2.php');
-//    }
-//    header('location: new_animation2.php');
-//}
+use Controllers\AnimActController;
+require_once('../autoloader.php');
 
+session_start();
 if (!array_key_exists('type_profil',$_SESSION)) {
     header('location: new_animation2.php');
 }
@@ -17,9 +10,6 @@ if ($_SESSION['type_profil'] == '0') {
     header('location: new_animation2.php');
 }
 
-use Controllers\AnimActController;
-
-require_once('../autoloader.php');
 $animation_controller = new AnimActController();
 
 ?>
@@ -31,11 +21,9 @@ $animation_controller = new AnimActController();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../style.css">
-<!--    <script type="module" src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../ajax_add_anim.js"></script>
 
-    <!--    <script src="' . SITE_URL . '/Services/globals_functions.js"></script>-->
 </head>
 <body class="body-middle-div">
 <div class="middle-form-div">
@@ -58,14 +46,11 @@ $animation_controller = new AnimActController();
             <div class="input-group-prepend">
                 <label class="input-group-text" for="add-type-anim">Type de l'animation</label>
             </div>
-            <select class="form-control" id="add-type-anim" name="add-type-anim" required>
+            <select class="form-control" id="add-type-anim" name="add-type-anim" required onchange="validate_field(this.id, this.value);">
                 <option value="" disabled selected>Selectionnez un type d'animation</option>
                 <?php
                 foreach ($animation_controller->getAllTypeAnim() as $type_anim)
                 {
-//                         if ($user['username'] == $resp_suivi)
-//                             echo '<option selected="selected" value="'. $user["username"] .'">'. $user['username']. ' | ' . $user['email'] . ' | ' . $user['trigramm'] .'</option>';
-//                         else
                     echo '<option value="'. $type_anim["CODETYPEANIM"] .'">'. $type_anim['NOMTYPEANIM'].'</option>';
                 } ?>
             </select>
@@ -89,14 +74,8 @@ $animation_controller = new AnimActController();
             <input type="text" class="form-control" placeholder="Saississez le Titre pour l'animation" aria-label="Username" aria-describedby="basic-addon1" id="add-titre-anim" name="add-titre-anim" required onkeyup="validate_field(this.id, this.value);"><!--onfocusout="checkActionNumber('<?php echo SITE_URL; ?>');">-->
         </div>
 
-<!--         Champ de la description de l'animation -->
-<!--        <div class="input-group mb-3">-->
-<!--            <div class="input-group-prepend">-->
-<!--                <span class="input-group-text" id="basic-addon1">Description de l'animation</span>-->
-<!--            </div>-->
-<!--            <input type="text" class="form-control" placeholder="Saississez une description pour l'animation" aria-label="Username" aria-describedby="basic-addon1" id="add-desc-anim" name="add-desc-anim" required>onfocusout="checkActionNumber('--><?php //echo SITE_URL; ?><!--');">-->
-<!--        </div>-->
 
+        <!-- Description input for animation -->
         <p class="error-p" id="error-desc"></p>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -106,14 +85,6 @@ $animation_controller = new AnimActController();
                 <textarea class="form-control" aria-label="With textarea" style="height: auto;" placeholder="Saississez une description pour l'animation" id="add-desc-anim" name="add-desc-anim" onkeyup="validate_field(this.id, this.value);"></textarea>
             </div>
         </div>
-
-<!--        < Champ du Commentaire de l'animation -->
-<!--        <div class="input-group mb-3">-->
-<!--            <div class="input-group-prepend">-->
-<!--                <span class="input-group-text" id="basic-addon1">Commentaire de l'animation</span>-->
-<!--            </div>-->
-<!--            <input type="text" class="form-control" placeholder="Saississez un commentaire pour l'animation" aria-label="Username" aria-describedby="basic-addon1" id="add-comment-anim" name="add-comment-anim"><onfocusout="checkActionNumber('--><?php //echo SITE_URL; ?><!--');">-->
-<!--        </div>-->
 
         <!-- Champ du Commentaire de l'animation -->
         <p class="error-p" id="error-comment"></p>
@@ -170,13 +141,6 @@ $animation_controller = new AnimActController();
             </div>
             <input type="text" class="form-control" placeholder="Saississez une difficulté pour l'animation" aria-label="Username" aria-describedby="basic-addon1" id="add-difficulte-anim" name="add-difficulte-anim" onkeyup="validate_field(this.id, this.value);"><!--onfocusout="checkActionNumber('<?php echo SITE_URL; ?>');">-->
         </div>
-
-<!--        <div class="input-group mb-3">-->
-<!--            <div class="input-group-prepend">-->
-<!--                <span class="input-group-text" id="basic-addon1">Difficulté  de l'animation (/10)</span>-->
-<!--            </div>-->
-<!--            <input type="number" min="1" max="10" class="form-control" placeholder="Saississez une difficulté pour l'animation" aria-label="Username" aria-describedby="basic-addon1" value='1' id="add-difficulte-anim" name="add-difficulte-anim" required>-->
-<!--        </div>-->
 
 
     </div>

@@ -34,7 +34,7 @@ encadrant = activités valide et invalide (peut importe la date)
 todo faire en sorte qui si aucune activité n'est disponible pour une animation => afficher 'Aucune animation disponible'
 
 
-todo verifier que la date de validité n'est pas passé quand on ajoute une activité à une animation
+verifier que la date de validité n'est pas passé quand on ajoute une activité à une animation
 
 //todo faire fonction qui clear les formulaire (ne pas oublier un updateFieldValidity pour enlever les érreurs)
 
