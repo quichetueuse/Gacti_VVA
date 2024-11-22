@@ -1,21 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Page de connexion</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--    <h1>Page de login</h1>-->
-<!--</body>-->
-<!--</html>-->
-<?php
-$error_content = "";
-if(isset($_POST['submit']))
-{
-    $error_content = "Mot de passe incorrect";
-
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -49,9 +31,6 @@ if(isset($_POST['submit']))
                     Afficher le mot de passe
                 </label>
             </div>
-            <p style="text-align: center;" id="div-incorrect-idpassword">
-                <?php echo $error_content; ?>
-            </p>
             <div style="margin-left: 15px; margin-right: 15px;">
                 <button class="btn btn-primary w-100 py-2" style="margin-bottom: 10px;" type="submit">Connexion</button>
                 <button class="btn btn-primary w-100 py-2" style="margin-bottom: 10px;" onclick="document.location.href = 'new_animation2.php'" type="button">Continuer sans s'inscrire</button>

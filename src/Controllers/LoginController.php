@@ -1,6 +1,5 @@
 <?php
 namespace Controllers;
-//require_once ("../_config.inc");
 require_once('../autoloader.php');
 use Models\User;
 
@@ -9,14 +8,12 @@ final class LoginController extends BaseController
 
     private User $user;
     public function __construct(){
-//        echo $_POST['input-email'];
         $this->user = new User();
         $user_email = $this->sanitize($_POST['input-email']);
         $user_password = sha1($this->sanitize($_POST['input-password']));
         $record = $this->user->verify_credentials($user_email, $user_password);
         if (!$record)
         {
-            echo 'empty';
             $this->redirectToFailed();
             exit();
         }
@@ -38,10 +35,9 @@ final class LoginController extends BaseController
     }
 
     protected function redirectToFailed() {
-//        header('location: ../Views/login_failed.php', true, 302);
         header('location: ../Views/login.php', true, 302);
         exit();
     }
 }
 
-$login_controller = new LoginController();
+new LoginController();
