@@ -24,6 +24,7 @@ elseif ($_SESSION['type_profil'] == 1) {
 else {
     $acts_list = $activites_controller->getAllActivitesByAnim($code_anim, 'valid');
 }
+
 //$acts_list = $activites_controller->getAllActivitesByAnim($code_anim);
 //echo '<script>console.log('. echo $acts_list[0]['DUREEACT'] . ')</script>';
 //$button = '';

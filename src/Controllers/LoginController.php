@@ -35,7 +35,7 @@ final class LoginController extends BaseController
     }
 
     protected function redirectToFailed() {
-        header('location: ../Views/login.php', true, 302);
+        header('location: ../Views/login.php?error=true', true, 302);
         exit();
     }
 }
