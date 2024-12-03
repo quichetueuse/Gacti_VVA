@@ -19,7 +19,7 @@ $code_anim = "testtest"; //$_GET['code_anim'];
 //getting all animation's informations
 $anim = $animation_controller->getAnimationByCodeAnim($code_anim, PDO::FETCH_ASSOC);
 
-//if array is empty (mean no animation with given id/code exists) //todo réactiver
+//if array is empty (mean no animation with given id/code exists)
 if (empty($anim)) {
     header('location: new_animation2.php');
 }
@@ -66,7 +66,7 @@ $difficulte = $anim['DIFFICULTEANIM'];
                     <label class="input-group-text" for="choice-code-anim">Animation</label>
                 </div>
                 <select class="form-control" id="choice-code-anim" name="choice-code-anim" required onchange="getAnimationByCodeAnim(this.value)">
-                    <option value="" disabled selected>Selectionnez une d'animation à éditer</option>
+                    <option value="" disabled selected>Selectionnez une animation à éditer</option>
                     <?php
                     foreach ($animation_controller->getAllCodeAnim() as $code_anim)
                     {
