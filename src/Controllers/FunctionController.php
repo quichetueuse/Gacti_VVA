@@ -186,7 +186,7 @@ final class FunctionController extends BaseController
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="select-anim">Animations: </label>
                     </div>
-                    <select class="form-control" id="select-anim" name="select-anim" onchange="filterActivitiesByAnim();">
+                    <select class="form-control" id="select-anim" name="select-anim" onchange="showActivitiesByAnim(this.value);">
                         <option selected value="all">Toutes les animations</option>';
 
         foreach ($anim_list as $anim) {
@@ -243,6 +243,7 @@ final class FunctionController extends BaseController
 //            </div>
 //        </div>';
 
+        //todo enlever bouton debug
         $div .= '                    <button class="middle-table-div-button" style="width: 100%;" onclick="document.location.href = `../Views/test_date.php`">Debug</button>
         
                 </div>
