@@ -170,7 +170,7 @@ $resp = $activite['USER'];
         </div>
         <div class="flex-row-center middle-table-div-button-container">
             <button class="middle-table-div-button" type="reset" form="edit-act-form" style="width: 33%;">Vider le formulaire</button>
-            <button type="button" class="middle-table-div-button" form="edit-act-form" id="submit-btn" onclick="confirmFormSubmission();" style="width: 33%">Ajouter</button>
+            <button type="button" class="middle-table-div-button" form="edit-act-form" id="submit-btn" onclick="confirmFormSubmission();" style="width: 33%">Mettre à jour</button>
             <button class="middle-table-div-button" onclick="window.history.go(-1); return false;" style="width: 33%">Retour</button>
         </div>
     </form>
