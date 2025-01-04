@@ -243,9 +243,7 @@ final class FunctionController extends BaseController
 //            </div>
 //        </div>';
 
-        //todo enlever bouton debug
-        $div .= '                    <button class="middle-table-div-button" style="width: 100%;" onclick="document.location.href = `../Views/test_date.php`">Debug</button>
-        
+        $div .= '
                 </div>
             </div>';
         return $div;
