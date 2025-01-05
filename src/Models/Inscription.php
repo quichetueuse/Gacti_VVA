@@ -133,7 +133,12 @@ class Inscription extends BaseModel
         return 0;
     }
 
-
+    /**
+     * Method that get How many activity a specific user is registered to
+     * @param string $nom_compte - Last name
+     * @param string $prenom_compte - First name
+     * @return int - Return How many activity a specific user is registered to
+     */
     public function getCountInscriptionByUser(string $nom_compte, string $prenom_compte): int {
         $sqlQuery = 'SELECT COUNT(ins.NOINSCRIP) as total_inscript FROM inscription as ins
                     INNER JOIN compte as c ON c.USER = ins.USER
@@ -151,6 +156,12 @@ class Inscription extends BaseModel
     }
 
 
+    /**
+     * Method that get All the information about all user from specific inscription
+     * @param string $code_anim - act id
+     * @param string $date_act - act date
+     * @return array - Return All the information about all user from specific inscription
+     */
     public function getAllUserInscrit(string $code_anim, string $date_act): array {
         $sqlQuery = 'SELECT ins.NOINSCRIP, ins.DATEACT, ins.DATEINSCRIP, c.NOMCOMPTE, c.PRENOMCOMPTE, c.DATEDEBSEJOUR, c.DATEFINSEJOUR FROM inscription as ins
                     INNER JOIN compte as c ON c.USER = ins.USER

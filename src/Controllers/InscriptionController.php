@@ -57,7 +57,11 @@ class InscriptionController extends BaseController
             return ['success' => false, 'title' => 'Erreur', 'message' => 'L\'activité est pleine!'];
         }
 
-        #todo gérer le cas ou l'animation est annulée (même si techniquement pas possible)
+        // if someone try somehow to register to a cancelled activity
+        $is_act_cancelled = $this->act_controller->isActCancelled($code_anim, $date_act);
+        if ($is_act_cancelled) {
+            return ['success' => false, 'title' => 'Erreur', 'message' => 'L\'activité est annulée!'];
+        }
 
         //si l'inscription existe déja dans la table mais ou l'utilisateur s'est désinscrit (DATEANNULE IS NOT NULL)
         if ($this->inscription->isInscriptionAlreadyExist($cleaned_user_id, $cleaned_code_anim, $date_act)) {
@@ -147,7 +151,12 @@ class InscriptionController extends BaseController
     }
 
 
-
+    /**
+     * Méthode that return information about every user registered to a specific activity
+     * @param string $code_anim - act id
+     * @param string $date_act - act date
+     * @return array - Return all information
+     */
     public function getAllUserInscriptionById(string $code_anim, string $date_act): array {
         //clean values
         $cleaned_code_anim = $this->sanitize($code_anim);
@@ -156,7 +165,12 @@ class InscriptionController extends BaseController
         return $this->inscription->getAllUserInscrit($cleaned_code_anim, $cleaned_date_act);
     }
 
-
+    /**
+     * Méthode that return a number corresponding to how many activity the user is registered to
+     * @param string $nom - User last name
+     * @param string $prenom - User First name
+     * @return int - Return number
+     */
     public function getCountInscriptionByUser(string $nom, string $prenom): int {
         // clean values
         $cleaned_nom = $this->sanitize($nom);

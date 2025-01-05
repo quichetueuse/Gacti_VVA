@@ -177,8 +177,8 @@ class Activite
                      HRFINACT, PRIXACT, NOMRESP, PRENOMRESP) 
                      VALUES (:code_anim, :date_act, :code_act, :heure_arrive, :heure_depart, 
                              :heure_fin, :tarif, :nom_resp, :prenom_resp)';
-        $animstatement = $this->pdoClient->prepare($sqlQuery);
-        $animstatement->execute(
+        $actstatement = $this->pdoClient->prepare($sqlQuery);
+        $actstatement->execute(
             ['code_anim' => $new_act[0],
                 'date_act' => $new_act[4],
                 'code_act' => $new_act[1],
@@ -189,7 +189,7 @@ class Activite
                 'nom_resp' => $new_act[2],
                 'prenom_resp' => $new_act[3] ]);
 //        echo $this->pdoClient->lastInsertId();
-        if ($animstatement->rowCount() > 0)
+        if ($actstatement->rowCount() > 0)
         {
             return ['success' => true, 'title' => 'Activité ajoutée!', 'message' => ''];
         }
@@ -279,8 +279,8 @@ class Activite
                      HRFINACT=:heure_fin, PRIXACT=:tarif, NOMRESP=:nom_resp, PRENOMRESP=:prenom_resp 
                      WHERE CODEANIM=:code_anim AND DATEACT=:date_act
                      ';
-        $animstatement = $this->pdoClient->prepare($sqlQuery);
-        $animstatement->execute(
+        $actstatement = $this->pdoClient->prepare($sqlQuery);
+        $actstatement->execute(
             ['code_anim' => $act[0],
                 'date_act' => $act[4],
                 'code_act' => $act[1],
@@ -290,7 +290,7 @@ class Activite
                 'tarif' => $act[8],
                 'nom_resp' => $act[2],
                 'prenom_resp' => $act[3] ]);
-        if ($animstatement->rowCount() > 0)
+        if ($actstatement->rowCount() > 0)
         {
             return ['success' => true, 'title' => 'Activité mise à jour!', 'message' => ''];
         }
@@ -298,6 +298,25 @@ class Activite
             return ['success' => false, 'title' => 'Erreur', 'message' => 'Erreur durant l\'éxécution de la requête'];
         }
 
+    }
+
+    /**
+     * Method that check if an activity is cancelled or not
+     * @param string $code_anim - act id
+     * @param string $date_act - act date
+     * @return bool - Return true if act is cancelled, else false
+     */
+    public function isActCancelled(string $code_anim, string $date_act): bool {
+        $sqlQuery = 'SELECT CODEANIM FROM activite WHERE CODEANIM=:code_anim AND DATEACT=:date_act AND DATEANNULEACT IS NOT NULL';
+
+        $actstatement = $this->pdoClient->prepare($sqlQuery);
+        $actstatement->execute(['code_anim' => $code_anim, 'date_act' => $date_act]);
+
+        // If act is cancelled
+        if ($actstatement->rowCount() > 0) {
+            return true;
+        }
+        return false;
     }
 
 }

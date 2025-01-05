@@ -427,7 +427,7 @@ final class AnimActController extends BaseController
         //clean array
         $cleaned_anim = $this->sanitizeArray($anim);
 
-        //return if no changes where made to values
+        //return if no changes were made to values
         $old_anim = $this->animation->getAnimationInformationsByCodeAnim($cleaned_anim[0], PDO::FETCH_NUM);
         if ($this->areArraysDifferent($cleaned_anim, $old_anim)) {
 //            return ['success' => false, 'title' => 'Erreur', 'message' => $anim[5] . ' ' . $old_anim[5]];
@@ -683,6 +683,21 @@ final class AnimActController extends BaseController
         }
 
         return true;
+    }
+
+    /**
+     * Method linked to model method that check if an activity is cancelled or not
+     * @param string $code_anim - act id
+     * @param string $date_act - act date
+     * @return array - Return True if the activity is cancelled, else false
+     */
+    public function isActCancelled(string $code_anim, string $date_act): bool {
+
+        //clean value
+        $cleaned_code_anim = $this->sanitize($code_anim);
+        $cleaned_date_act = $this->sanitize($date_act);
+
+        return $this->activite->isActCancelled($cleaned_code_anim, $cleaned_date_act);
     }
 
 }
