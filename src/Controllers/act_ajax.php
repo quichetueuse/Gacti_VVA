@@ -69,9 +69,20 @@ foreach ($acts_list as $act){
     }
 
 
+    // Convert date_act to date and get current date
+    $date_act = strtotime($act['DATEACT']);
+    $date_now = strtotime(date('Y-m-d'));
 
+    // calculate how many days is between the 2 dates
+    $date_diff = round(($date_now - $date_act) / (60 * 60 * 24));
 
-
+    $card_date_string = $act['DATEACT'] . ' (';
+    if ($date_diff < 0){
+        $card_date_string .= 'Dans ' . abs($date_diff) . ' jour(s))';
+    }
+    else {
+        $card_date_string .= 'Dépassé depuis ' . abs($date_diff) . ' jour(s))';
+    }
 
 //    $card_color = $act["DATEANNULEACT"] != null ? 'style="background-color: #f5dbff;"' : ''; //#e0abf5
 
@@ -83,7 +94,7 @@ foreach ($acts_list as $act){
         <p><strong>Commentaire: </strong>'. $act["COMMENTANIM"] .'</p>
         
         <hr style="border-width:1px; background-color:black;">
-        <p><strong>Date de l\'activité: </strong>'. $act["DATEACT"] .'</p>
+        <p><strong>Date de l\'activité: </strong>'. $card_date_string .'</p>
         <p><strong>Horraire d\'arrivé: </strong>'. $act["HRRDVACT"] .'</p>
         <p><strong>Durée (minutes): </strong>' . $act["DUREEANIM"] . '</p>
         
