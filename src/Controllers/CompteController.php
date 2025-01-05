@@ -28,7 +28,7 @@ class CompteController extends BaseController
      * @param $user_id - Identifiant du compte
      * @return null[] - Retourne un array associatif dont les valeurs sont null si l'utilisateur n'éxiste pas
      */
-    public function getNomPrenomByUser($user_id): array { //todo refaire cette méthode comme update animation
+    public function getNomPrenomByUser($user_id): array {
 
         //clean values
         $cleaned_user_id = $this->sanitize($user_id);
