@@ -31,7 +31,7 @@ class EtatActController extends BaseController
         //si raw_mode = false;
         $code_etats = array();
 
-        foreach ($code_etats as $etat) {
+        foreach ($result as $etat) {
             array_push($code_etats, $etat['CODEETATACT']);
         }
 

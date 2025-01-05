@@ -318,7 +318,7 @@ final class AnimActController extends BaseController
         }
 
         //si l'état de l'activité n'éxiste pas
-        if (in_array($act_array[1], $this->etatact_controller->getAllEtat(false))){ //todo vérifier si pas erreurquelque part (normalement !in_array)
+        if (!in_array($act_array[1], $this->etatact_controller->getAllEtat(false))){
             return false;
         }
 
@@ -592,8 +592,8 @@ final class AnimActController extends BaseController
         if ($this->areArraysDifferent($cleaned_act, $old_act)) {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'Aucuns changements ont été effectués sur l\'activité!'];
         }
-
-
+//        $test = $this->etatact_controller->getAllEtat(false);
+//        return ['success' => false, 'title' => $test[2], 'message' => $cleaned_act[1]];
         //if values are not valid
         if (!$this->checkActValuesValidityForUpdate($cleaned_act)) {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'Valeurs invalides!'];
@@ -620,7 +620,7 @@ final class AnimActController extends BaseController
         }
 
         //si l'état de l'activité n'éxiste pas
-        if (in_array($act_array[1], $this->etatact_controller->getAllEtat(false))){ //todo vérifier si pas erreurquelque part (normalement !in_array)
+        if (!in_array($act_array[1], $this->etatact_controller->getAllEtat(false))){
             return false;
         }
 
