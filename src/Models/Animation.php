@@ -20,7 +20,7 @@ class Animation
      * Méthode qui récupère toutes les animations de la table 'animation'
      * @return array - array contenant toutes les animations
      */
-    public function getAllAnimations(): array { //todo creer une méthode capable de prendre ou non une id pour le select
+    public function getAllAnimations(): array {
         $sqlQuery = 'SELECT CODEANIM, NOMANIM, DESCRIPTANIM, COMMENTANIM FROM animation';
         $animstatement = $this->pdoClient->prepare($sqlQuery);
         $animstatement->execute();
@@ -47,10 +47,6 @@ class Animation
         return $result;
     }
 
-
-
-
-
     /**
      * Méthode permettant de vérifier si une animation éxiste
      * @param string $code_anim - code de l'animation dont on souhaite vérifier l'éxistence
@@ -67,7 +63,6 @@ class Animation
         return true;
     }
 
-
     /**
      * Méthode comptant le nombre d'animations de la table 'animation'
      * @return int
@@ -78,18 +73,6 @@ class Animation
         $animstatement->execute();
 
         return $animstatement->fetch()['nbre_anim'];
-    }
-
-    public function getAnimationById(int $id) {
-
-    }
-
-    public function updateAnimationById(array $updated_animation) {
-
-    }
-
-    public function delAnimationById(int $id) {
-
     }
 
     /**
@@ -126,35 +109,6 @@ class Animation
             return ['success' => false, 'title' => 'Erreur', 'message' => 'Erreur durant l\'éxécution de la requête'];
         }
     }
-
-//    public function addAnimation(array $anim_to_add): bool{
-//        $sqlQuery = 'INSERT INTO animation (CODEANIM, CODETYPEANIM, NOMANIM, DATECREATIONANIM, DATEVALIDITEANIM,
-//                     DUREEANIM, LIMITEAGE, TARIFANIM, NBREPLACEANIM, DESCRIPTANIM, COMMENTANIM, DIFFICULTEANIM)
-//                     VALUES (:code_anim, :code_type_anim, :nom_anim, current_timestamp, :date_validite_anim,
-//                             :duree_anim, :limite_age, :tarif, :nbre_place, :desc_anim, :comment_anim,
-//                             :difficulte_anim)';
-//        $animstatement = $this->pdoClient->prepare($sqlQuery);
-//        $animstatement->execute(
-//            ['code_anim' => $anim_to_add[0],
-//            'code_type_anim' => $anim_to_add[1],
-//            'nom_anim' => $anim_to_add[2],
-//            'date_validite_anim' => $anim_to_add[3],
-//            'duree_anim' => $anim_to_add[4],
-//            'limite_age' => $anim_to_add[5],
-//            'tarif' => $anim_to_add[6],
-//            'nbre_place' => $anim_to_add[7],
-//            'desc_anim' => $anim_to_add[8],
-//            'comment_anim' => $anim_to_add[9],
-//            'difficulte_anim' => $anim_to_add[10]]);
-////        echo $this->pdoClient->lastInsertId();
-//        if ($animstatement->rowCount() > 0)
-//        {
-//            return true;
-//        }
-//        else{
-//            return false;
-//        }
-//    }
 
     public function deleteAnimation(): bool {
 
@@ -212,7 +166,6 @@ class Animation
                 'desc_anim' => $anim[8],
                 'comment_anim' => $anim[9],
                 'difficulte_anim' => $anim[10]]);
-//        echo $this->pdoClient->lastInsertId();
         if ($animstatement->rowCount() > 0)
         {
             return ['success' => true, 'title' => 'Animation mise à jour!', 'message' => ''];
