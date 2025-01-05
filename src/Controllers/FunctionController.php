@@ -101,7 +101,10 @@ final class FunctionController extends BaseController
             $get_method_string = "?act_id='". $act_id ."'&date_act='". $date_act ."'"; //todo faire en sorte qu'on ne puisse pas éditer une activité dont la date_act est pour le jour même ou passé
             $button = '<div style="display: flex; flex-direction: row; column-gap: 10px; justify-content: center; width: 100%; margin-top: auto;">
                <button title="Voir les inscrits" class="show-inscrit-btn" onclick="document.location.href = `../Views/show_inscrits.php'. $get_method_string . '`">Voir les inscrits</button>';
-            if (!$act_cancelled){
+
+            $date_now = strtotime(date('Y-m-d'));
+            # if activity is not cancelled and is now for today (or is not passed)
+            if (!$act_cancelled and round(($date_now - strtotime($date_act)) / (60*60*24) ) < -1){
 //                $get_method_string = "?act_id='". $act_id ."'&date_act='". $date_act ."'";
                 $button .= '<button class="edit-btn" title="éditer l\'animation" onclick="document.location.href = `../Views/edit_activite.php'. $get_method_string . '`">Éditer</button>';
             }

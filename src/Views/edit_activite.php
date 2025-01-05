@@ -34,6 +34,13 @@ if (empty($activite)) {
     header('location: new_animation2.php');
 }
 
+$date_now = strtotime(date('Y-m-d'));
+
+// if activity is for today or is passed
+if ( round(($date_now - strtotime($activite['DATEACT'])) / (60*60*24) ) >= -1 ) {
+    header('location: new_animation2.php');
+}
+
 $code_act = $activite['CODEANIM'];
 $date_act = $activite['DATEACT'];
 $etat_act = $activite['CODEETATACT'];
