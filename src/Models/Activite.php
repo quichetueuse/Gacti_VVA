@@ -9,54 +9,6 @@ class Activite extends BaseModel
     public function __construct(){
         parent::__construct();
     }
-//    public function getAllActivites(string $code_anim): array {
-//        $sqlQuery = 'SELECT * FROM activite WHERE CODEANIM=:code_anim';
-//        $animstatement = $this->pdoClient->prepare($sqlQuery);
-//        $animstatement->execute(['code_anim' => $code_anim]);
-//        return $animstatement->fetchAll(PDO::FETCH_ASSOC);
-//    }
-
-    /**
-     * Méthode qui retourne le nombre d'activités en fonction d'une animation précise et/ou d'un mode de sélection
-     * (par défaut toutes les activités sont comptés peut importe leur validitée)
-     * @param string $code_anim [optionnal] - Animation dont les activités font partie
-     * @param string $select_mode [optionnal] - Mode de sélection ('invalid' ou 'valid')
-     * @return int - Entier correspondant au nombre d'activité total (en fonction des paramètres)
-     */
-    public function getCountActivites(string $code_anim, string $select_mode): int { //todo nettoyer car inutile
-        $sqlQuery = 'SELECT COUNT(CODEANIM) as nbre_act FROM activite';
-
-        //pour récupérer toutes les activités d'une animation précise
-        if ($code_anim !== 'all') {
-            $sqlQuery .= ' WHERE CODEANIM=:code_anim';
-        }
-
-        //selection des activités dont la date d'annulation est vide
-        if ($select_mode === 'valid' and $code_anim !== 'all'){
-            $sqlQuery .= ' AND DATEANNULEACT IS NULL';
-        } elseif($select_mode === 'valid' and $code_anim === 'all') {
-            $sqlQuery .= ' WHERE DATEANNULEACT IS NULL';
-        }
-
-
-        //selection des activités dont la date d'annulation contient quelque chose
-        if ($select_mode === 'invalid' and $code_anim !== 'all') {
-            $sqlQuery .= ' AND DATEANNULEACT IS NOT NULL';
-        } elseif ($select_mode === 'invalid' and $code_anim !== 'all') {
-            $sqlQuery .= ' WHERE DATEANNULEACT IS NOT NULL';
-        }
-
-//        if ($code_anim === 'all') {
-//            $sqlQuery = 'SELECT COUNT(CODEANIM) as nbre_act FROM activite WHERE DATEANNULEACT IS NULL';
-//        }
-//        else {
-//            $sqlQuery = 'SELECT COUNT(CODEANIM) as nbre_act FROM activite WHERE CODEANIM=:code_anim AND DATEANNULEACT IS NULL';
-//        }
-        $animstatement = $this->pdoClient->prepare($sqlQuery);
-        $animstatement->execute(['code_anim' => $code_anim]);
-
-        return $animstatement->fetch()['nbre_act'];
-    }
 
     /**
      * Méthode qui retourne toutes les activités en fonction d'une animation précise et/ou d'un mode de sélection
@@ -120,13 +72,6 @@ class Activite extends BaseModel
         else {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'La suppréssion à échouée! (@r)'];
         }
-//        {
-//
-//            return true;
-//        }
-//        else{
-//            return false;
-//        }
     }
 
     /**
@@ -149,19 +94,6 @@ class Activite extends BaseModel
         }
     }
 
-//    public function restoreActivite(string $act_id, string $date_act): bool {
-//        $sqlQuery = 'UPDATE activite SET DATEANNULEACT= NULL WHERE CODEANIM= :act_id AND DATEACT= :date_act'; //todo nettoyer
-//        $actstatement = $this->pdoClient->prepare($sqlQuery);
-//        $actstatement->execute(['act_id' => $act_id, 'date_act' => $date_act]);
-//        if ($actstatement->rowCount() > 0)
-//        {
-//
-//            return true;
-//        }
-//        else{
-//            return false;
-//        }
-//    }
     /**
      * Méthode se connectant à la base de données afin d'ajouter une activité dans la table 'activite'
      * @param array $new_act - Array contenant toutes les valeurs des champs du formulaire d'ajout d'activité néttoyées
@@ -194,33 +126,6 @@ class Activite extends BaseModel
         }
 
     }
-
-//    public function addActivite(array $new_act): bool {
-//        $sqlQuery = 'INSERT INTO activite (CODEANIM, DATEACT, CODEETATACT, HRRDVACT, HRDEBUTACT,
-//                     HRFINACT, PRIXACT, NOMRESP, PRENOMRESP)
-//                     VALUES (:code_anim, :date_act, :code_act, :heure_arrive, :heure_depart,
-//                             :heure_fin, :tarif, :nom_resp, :prenom_resp)'; /todo nettoyer
-//        $animstatement = $this->pdoClient->prepare($sqlQuery);
-//        $animstatement->execute(
-//            ['code_anim' => $new_act[0],
-//                'date_act' => $new_act[4],
-//                'code_act' => $new_act[1],
-//                'heure_arrive' => $new_act[5],
-//                'heure_depart' => $new_act[6],
-//                'heure_fin' => $new_act[7],
-//                'tarif' => $new_act[8],
-//                'nom_resp' => $new_act[2],
-//                'prenom_resp' => $new_act[3] ]);
-////        echo $this->pdoClient->lastInsertId();
-//        if ($animstatement->rowCount() > 0)
-//        {
-//            return true;
-//        }
-//        else {
-//            return false;
-//        }
-//
-//    }
 
     /**
      * Méthode Qui retourne true si une activité possédant le même code d'animation et la même date d'animation éxiste sinon false
@@ -262,7 +167,6 @@ class Activite extends BaseModel
 
         return $result;
     }
-
 
     /**
      * Méthode se connectant à la base de données afin de mettre à jour une activité
