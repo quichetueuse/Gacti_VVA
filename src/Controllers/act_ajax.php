@@ -83,6 +83,7 @@ foreach ($acts_list as $act){
         <p><strong>Commentaire: </strong>'. $act["COMMENTANIM"] .'</p>
         
         <hr style="border-width:1px; background-color:black;">
+        <p><strong>Date de l\'activité: </strong>'. $act["DATEACT"] .'</p>
         <p><strong>Horraire d\'arrivé: </strong>'. $act["HRRDVACT"] .'</p>
         <p><strong>Durée (minutes): </strong>' . $act["DUREEANIM"] . '</p>
         
