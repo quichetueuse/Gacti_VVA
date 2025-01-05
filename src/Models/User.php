@@ -9,16 +9,11 @@ require_once('../autoloader.php');
 use Models\Db;
 use PDO;
 
-class User
+class User extends BaseModel
 {
-    private $pdoClient;
-    private $DbManager;
     public function __construct(){
-//        $this->pdoClient = new Db('localhost', 'gacti', 'root', '');
-        $this->DbManager = new Db('localhost', 'gacti', 'root', '');
-        $this->pdoClient = $this->DbManager->getPdoClient();
+        parent::__construct();
     }
-//    private $pdoClient = Db('localhost', '', 'root', '');
 
 
     public function verify_credentials(string $email, string $password){

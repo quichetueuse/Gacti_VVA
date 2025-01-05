@@ -7,12 +7,8 @@ use PDO;
 
 class EtatAct extends BaseModel
 {
-    private $pdoClient;
-    private $DbManager;
     public function __construct(){
-
-        $this->DbManager = new Db('localhost', 'gacti', 'root', '');
-        $this->pdoClient = $this->DbManager->getPdoClient();
+        parent::__construct();
     }
 
 

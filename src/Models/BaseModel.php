@@ -6,24 +6,12 @@ use PDO;
 
 class BaseModel
 {
-    private PDO $pdoClient;
-    private $DbManager;
+    protected PDO $pdoClient;
+    protected $DbManager;
     public function __construct(){
 
         //creating connection object
-        $this->DbManager = new Db('localhost', 'gacti', 'root', '');
+        $this->DbManager = new Db('localhost', 'gacti', 'gacti_app', 'v3ryStr0ngPa55w0rd');
         $this->pdoClient = $this->DbManager->getPdoClient();
     }
-
-
-//    protected function selectAll(): array {
-//
-//        return array();
-//    }
-//
-//
-//
-//    protected function countAll(): int () {
-//
-//}
 }

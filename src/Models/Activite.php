@@ -4,14 +4,10 @@ namespace Models;
 
 use PDO;
 
-class Activite
+class Activite extends BaseModel
 {
-    private $pdoClient;
-    private $DbManager;
-
     public function __construct(){
-        $this->DbManager = new Db('localhost', 'gacti', 'root', '');
-        $this->pdoClient = $this->DbManager->getPdoClient();
+        parent::__construct();
     }
 //    public function getAllActivites(string $code_anim): array {
 //        $sqlQuery = 'SELECT * FROM activite WHERE CODEANIM=:code_anim';
@@ -27,7 +23,7 @@ class Activite
      * @param string $select_mode [optionnal] - Mode de sélection ('invalid' ou 'valid')
      * @return int - Entier correspondant au nombre d'activité total (en fonction des paramètres)
      */
-    public function getCountActivites(string $code_anim, string $select_mode): int {
+    public function getCountActivites(string $code_anim, string $select_mode): int { //todo nettoyer car inutile
         $sqlQuery = 'SELECT COUNT(CODEANIM) as nbre_act FROM activite';
 
         //pour récupérer toutes les activités d'une animation précise
@@ -154,7 +150,7 @@ class Activite
     }
 
 //    public function restoreActivite(string $act_id, string $date_act): bool {
-//        $sqlQuery = 'UPDATE activite SET DATEANNULEACT= NULL WHERE CODEANIM= :act_id AND DATEACT= :date_act';
+//        $sqlQuery = 'UPDATE activite SET DATEANNULEACT= NULL WHERE CODEANIM= :act_id AND DATEACT= :date_act'; //todo nettoyer
 //        $actstatement = $this->pdoClient->prepare($sqlQuery);
 //        $actstatement->execute(['act_id' => $act_id, 'date_act' => $date_act]);
 //        if ($actstatement->rowCount() > 0)
@@ -203,7 +199,7 @@ class Activite
 //        $sqlQuery = 'INSERT INTO activite (CODEANIM, DATEACT, CODEETATACT, HRRDVACT, HRDEBUTACT,
 //                     HRFINACT, PRIXACT, NOMRESP, PRENOMRESP)
 //                     VALUES (:code_anim, :date_act, :code_act, :heure_arrive, :heure_depart,
-//                             :heure_fin, :tarif, :nom_resp, :prenom_resp)';
+//                             :heure_fin, :tarif, :nom_resp, :prenom_resp)'; /todo nettoyer
 //        $animstatement = $this->pdoClient->prepare($sqlQuery);
 //        $animstatement->execute(
 //            ['code_anim' => $new_act[0],
@@ -253,7 +249,7 @@ class Activite
     public function getActiviteInformationById(string $code_anim, string $date_act, int $mode): array {
         $sqlQuery = 'SELECT act.CODEANIM, act.CODEETATACT, compte.USER, act.DATEACT, act.HRRDVACT, act.HRDEBUTACT, act.HRFINACT, act.PRIXACT FROM activite as act 
             INNER JOIN compte ON compte.PRENOMCOMPTE = act.PRENOMRESP AND compte.NOMCOMPTE = act.NOMRESP 
-            WHERE CODEANIM=:code_anim AND DATEACT=:date_act;'; //todo enlever CODEANIM et DATEACt car on l'a déja (faire pour getAniumationInformationsByCode aussi)
+            WHERE CODEANIM=:code_anim AND DATEACT=:date_act;';
         $actStatement = $this->pdoClient->prepare($sqlQuery);
         $actStatement->execute(['code_anim' =>$code_anim, 'date_act' => $date_act]);
 

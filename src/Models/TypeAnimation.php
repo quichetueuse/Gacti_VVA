@@ -5,14 +5,13 @@ use PDO;
 
 require_once('../autoloader.php');
 
-class TypeAnimation
+class TypeAnimation extends BaseModel
+
 {
-    private $pdoClient;
-    private $DbManager;
     public function __construct(){
-        $this->DbManager = new Db('localhost', 'gacti', 'root', '');
-        $this->pdoClient = $this->DbManager->getPdoClient();
+        parent::__construct();
     }
+
     public function getAllTypeAnimations(): array {
         $sqlQuery = 'SELECT CODETYPEANIM, NOMTYPEANIM FROM type_anim';
         $animstatement = $this->pdoClient->prepare($sqlQuery);

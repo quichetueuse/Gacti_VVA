@@ -5,16 +5,12 @@ use PDO;
 
 require_once('../autoloader.php');
 
-class Animation
+class Animation extends BaseModel
 {
-    private $pdoClient;
-    private $DbManager;
-    public function __construct(){
-//        $this->pdoClient = new Db('localhost', 'gacti', 'root', '');
-        $this->DbManager = new Db('localhost', 'gacti', 'root', '');
-        $this->pdoClient = $this->DbManager->getPdoClient();
-    }
 
+    public function __construct(){
+        parent::__construct();
+    }
 
     /**
      * Méthode qui récupère toutes les animations de la table 'animation'
@@ -33,7 +29,7 @@ class Animation
      * @return array - informations de l'animation
      */
     public function getAnimationInformationsByCodeAnim(string $code_anim, int $mode): array {
-        $sqlQuery = 'SELECT CODEANIM, CODETYPEANIM, NOMANIM, DATEVALIDITEANIM, DUREEANIM, LIMITEAGE, TARIFANIM, NBREPLACEANIM, DESCRIPTANIM, COMMENTANIM, DIFFICULTEANIM FROM animation WHERE CODEANIM=:code_anim'; //todo verifier si CODEANIM et CODETYPEANIM sont nécessaire
+        $sqlQuery = 'SELECT CODEANIM, CODETYPEANIM, NOMANIM, DATEVALIDITEANIM, DUREEANIM, LIMITEAGE, TARIFANIM, NBREPLACEANIM, DESCRIPTANIM, COMMENTANIM, DIFFICULTEANIM FROM animation WHERE CODEANIM=:code_anim';
         $animstatement = $this->pdoClient->prepare($sqlQuery);
         $animstatement->execute(['code_anim' => $code_anim]);
 
