@@ -167,7 +167,12 @@ class Inscription extends BaseModel
         return $ins_statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
+    /**
+     * Méthode that return a number corresponding to how many activity the user is registered to
+     * @param string $code_anim - act code
+     * @param string $date_act - act date
+     * @return bool - Return True if act is full, else False
+     */
     public function isActFull(string $code_anim, string  $date_act): bool {
         $sqlQuery = 'SELECT (SELECT COUNT(NOINSCRIP) as nbre_inscrit FROM inscription AS ins WHERE ins.CODEANIM=:code_anim AND ins.DATEACT= :date_act AND DATEANNULE IS NULL GROUP BY ins.CODEANIM, ins.DATEACT) >= NBREPLACEANIM as nbre_place FROM animation WHERE CODEANIM= :code_anim ;';
 

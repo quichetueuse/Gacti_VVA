@@ -185,6 +185,12 @@ class InscriptionController extends BaseController
         return $this->inscription->getCountInscriptionByUser($cleaned_nom, $cleaned_prenom);
     }
 
+    /**
+     * Méthode that return a number corresponding to how many activity the user is registered to
+     * @param string $code_anim - act code
+     * @param string $date_act - act date
+     * @return bool - Return True if act is full, else False
+     */
     public function isActFull(string $code_anim, string $date_act): bool {
         //clean values
         $cleaned_code_anim = $this->sanitize($code_anim);
