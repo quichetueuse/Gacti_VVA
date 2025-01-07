@@ -517,3 +517,20 @@ body {
     border-bottom: 1px solid white;
     padding-bottom: 1rem;
 }
+
+.card-btn-div {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    justify-content: center;
+    width: 100%;
+    margin-top: auto;
+}
+
+.menu-btn-div {
+    gap: 20px;
+    flex-wrap: wrap;
+    height: 100%;
+    width: auto;
+    margin-left: 30px;
+}
