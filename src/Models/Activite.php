@@ -67,7 +67,7 @@ class Activite extends BaseModel
         $actstatement->execute(['act_id' => $act_id, 'date_act' => $date_act]);
         if ($actstatement->rowCount() > 0)
         {
-            return ['success' => true, 'title' => 'Activité supprimée!', 'message' => ''];
+            return ['success' => true, 'title' => 'Activité supprimée!', 'message' => 'Tous les utilisateurs inscrits ont été désinscrits'];
         }
         else {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'La suppréssion à échouée! (@r)'];

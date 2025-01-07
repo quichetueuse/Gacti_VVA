@@ -8,6 +8,7 @@ use Controllers\BaseController;
 use DateTime;
 use Models\Activite;
 use Models\Animation;
+use Models\Inscription;
 use Models\TypeAnimation;
 use PDO;
 
@@ -24,6 +25,8 @@ final class AnimActController extends BaseController
 
     private EtatActController $etatact_controller;
 
+    private Inscription $inscription_model;
+
 
     public function __construct(){
         date_default_timezone_set("Europe/Stockholm");
@@ -32,6 +35,8 @@ final class AnimActController extends BaseController
         $this->type_anim = new TypeAnimation();
         $this->compte_controller = new CompteController();
         $this->etatact_controller = new EtatActController();
+//        $this->$inscription_model = new Inscription();
+        $this->inscription_model = new Inscription();
     }
 
     /**
@@ -157,6 +162,15 @@ final class AnimActController extends BaseController
      *    le méssage du popup à afficher
      */
     public function deleteActivite(string $act_id, string $date_act): array {
+        $inscriptions = $this->inscription_model->getAllUserInscrit($act_id, $date_act);
+        foreach ($inscriptions as $inscription) {
+            $user_id = $inscription['USER'];
+            $this->inscription_model->desincritUserToAct($user_id, $act_id, $date_act);
+//            $state = $this->inscription_model->desincritUserToAct($user_id, $act_id, $date_act);
+//            if (!$state['success']) {
+//
+//            }
+        }
         return $this->activite->deleteActivite($this->sanitize($act_id), $this->sanitize($date_act));
     }
 

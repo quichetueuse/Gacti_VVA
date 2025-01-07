@@ -159,7 +159,7 @@ class Inscription extends BaseModel
      * @return array - Return All the information about all user from specific inscription
      */
     public function getAllUserInscrit(string $code_anim, string $date_act): array {
-        $sqlQuery = 'SELECT ins.NOINSCRIP, ins.DATEACT, ins.DATEINSCRIP, c.NOMCOMPTE, c.PRENOMCOMPTE, c.DATEDEBSEJOUR, c.DATEFINSEJOUR FROM inscription as ins
+        $sqlQuery = 'SELECT ins.NOINSCRIP, ins.DATEACT, ins.DATEINSCRIP, c.NOMCOMPTE, c.PRENOMCOMPTE, c.USER, c.DATEDEBSEJOUR, c.DATEFINSEJOUR FROM inscription as ins
                     INNER JOIN compte as c ON c.USER = ins.USER
                     WHERE CODEANIM=:code_anim AND DATEACT=:date_act';
         $ins_statement = $this->pdoClient->prepare($sqlQuery);
