@@ -28,8 +28,8 @@ else {
     <body class="body-middle-div">
 <!--    <form method="post" action="--><?php //echo SITE_URL.'/';?><!--Login/login_connecdatation.php">-->
     <form method="post" action="../Controllers/LoginController.php">
-        <div style="border: 1px solid grey; border-radius: 10px; width: 400px; backdrop-filter: blur(5px);">
-            <h1 class="h3 mb-3 fw-normal white-bold grey-border" style="margin-left: 5px; margin-top: 15px; color: white;">Connectez-vous</h1>
+        <div class="login-div">
+            <h1 class="h3 mb-3 fw-normal white-bold grey-border login-title">Connectez-vous</h1>
             <div class="form-floating" style="margin-right: 15px; margin-left: 15px;">
                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="input-email">
                 <label for="floatingInput">Adresse Email</label>
@@ -40,9 +40,7 @@ else {
             </div>
             <div class="form-check text-start my-3" style="margin-left: 15px;">
                 <input class="form-check-input" type="checkbox" value="show-password" id="flexCheckDefault" onchange="view_password_v2('floatingPassword');">
-                <label class="form-check-label" for="flexCheckDefault" style="color: white;     text-shadow: #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
-    #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px;
-    -webkit-font-smoothing: antialiased;">
+                <label class="form-check-label" for="flexCheckDefault">
                     Afficher le mot de passe
                 </label>
             </div>

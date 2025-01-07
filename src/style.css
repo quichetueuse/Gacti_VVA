@@ -4,6 +4,26 @@
     transform: translate(-50%, 0);
 }
 
+.login-div {
+    border: 1px solid grey;
+    border-radius: 10px;
+    width: 400px;
+    backdrop-filter: blur(20px);
+}
+
+.login-title {
+    margin-left: 5px;
+    margin-top: 15px;
+    color: white;
+}
+
+.form-check-label {
+    color: white;
+    text-shadow: #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px,
+    #000 0px 0px 1px,   #000 0px 0px 1px,   #000 0px 0px 1px;
+    -webkit-font-smoothing: antialiased;
+}
+
 .body-middle-div {
     padding: 0;
     margin: 0;
