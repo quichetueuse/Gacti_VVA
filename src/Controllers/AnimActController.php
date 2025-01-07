@@ -689,7 +689,7 @@ final class AnimActController extends BaseController
      * Method linked to model method that check if an activity is cancelled or not
      * @param string $code_anim - act id
      * @param string $date_act - act date
-     * @return array - Return True if the activity is cancelled, else false
+     * @return bool - Return True if the activity is cancelled, else false
      */
     public function isActCancelled(string $code_anim, string $date_act): bool {
 
