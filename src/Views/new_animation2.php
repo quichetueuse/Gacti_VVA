@@ -28,7 +28,7 @@ echo $function_controller->generateAnimsControlDiv();
 ?>
 
 
-<div class="act-card-container" id="act-card-container">
+<div class="act-card-container" id="act-card-container" style="border-top: 5px solid #fff">
 </div>
 
 <script>
