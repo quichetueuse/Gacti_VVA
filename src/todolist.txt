@@ -31,7 +31,7 @@ encadrant = activités valide et invalide (peut importe la date)
 
  dans formulaire ajout anim + act => inter changer les boutons 'vider le formulaire' et 'ajouter' pour que le bouton ajouter soit le plus gros
 
-todo faire en sorte qui si aucune activité n'est disponible pour une animation => afficher 'Aucune animation disponible'
+ faire en sorte qui si aucune activité n'est disponible pour une animation => afficher 'Aucune animation disponible'
 
 
 verifier que la date de validité n'est pas passé quand on ajoute une activité à une animation
@@ -51,13 +51,13 @@ verifier que la date de validité n'est pas passé quand on ajoute une activité
  liste déroulante à faire en ajax dans formulaire modif (selection de l'animation => champs remplient automatiquement)
 
 
-todo [optionnal] refaire la page de connexion avec ajax + mySweetAlert2
+ [optionnal] refaire la page de connexion avec ajax + mySweetAlert2
 
  lors d'une modification d'animation vérifier qu'aucune autre animation existe avec les mêmes valeurs
 
 // faire en sorte que si une activité soit annulé, elle ne puisse pas être éditée
 
-todo sécuriser les controllers
+ sécuriser les controllers
 
 //vérifier que le vacancier est dans la période de vacance lors d'une inscription
 

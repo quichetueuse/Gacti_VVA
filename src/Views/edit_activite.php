@@ -122,7 +122,7 @@ $resp = $activite['USER'];
                     <?php
                     foreach ($compte_controller->getAllUser() as $user)
                     {
-                        if ($user['TYPEPROFIL'] == 0){ //todo vérifier si ça marche (car activité encardré par vacancier :/)
+                        if ($user['TYPEPROFIL'] == 0){
                             continue;
                         }
 

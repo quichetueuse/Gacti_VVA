@@ -59,7 +59,7 @@ foreach ($acts_list as $act){
 
 
     //affichage des activités valides dont la date n'est pas passée
-    if (array_key_exists('type_profil', $_SESSION)) { //todo faire en sorte qu'une activité dont la date est passé soit traité comme une activité supprimée (rose)
+    if (array_key_exists('type_profil', $_SESSION)) {
         if ($_SESSION['type_profil'] == 0 && $act['DATEACT'] < date("Y-m-d H:i:s")) {
             continue;
         }
