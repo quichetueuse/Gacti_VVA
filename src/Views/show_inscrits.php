@@ -55,4 +55,22 @@ $date_act = $_GET['date_act'];
         <?php echo $function_controller->generateInscritUserCard($code_act, $date_act); ?>
     </div>
 </body>
+<script>
+    function showConfirmDisconnect(){
+        Swal.fire({
+            title: "Voulez-vous vraiment vous déconnecter ?",
+            text: "Il faudra se reconnecter",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "Annuler",
+            confirmButtonText: "Oui, je me déconnecte!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.location.href = '../Controllers/disconnect.php'
+            }
+        });
+    }
+</script>
 </html>
