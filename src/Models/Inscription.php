@@ -166,4 +166,21 @@ class Inscription extends BaseModel
         $ins_statement->execute(['code_anim' => $code_anim, 'date_act' => $date_act]);
         return $ins_statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
+    public function isActFull(string $code_anim, string  $date_act): bool {
+        $sqlQuery = 'SELECT (SELECT COUNT(NOINSCRIP) as nbre_inscrit FROM inscription AS ins WHERE ins.CODEANIM=:code_anim AND ins.DATEACT= :date_act AND DATEANNULE IS NULL GROUP BY ins.CODEANIM, ins.DATEACT) >= NBREPLACEANIM as nbre_place FROM animation WHERE CODEANIM= :code_anim ;';
+
+        $ins_statement = $this->pdoClient->prepare($sqlQuery);
+        $ins_statement->execute(['code_anim' => $code_anim, 'date_act' => $date_act]);
+
+        $result = $ins_statement->fetch(PDO::FETCH_NUM)[0];;
+        # If act is full
+        if ($result == 1) {
+            return True;
+        }
+        else {
+            return False;
+        }
+    }
 }

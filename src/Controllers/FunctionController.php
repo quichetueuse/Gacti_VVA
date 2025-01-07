@@ -99,7 +99,7 @@ final class FunctionController extends BaseController
 //               <button title="Supprimer l\'activité" class="delete-btn" onclick="showConfirmDelete(`'. $act_id .'`, `'. $date_act .'`);">Supprimer</button>
 //               </div>';
             $get_method_string = "?act_id='". $act_id ."'&date_act='". $date_act ."'";
-            $button = '<div style="display: flex; flex-direction: row; column-gap: 10px; justify-content: center; width: 100%; margin-top: auto;">
+            $button = '<div class="card-btn-div">
                <button title="Voir les inscrits" class="show-inscrit-btn" onclick="document.location.href = `../Views/show_inscrits.php'. $get_method_string . '`">Voir les inscrits</button>';
 
             $date_now = strtotime(date('Y-m-d'));
@@ -138,7 +138,8 @@ final class FunctionController extends BaseController
         }
 
         //si pas inscrit et qu'il n'y à plus de place
-        if (!$user_inscrit && $nb_places_prises >= $nb_place_totale) {
+//        if (!$user_inscrit && $nb_places_prises >= $nb_place_totale) {
+        if (!$user_inscrit && $this->inscription_controller->isActFull($act_id, $date_act)) {
             $button = '<button disabled class="act-full-btn" title="L\'activité est pleine" >L\'activité est pleine</button>';
             return $button;
         }
@@ -201,7 +202,7 @@ final class FunctionController extends BaseController
                         </select>
                     </div>
                 </div>
-                <div class="flex-column-center" style="gap: 20px; flex-wrap: wrap; border: 1px solid black; height: 100%; width: auto; margin-left: 30px;">';
+                <div class="flex-column-center menu-btn-div">';
 
 
         //start session if not alrerady started

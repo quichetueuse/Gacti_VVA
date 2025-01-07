@@ -51,9 +51,15 @@ class InscriptionController extends BaseController
         }
 
         //si nb_place disponible
-        $nb_places_prises = $this->getNumberInscritByActCodeAnim($code_anim, $date_act);
-        $nb_place_totale = $this->act_controller->checkNbrePlaceAnim($code_anim);
-        if ($nb_places_prises >= $nb_place_totale) {
+//        $nb_places_prises = $this->getNumberInscritByActCodeAnim($code_anim, $date_act);
+//        $nb_place_totale = $this->act_controller->checkNbrePlaceAnim($code_anim);
+//        if ($nb_places_prises >= $nb_place_totale) {
+//            return ['success' => false, 'title' => 'Erreur', 'message' => 'L\'activité est pleine!'];
+//        }
+
+        // if act is full
+        if ($this->inscription->isActFull($code_anim, $date_act))
+        {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'L\'activité est pleine!'];
         }
 
@@ -177,5 +183,13 @@ class InscriptionController extends BaseController
         $cleaned_prenom = $this->sanitize($prenom);
 
         return $this->inscription->getCountInscriptionByUser($cleaned_nom, $cleaned_prenom);
+    }
+
+    public function isActFull(string $code_anim, string $date_act): bool {
+        //clean values
+        $cleaned_code_anim = $this->sanitize($code_anim);
+        $cleaned_date_act = $this->sanitize($date_act);
+
+        return $this->inscription->isActFull($code_anim, $date_act);
     }
 }
