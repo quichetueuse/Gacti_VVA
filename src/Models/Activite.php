@@ -146,10 +146,10 @@ class Activite extends BaseModel
 
 
     /**
-     * Méthode Qui retourne true si une activité possédant le même code d'animation et la même date d'animation éxiste sinon false
-     * @param string $code_anim - Code de l'animation de l'activité dont on souhaite vérifier l'éxistence
-     * @param string $date_act - Date de l'activité dont on souhaite vérifier l'éxistence
-     * @return bool - Est ce que l'activité éxiste
+     * Method that return an activity by given id
+     * @param string $code_anim - act id
+     * @param string $date_act - act date
+     * @return array - All activity information
      */
     public function getActiviteInformationById(string $code_anim, string $date_act, int $mode): array {
         $sqlQuery = 'SELECT act.CODEANIM, act.CODEETATACT, compte.USER, act.DATEACT, act.HRRDVACT, act.HRDEBUTACT, act.HRFINACT, act.PRIXACT FROM activite as act 
