@@ -196,6 +196,6 @@ class InscriptionController extends BaseController
         $cleaned_code_anim = $this->sanitize($code_anim);
         $cleaned_date_act = $this->sanitize($date_act);
 
-        return $this->inscription->isActFull($code_anim, $date_act);
+        return $this->inscription->isActFull($cleaned_code_anim, $cleaned_date_act);
     }
 }
