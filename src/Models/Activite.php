@@ -20,34 +20,31 @@ class Activite extends BaseModel
     public function getActivities(string $anim='all', string $select_mode='') : array{
 
         //base sql query
-        $sqlQuery = 'SELECT act.CODEANIM, act.DATEACT, act.CODEETATACT, act.HRRDVACT, act.PRIXACT, act.HRDEBUTACT, 
-            act.HRFINACT, act.DATEANNULEACT, act.NOMRESP, act.PRENOMRESP, anim.NOMANIM, anim.DESCRIPTANIM, 
-            anim.COMMENTANIM, anim.DIFFICULTEANIM, anim.NBREPLACEANIM, anim.DUREEANIM, anim.LIMITEAGE 
-            from activite as act INNER JOIN animation as anim ON anim.CODEANIM = act.CODEANIM';
+        $sqlQuery = 'SELECT * FROM act_view';
 
 
         //pour récupérer toutes les activités d'une animation précise
         if ($anim !== 'all') {
-            $sqlQuery .= ' WHERE act.CODEANIM=:code_anim';
+            $sqlQuery .= ' WHERE CODEANIM=:code_anim';
         }
 
         //selection des activités dont la date d'annulation est vide
         if ($select_mode === 'valid' and $anim !== 'all'){
-            $sqlQuery .= ' AND act.DATEANNULEACT IS NULL';
+            $sqlQuery .= ' AND DATEANNULEACT IS NULL';
         } elseif($select_mode === 'valid' and $anim === 'all') {
-            $sqlQuery .= ' WHERE act.DATEANNULEACT IS NULL';
+            $sqlQuery .= ' WHERE DATEANNULEACT IS NULL';
         }
 
 
         //selection des activités dont la date d'annulation contient quelque chose
         if ($select_mode === 'invalid' and $anim !== 'all') {
-            $sqlQuery .= ' AND act.DATEANNULEACT IS NOT NULL';
+            $sqlQuery .= ' AND DATEANNULEACT IS NOT NULL';
         } elseif ($select_mode === 'invalid' and $anim === 'all') {
-            $sqlQuery .= ' WHERE act.DATEANNULEACT IS NOT NULL';
+            $sqlQuery .= ' WHERE DATEANNULEACT IS NOT NULL';
         }
 
         # order activity by most recent date
-        $sqlQuery .= ' ORDER BY act.DATEACT DESC';
+        $sqlQuery .= ' ORDER BY DATEACT DESC';
 
         $animstatement = $this->pdoClient->prepare($sqlQuery);
         $animstatement->execute(['code_anim' => $anim]);
