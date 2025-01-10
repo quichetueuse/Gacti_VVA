@@ -46,7 +46,8 @@ class Activite extends BaseModel
             $sqlQuery .= ' WHERE act.DATEANNULEACT IS NOT NULL';
         }
 
-
+        # order activity by most recent date
+        $sqlQuery .= ' ORDER BY act.DATEACT DESC';
 
         $animstatement = $this->pdoClient->prepare($sqlQuery);
         $animstatement->execute(['code_anim' => $anim]);
