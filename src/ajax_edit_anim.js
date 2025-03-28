@@ -285,7 +285,7 @@ function isValidDatevalidite(date_time_validite, old_date='')
 function isValidString(value, length) {
     // console.log("^[a-z]{0," + length + "}$")
     // console.log(value)
-    const re = new RegExp("^[a-zA-Z0-9 !\.:]{0," + length + "}$");
+    const re = new RegExp("^[a-zA-Z0-9 !\.:àâäèéêëôöùûüîï',]{0," + length + "}$");
     if (re.test(value))
     {
         // console.log("true")

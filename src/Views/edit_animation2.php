@@ -13,30 +13,30 @@ use Controllers\AnimActController;
 require_once('../autoloader.php');
 $animation_controller = new AnimActController();
 
-//getting animation id
-$code_anim = "testtest"; //$_GET['code_anim'];
+////getting animation id
+//$code_anim = "testtest"; //$_GET['code_anim'];
+//
+////getting all animation's informations
+//$anim = $animation_controller->getAnimationByCodeAnim($code_anim, PDO::FETCH_ASSOC);
+//
+////if array is empty (mean no animation with given id/code exists)
+//if (empty($anim)) {
+//    header('location: new_animation2.php');
+//}
 
-//getting all animation's informations
-$anim = $animation_controller->getAnimationByCodeAnim($code_anim, PDO::FETCH_ASSOC);
-
-//if array is empty (mean no animation with given id/code exists)
-if (empty($anim)) {
-    header('location: new_animation2.php');
-}
 
 
-
-$code_anim = $anim['CODEANIM'];
-$type_anim = $anim['CODETYPEANIM'];
-$date_validite_anim = $anim['DATEVALIDITEANIM'];
-$titre_anim = $anim['NOMANIM'];
-$desc_anim = $anim['DESCRIPTANIM'];
-$comment_anim = $anim['COMMENTANIM'];
-$duree_anim = $anim['DUREEANIM'];
-$tarif = $anim['TARIFANIM'];
-$limite_age = $anim['LIMITEAGE'];
-$nb_place = $anim['NBREPLACEANIM'];
-$difficulte = $anim['DIFFICULTEANIM'];
+//$code_anim = $anim['CODEANIM'];
+//$type_anim = $anim['CODETYPEANIM'];
+//$date_validite_anim = $anim['DATEVALIDITEANIM'];
+//$titre_anim = $anim['NOMANIM'];
+//$desc_anim = $anim['DESCRIPTANIM'];
+//$comment_anim = $anim['COMMENTANIM'];
+//$duree_anim = $anim['DUREEANIM'];
+//$tarif = $anim['TARIFANIM'];
+//$limite_age = $anim['LIMITEAGE'];
+//$nb_place = $anim['NBREPLACEANIM'];
+//$difficulte = $anim['DIFFICULTEANIM'];
 
 
 ?>
@@ -90,7 +90,7 @@ $difficulte = $anim['DIFFICULTEANIM'];
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Date de Validité de l'animation</span>
                 </div>
-                <input type="date" class="form-control" placeholder="Saississez une date de validité pour l'animation" aria-label="Username" aria-describedby="basic-addon1"  id="edit-date-validite-anim" name="edit-date-validite-anim" required onchange="isValidDatevalidite(this.value, '<?php echo $date_validite_anim ?>')">
+                <input type="date" class="form-control" placeholder="Saississez une date de validité pour l'animation" aria-label="Username" aria-describedby="basic-addon1"  id="edit-date-validite-anim" name="edit-date-validite-anim" required onchange="isValidDatevalidite(this.value, '<?php echo date('Y-m-d'); ?>')">
             </div>
 
             <!-- Champ du titre de l'animation -->

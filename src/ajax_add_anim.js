@@ -241,7 +241,7 @@ function validate_field(sender_id, sender_value)
 
         case 'add-type-anim': {
             if (document.getElementById('add-type-anim').value === '') {
-                document.getElementById("error-code-type-anim").innerHTML = "Aucune animation sélectionnée!";
+                document.getElementById("error-code-type-anim").innerHTML = "Aucun type d'animation sélectionné!";
                 valid_type_anim = false;
             }
             else {
@@ -297,7 +297,7 @@ function validate_field(sender_id, sender_value)
             }
             else {
                 document.getElementById("error-duree").innerHTML = "";
-                valid_difficulte = true;
+                valid_duree = true;
             }
             break
         }
@@ -373,7 +373,7 @@ function updateFieldsValidity() {
 function isValidString(value, length) {
     // console.log("^[a-z]{0," + length + "}$")
     // console.log(value)
-    const re = new RegExp("^[a-zA-Z0-9 !\.:]{0," + length + "}$");
+    const re = new RegExp("^[a-zA-Z0-9 !\.:àâäèéêëôöùûüîï',]{0," + length + "}$");
     if (re.test(value))
     {
         // console.log("true")

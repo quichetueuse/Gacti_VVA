@@ -62,3 +62,6 @@ verifier que la date de validité n'est pas passé quand on ajoute une activité
 //vérifier que le vacancier est dans la période de vacance lors d'une inscription
 
 centrer le titre 'VVA' (surement avec un position absolute translate 50%)
+
+todo nettoyer les fichier
+todo nettoyer l'architecture de fichier et renommer certains

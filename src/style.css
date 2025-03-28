@@ -478,7 +478,9 @@ body {
     overflow-y: auto;
     width: 100vw;
     height: 80vh;
-    border: 1px solid black;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top: 5px solid white;
     padding: 0.5rem;
     display: flex;
     flex-direction: row;

@@ -220,7 +220,7 @@ function validateFields(sender_id) {
 
         case 'add-code-etat-act': {
             if (document.getElementById('add-code-etat-act').value === '') {
-                document.getElementById("error-code-etat-act").innerHTML = "Aucune animation sélectionnée!";
+                document.getElementById("error-code-etat-act").innerHTML = "Aucun état d'activité sélectionné!";
                 valid_etat_act = false;
             }
             else {
@@ -232,7 +232,7 @@ function validateFields(sender_id) {
 
         case 'add-resp-act': {
             if (document.getElementById('add-resp-act').value === '') {
-                document.getElementById("error-resp-act").innerHTML = "Aucune animation sélectionnée!";
+                document.getElementById("error-resp-act").innerHTML = "Aucun responsable d'activité sélectionné!";
                 valid_resp_act = false;
             }
             else {
