@@ -260,9 +260,9 @@ final class FunctionController extends BaseController
         foreach ($users_inscits as $user) {
             //get total inscription from this user on every activity
             $total_user_inscription = $this->inscription_controller->getCountInscriptionByUser($user['NOMCOMPTE'], $user['PRENOMCOMPTE']);
-            $user_card = '
+            $user_card .= '
                 <div class="user-summary-card">
-                    <h3 class="card-title text-center grey-border bold insc-card-title">Mr '. $user["NOMCOMPTE"] . $user["PRENOMCOMPTE"] .'</h3>
+                    <h3 class="card-title text-center grey-border bold insc-card-title">Mr '. $user["NOMCOMPTE"] . ' ' . $user["PRENOMCOMPTE"] .'</h3>
                     <p style="padding-top: 1rem;"><strong>En vacances du <span class="visible-value grey-border">'. $user["DATEDEBSEJOUR"] .'</span> au <span style="font-size: 15pt; color: palegreen" class=" grey-border">'. $user["DATEFINSEJOUR"] . '</span></strong></p>
                     <p><strong>Date d\'inscription:&nbsp<span class="visible-value grey-border">'. $user["DATEINSCRIP"] .'</span></strong></p>
                     <p><strong>Code de l\'inscription:&nbsp<span class="visible-value grey-border">'. $user["NOINSCRIP"] .'</span></strong></p>
