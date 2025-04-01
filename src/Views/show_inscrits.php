@@ -21,10 +21,6 @@ $inscription_controller = new InscriptionController();
 $code_act = $_GET['act_id'];
 $date_act = $_GET['date_act'];
 
-//echo '<h1>' . $code_act . ' | '. $date_act .'</h1>';
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,13 +41,6 @@ $date_act = $_GET['date_act'];
         <button class="middle-table-div-button" onclick="window.history.go(-1); return false;">Retour</button>
     </div>
     <div class="user-summary-card-container">
-<!--        <div class="user-summary-card">-->
-<!--            <h3 class="card-title text-center grey-border bold" style="border-bottom: 1px solid white; padding-bottom: 1rem;">Mr Nom Prénom</h3>-->
-<!--            <p style="padding-top: 1rem;"><strong>En vacances du YYYY:MM:DD au YYYY:MM:DD</strong></p>-->
-<!--            <p><strong>Date d'inscription:</strong> YYYY:MM:DD </p>-->
-<!--            <p><strong>Code de l'inscription:</strong> int </p>-->
-<!--            <p><strong>Inscrit à <span style="font-size: 15pt; color: palegreen" class=" grey-border">&nbsp5&nbsp</span> activités au total</strong></p>-->
-<!--        </div>-->
         <?php echo $function_controller->generateInscritUserCard($code_act, $date_act); ?>
     </div>
 </body>

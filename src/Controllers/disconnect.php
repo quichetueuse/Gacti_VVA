@@ -1,10 +1,5 @@
 <?php
 
-//session_unset();
-//session_destroy();
-//$_SESSION = null;
-
-//session_start();
 session_unset();
 session_destroy();
 session_write_close();

@@ -25,27 +25,6 @@ else {
     $acts_list = $activites_controller->getAllActivitesByAnim($code_anim, 'valid');
 }
 
-//$acts_list = $activites_controller->getAllActivitesByAnim($code_anim);
-//echo '<script>console.log('. echo $acts_list[0]['DUREEACT'] . ')</script>';
-//$button = '';
-//
-//if (array_key_exists('type_profil', $_SESSION)) {
-//
-//    if ($_SESSION['type_profil'] === '0') {
-//        $button = '<button title="S \'inscrire">S \'inscire</button>';
-//    }
-//    if ($_SESSION['type_profil'] === '1') {
-//        $button = '<div style="display: flex; flex-direction: row; column-gap: 10px; justify-content: center; width: 100%;">
-//                   <button title="Voir les inscrits" style="width: 100%">Voir les inscrits</button>
-//                   <button title="Supprimer l\'activité" class="delete-btn" onclick="showConfirmDelete('. $ .');">Supprimer</button>
-//                   </div>';
-//    }
-//}
-//// ajouter valeur
-//else
-//{
-//    $button = '<button title="Se connecter" onclick="document.location.href = `../Views/login.php`">Se connecter</button>';
-//}
 foreach ($acts_list as $act){
     $nb_inscrit = $inscription_controller->getNumberInscritByActCodeAnim($act["CODEANIM"], $act['DATEACT']);
 
@@ -54,9 +33,6 @@ foreach ($acts_list as $act){
     if ($act["DATEANNULEACT"] != null) {
         $card_class = 'canceled-card';
     }
-
-
-
 
     //affichage des activités valides dont la date n'est pas passée
     if (array_key_exists('type_profil', $_SESSION)) {
@@ -84,8 +60,6 @@ foreach ($acts_list as $act){
         $card_date_string .= 'Dépassé depuis ' . abs($date_diff) . ' jour(s))';
     }
 
-//    $card_color = $act["DATEANNULEACT"] != null ? 'style="background-color: #f5dbff;"' : ''; //#e0abf5
-
     $card_title = $act['DATEACT'] < date("Y-m-d H:i:s") ? ('<span style="color:red;">(Date dépassée)<br>&nbsp</span>' . $act["NOMANIM"]) : $act["NOMANIM"];
     echo '
     <div class="'. $card_class .'">
@@ -106,19 +80,11 @@ foreach ($acts_list as $act){
         
         '. $function_controller->generateActButtonsDiv($act["CODEANIM"], $act['DATEACT'], $act["DATEANNULEACT"] === null ? false : true) .'
     </div>';
-}//background-color: navajowhite;
-//        <h3 class="card-title text-center grey-border bold">'. $act["HRRDVACT"] .'</h3>
+}
 
-//        <p><strong>Horraire de départ: </strong>'. $act["HRDEBUTACT"] .'</p>
-//        <p><strong>Horraire de fin: </strong>'. $act["HRFINACT"] .'</p>
-
-// affiche ou non le bouton d'ajout d'une activité en fonction du tyoe de profil connecté (affiché uniquement si profil personnel)
+// show create activity button only if connected user is encadrant
 if (array_key_exists('type_profil', $_SESSION)) {
     if ($_SESSION['type_profil'] === '1') {
         echo $function_controller->generatePlusCard();
     }
 }
-//echo '
-//    <div class="add-card">
-//        <button class="add-btn"><img src="../../Assets/images/fa-fa-plus2.png"></button>
-//    </div>';

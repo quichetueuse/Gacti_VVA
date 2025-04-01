@@ -1,4 +1,9 @@
 <?php
+require_once('../autoloader.php');
+
+use Controllers\AnimActController;
+use Controllers\CompteController;
+use Controllers\EtatActController;
 session_start();
 if (!array_key_exists('type_profil',$_SESSION)) {
     header('location: main_window.php');
@@ -7,11 +12,6 @@ if ($_SESSION['type_profil'] == '0') {
     header('location: main_window.php');
 }
 
-use Controllers\AnimActController;
-use Controllers\CompteController;
-use Controllers\EtatActController;
-
-require_once('../autoloader.php');
 $animation_controller = new AnimActController();
 $compte_controller = new CompteController();
 $etatact_controller = new EtatActController();
@@ -25,11 +25,9 @@ $etatact_controller = new EtatActController();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../style.css">
-    <!--    <script type="module" src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../ajax_add_act.js"></script>
 
-    <!--    <script src="' . SITE_URL . '/Services/globals_functions.js"></script>-->
 </head>
 <body class="body-middle-div">
 <div class="middle-form-div">
