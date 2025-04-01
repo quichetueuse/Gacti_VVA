@@ -80,6 +80,9 @@ final class FunctionController extends BaseController
     public function generateActButtonsDiv(string $act_id, string $date_act, bool $act_cancelled=false) : string {
         $button = '';
 
+        $act_id = $this->sanitize($act_id);
+        $date_act = $this->sanitize($date_act);
+
         //si utilisateur pas connecté
         if (!array_key_exists('type_profil', $_SESSION)){ //faire guard clause
             $button = '<button class="btn-card-connect" title="Se connecter" onclick="document.location.href = `../Views/login.php`">Se connecter</button>';
@@ -192,6 +195,8 @@ final class FunctionController extends BaseController
     public function generateInscritUserCard(string $code_anim, string $date_act): string {
         $user_card = '';
 
+        $date_act = $this->sanitize($date_act);
+        $code_anim = $this->sanitize($code_anim);
         $users_inscits = $this->inscription_controller->getAllUserInscriptionById($code_anim, $date_act);
         foreach ($users_inscits as $user) {
             //get total inscription from this user on every activity

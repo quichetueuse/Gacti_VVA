@@ -52,6 +52,7 @@ final class AnimActController extends BaseController
      */
     public function getAnimationByCodeAnim(string $code_anim, int $mode=4): array {
 
+        $code_anim = $this->sanitize($code_anim);
         return $this->animation->getAnimationInformationsByCodeAnim($code_anim, $mode);
     }
 
@@ -65,6 +66,7 @@ final class AnimActController extends BaseController
     public function getAllActivitesByAnim(string $code_anim, string $select_mode=''): array {
 
         //sanitize values
+        $code_anim = $this->sanitize($code_anim);
         return $this->activite->getActivities($code_anim, $select_mode);
     }
 
@@ -113,6 +115,8 @@ final class AnimActController extends BaseController
      *    le méssage du popup à afficher
      */
     public function deleteActivite(string $act_id, string $date_act): array {
+        $act_id = $this->sanitize($act_id);
+        $date_act = $this->sanitize($date_act);
         $inscriptions = $this->inscription_model->getAllUserInscrit($act_id, $date_act);
         foreach ($inscriptions as $inscription) {
             $user_id = $inscription['USER'];
@@ -207,6 +211,7 @@ final class AnimActController extends BaseController
      */
     public function checkNbrePlaceAnim(string $code_anim): int {
 
+        $code_anim = $this->sanitize($code_anim);
         return $this->animation->checkNbrePlaceAnim($code_anim);
     }
 
@@ -315,6 +320,8 @@ final class AnimActController extends BaseController
      *    le méssage du popup à afficher
      */
     public function restoreActivite(string $act_id, string $date_act): array {
+        $act_id = $this->sanitize($act_id);
+        $date_act = $this->sanitize($date_act);
         return $this->activite->restoreActivite($act_id, $date_act);
     }
 
@@ -443,6 +450,8 @@ final class AnimActController extends BaseController
      * @return array - Résultat de la requête SQL (array des activité)
      */
     public function getActiviteById(string $code_anim, string $date_act, int $mode=4): array {
+        $code_anim = $this->sanitize($code_anim);
+        $date_act = $this->sanitize($date_act);
         return $this->activite->getActiviteInformationById($code_anim, $date_act, $mode);
     }
 
@@ -543,6 +552,8 @@ final class AnimActController extends BaseController
      * @return bool - Return True if the activity is cancelled, else false
      */
     public function isActCancelled(string $code_anim, string $date_act): bool {
+        $code_anim = $this->sanitize($code_anim);
+        $date_act = $this->sanitize($date_act);
         return $this->activite->isActCancelled($code_anim, $date_act);
     }
 

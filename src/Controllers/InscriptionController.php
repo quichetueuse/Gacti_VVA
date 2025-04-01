@@ -35,6 +35,10 @@ class InscriptionController extends BaseController
      */
     public function inscritUserToAct(string $user_id, string $code_anim, string $date_act): array {
 
+        $user_id = $this->sanitize($user_id);
+        $code_anim = $this->sanitize($code_anim);
+        $date_act = $this->sanitize($date_act);
+
         //verify if user is already inscrit
         if ($this->inscription->isUserAlreadyInscrit($user_id, $code_anim, $date_act)) {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'Vous êtes déja inscrit à cette activité!'];
@@ -78,6 +82,10 @@ class InscriptionController extends BaseController
      */
     public function desincritUserToAct(string $user_id, string $code_anim, string $date_act): array {
 
+        $user_id = $this->sanitize($user_id);
+        $code_anim = $this->sanitize($code_anim);
+        $date_act = $this->sanitize($date_act);
+
         //verify if user is already désinscrit
         if ($this->inscription->isUserAlreadyInscrit($user_id, $code_anim, $date_act, true)) {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'Vous êtes déja désinscrit à cette activité!'];
@@ -97,6 +105,10 @@ class InscriptionController extends BaseController
      */
     public function isUserInscritToAct(string $user_id, string $code_anim, string $date_act): bool {
 
+        $user_id = $this->sanitize($user_id);
+        $code_anim = $this->sanitize($code_anim);
+        $date_act = $this->sanitize($date_act);
+
         return $this->inscription->isUserAlreadyInscrit($user_id, $code_anim, $date_act);
     }
 
@@ -109,6 +121,8 @@ class InscriptionController extends BaseController
      * @return int - Retourne le nombre d'inscrit à une activité
      */
     public function getNumberInscritByActCodeAnim(string $code_anim, string $date_act): int {
+        $code_anim = $this->sanitize($code_anim);
+        $date_act = $this->sanitize($date_act);
 
         return $this->inscription->getNumberInscritByActCodeAnim($code_anim, $date_act);
     }
@@ -121,6 +135,8 @@ class InscriptionController extends BaseController
      * @return array - Return all information
      */
     public function getAllUserInscriptionById(string $code_anim, string $date_act): array {
+        $code_anim = $this->sanitize($code_anim);
+        $date_act = $this->sanitize($date_act);
         return $this->inscription->getAllUserInscrit($code_anim, $date_act);
     }
 
@@ -131,6 +147,8 @@ class InscriptionController extends BaseController
      * @return int - Return number
      */
     public function getCountInscriptionByUser(string $nom, string $prenom): int {
+        $nom = $this->sanitize($nom);
+        $prenom = $this->sanitize($prenom);
         return $this->inscription->getCountInscriptionByUser($nom, $prenom);
     }
 
@@ -141,6 +159,8 @@ class InscriptionController extends BaseController
      * @return bool - Return True if act is full, else False
      */
     public function isActFull(string $code_anim, string $date_act): bool {
+        $code_anim = $this->sanitize($code_anim);
+        $date_act = $this->sanitize($date_act);
         return $this->inscription->isActFull($code_anim, $date_act);
     }
 }
