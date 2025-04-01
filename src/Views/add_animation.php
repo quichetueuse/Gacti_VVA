@@ -145,7 +145,7 @@ $animation_controller = new AnimActController();
 
     </div>
         <div class="flex-row-center middle-table-div-button-container">
-            <button class="middle-table-div-button" type="reset" form="add-anim-form" style="width: 33%;">Vider le formulaire</button>
+            <button class="middle-table-div-button" onclick="clearForm()" form="add-anim-form" style="width: 33%;">Vider le formulaire</button>
             <button type="button" class="middle-table-div-button" form="add-anim-form" id="submit-btn" onclick="confirmFormSubmission();" style="width: 33%;">Ajouter</button>
             <button class="middle-table-div-button" onclick="window.history.go(-1); return false;" style="width: 33%;">Retour</button>
         </div>

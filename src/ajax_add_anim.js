@@ -433,3 +433,9 @@ function generateSweetAlertPopup(title, text, icon, timer= null) {
     });
 }
 
+
+function clearForm() {
+    document.getElementById("add-anim-form").reset();
+    updateFieldsValidity();
+}
+
