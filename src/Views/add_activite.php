@@ -15,7 +15,6 @@ if ($_SESSION['type_profil'] == '0') {
 $animation_controller = new AnimActController();
 $compte_controller = new CompteController();
 $etatact_controller = new EtatActController();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -141,7 +140,7 @@ $etatact_controller = new EtatActController();
 
         </div>
         <div class="flex-row-center middle-table-div-button-container">
-            <button class="middle-table-div-button" type="reset" form="add-act-form" style="width: 33%;">Vider le formulaire</button>
+            <button class="middle-table-div-button" onclick="clearForm()" form="add-act-form" style="width: 33%;">Vider le formulaire</button>
             <button type="button" class="middle-table-div-button" form="add-act-form" id="submit-btn" onclick="confirmFormSubmission();" style="width: 33%">Ajouter</button>
             <button class="middle-table-div-button" onclick="window.history.go(-1); return false;" style="width: 33%">Retour</button>
         </div>

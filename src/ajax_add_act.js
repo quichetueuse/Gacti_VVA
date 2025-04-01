@@ -286,3 +286,9 @@ function areFieldsValid() {
         valid_etat_act;
 }
 
+
+
+function clearForm() {
+    document.getElementById("add-act-form").reset();
+    updateFieldsValidity();
+}
