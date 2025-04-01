@@ -31,14 +31,14 @@ $activite = $activite_controller->getActiviteById($act_id, $date_act, PDO::FETCH
 
 //if array is empty (mean no activite with given id/code exists)
 if (empty($activite)) {
-    header('location: new_animation2.php');
+    header('location: main_window.php');
 }
 
 $date_now = strtotime(date('Y-m-d'));
 
 // if activity is for today or is passed
 if ( round(($date_now - strtotime($activite['DATEACT'])) / (60*60*24) ) >= -1 ) {
-    header('location: new_animation2.php');
+    header('location: main_window.php');
 }
 
 $code_act = $activite['CODEANIM'];
@@ -48,21 +48,8 @@ $etat_act = $activite['CODEETATACT'];
 $heure_arrive = $activite['HRRDVACT'];
 $heure_depart = $activite['HRDEBUTACT'];
 $heure_fin = $activite['HRFINACT'];
-
-//$heure_arrive = date('H:i', strtotime($activite['HRRDVACT']));
-//$heure_depart = date('H:i', strtotime($activite['HRDEBUTACT']));
-//$heure_fin = date('H:i', strtotime($activite['HRFINACT']));
-
-
-//$heure_arrive = DateTime::createFromFormat('H:i', $activite['HRRDVACT']);
-//$heure_depart = DateTime::createFromFormat('H:i', $activite['HRDEBUTACT']);
-//$heure_fin = DateTime::createFromFormat('H:i', $activite['HRFINACT']);
-
 $tarif = $activite['PRIXACT'];
 $resp = $activite['USER'];
-
-
-//echo '<h1>'. $act_id. ' | '. $date_act .'</h1>';
 
 ?>
 <!DOCTYPE html>
