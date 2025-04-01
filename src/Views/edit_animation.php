@@ -13,32 +13,6 @@ use Controllers\AnimActController;
 require_once('../autoloader.php');
 $animation_controller = new AnimActController();
 
-////getting animation id
-//$code_anim = "testtest"; //$_GET['code_anim'];
-//
-////getting all animation's informations
-//$anim = $animation_controller->getAnimationByCodeAnim($code_anim, PDO::FETCH_ASSOC);
-//
-////if array is empty (mean no animation with given id/code exists)
-//if (empty($anim)) {
-//    header('location: new_animation2.php');
-//}
-
-
-
-//$code_anim = $anim['CODEANIM'];
-//$type_anim = $anim['CODETYPEANIM'];
-//$date_validite_anim = $anim['DATEVALIDITEANIM'];
-//$titre_anim = $anim['NOMANIM'];
-//$desc_anim = $anim['DESCRIPTANIM'];
-//$comment_anim = $anim['COMMENTANIM'];
-//$duree_anim = $anim['DUREEANIM'];
-//$tarif = $anim['TARIFANIM'];
-//$limite_age = $anim['LIMITEAGE'];
-//$nb_place = $anim['NBREPLACEANIM'];
-//$difficulte = $anim['DIFFICULTEANIM'];
-
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -50,8 +24,6 @@ $animation_controller = new AnimActController();
     <link rel="stylesheet" href="../style.css">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../ajax_edit_anim.js"></script>
-
-    <!--    <script src="' . SITE_URL . '/Services/globals_functions.js"></script>-->
 </head>
 <body class="body-middle-div">
 <div class="middle-form-div">
@@ -70,9 +42,6 @@ $animation_controller = new AnimActController();
                     <?php
                     foreach ($animation_controller->getAllCodeAnim() as $code_anim)
                     {
-//                         if ($user['username'] == $resp_suivi)
-//                             echo '<option selected="selected" value="'. $user["username"] .'">'. $user['username']. ' | ' . $user['email'] . ' | ' . $user['trigramm'] .'</option>';
-//                         else
                         echo '<option value="'. $code_anim["CODEANIM"] .'">'. $code_anim['NOMANIM'].'</option>';
                     } ?>
                 </select>
@@ -150,7 +119,7 @@ $animation_controller = new AnimActController();
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Limite d'age de l'animation</span>
                 </div>
-                <input type="number" min="4" max="100" class="form-control" placeholder="Saississez une limite d'age pour l'animation" aria-label="Username" aria-describedby="basic-addon1" id="edit-limiteage-anim" name="edit-limiteage-anim" required onkeyup="validate_field(this.id, this.value);">
+                <input type="number" min="4" max="100" value="1" class="form-control" placeholder="Saississez une limite d'age pour l'animation" aria-label="Username" aria-describedby="basic-addon1" id="edit-limiteage-anim" name="edit-limiteage-anim" required onkeyup="validate_field(this.id, this.value);">
             </div>
 
             <!-- Champ du nombre de place de l'animation -->
