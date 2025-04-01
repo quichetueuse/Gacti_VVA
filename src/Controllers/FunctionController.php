@@ -78,12 +78,6 @@ final class FunctionController extends BaseController
     }
 
     public function generateActButtonsDiv(string $act_id, string $date_act, bool $act_cancelled=false) : string {
-
-        //clean values
-        $act_id = $this->sanitize($act_id);
-        $date_act = $this->sanitize($date_act);
-        $act_cancelled = $this->sanitize($act_cancelled);
-
         $button = '';
 
         //si utilisateur pas connecté
@@ -92,12 +86,8 @@ final class FunctionController extends BaseController
             return $button;
         }
 
-        //si encadrant connecté
+        //si encadrant connected
         if ($_SESSION['type_profil'] === '1') {
-//            $button = '<div style="display: flex; flex-direction: row; column-gap: 10px; justify-content: center; width: 100%;">
-//               <button title="Voir les inscrits">Voir les inscrits</button>
-//               <button title="Supprimer l\'activité" class="delete-btn" onclick="showConfirmDelete(`'. $act_id .'`, `'. $date_act .'`);">Supprimer</button>
-//               </div>';
             $get_method_string = "?act_id='". $act_id ."'&date_act='". $date_act ."'";
             $button = '<div class="card-btn-div">
                <button title="Voir les inscrits" class="show-inscrit-btn" onclick="document.location.href = `../Views/show_inscrits.php'. $get_method_string . '`">Voir les inscrits</button>';
@@ -119,10 +109,10 @@ final class FunctionController extends BaseController
             return $button;
         }
 
-        //si type profil = 0 (vacancier)
+        //if type profil = 0
         $user_inscrit = $this->inscription_controller->isUserInscritToAct($_SESSION['user'], $act_id, $date_act);
 
-        //si l'utilisateur est inscrit à l'activité
+        //if l'utilisateur is registered
         if ($user_inscrit) {
             $button = '<button class="delete-btn" title="Se Désinscrire" onclick="showConfirmDesinscription(`'. $act_id .'`, `'. $date_act .'`)">Se Désinscrire</button>';
             return $button;
@@ -131,42 +121,17 @@ final class FunctionController extends BaseController
         $nb_places_prises = $this->inscription_controller->getNumberInscritByActCodeAnim($act_id, $date_act);
         $nb_place_totale = $this->act_controller->checkNbrePlaceAnim($act_id);
         $act_pleine = $nb_places_prises < $nb_place_totale;
-        //si pas inscrit mais qu'il reste de la place
+        //if not registered but there is still place left
         if (!$user_inscrit && $nb_places_prises < $nb_place_totale) {
             $button = '<button '. (bool)($nb_places_prises < $nb_place_totale) .' class="add-btn" title="S \'inscrire" onclick="showConfirmInscription(`' . $act_id . '`, `' . $date_act . '`)">S \'inscrire</button>';
             return $button;
         }
 
-        //si pas inscrit et qu'il n'y à plus de place
-//        if (!$user_inscrit && $nb_places_prises >= $nb_place_totale) {
+        //if not registered and no place left
         if (!$user_inscrit && $this->inscription_controller->isActFull($act_id, $date_act)) {
             $button = '<button disabled class="act-full-btn" title="L\'activité est pleine" >L\'activité est pleine</button>';
             return $button;
         }
-
-//        if ($_SESSION['type_profil'] === '0') {
-//
-//
-//            if (!$user_inscrit && (int)$this->inscription_controller->getNumberInscritByActCodeAnim($act_id, $date_act) < (int)$this->act_controller->checkNbrePlaceAnim($act_id)) {
-//                $button = '<button class="add-btn" title="S \'inscrire" onclick="showConfirmInscription(`'. $act_id .'`, `'. $date_act .'`)">S \'inscrire</button>';
-////                    if ((int)$this->inscription_controller->getNumberInscritByActCodeAnim($act_id, $date_act) < (int)$this->act_controller->checkNbrePlaceAnim($act_id)){
-////                        $button = '<button class="add-btn" title="S \'inscrire" onclick="showConfirmInscription(`'. $act_id .'`, `'. $date_act .'`)">S \'inscrire</button>';
-////                        return $button;
-////                    }
-////                    else{
-////                        $button = '<button disabled class="act-full-btn" title="L\'activité est pleine" >L\'activité est pleine</button>';
-////                        return $button;
-////                    }
-////                    $button = '<button class="add-btn" title="S \'inscrire" onclick="showConfirmInscription(`'. $act_id .'`, `'. $date_act .'`)">S \'inscrire</button>';
-//            }
-//            elseif (!$user_inscrit && (int)$this->inscription_controller->getNumberInscritByActCodeAnim($act_id, $date_act) >= (int)$this->act_controller->checkNbrePlaceAnim($act_id)) {
-//                $button = '<button disabled class="act-full-btn" title="L\'activité est pleine" >L\'activité est pleine</button>';
-//            }
-//            elseif ($user_inscrit) {
-//                $button = '<button class="delete-btn" title="Se Désinscrire" onclick="showConfirmDesinscription(`'. $act_id .'`, `'. $date_act .'`)">Se Désinscrire</button>';
-//                return $button;
-//            }
-//        }
         return $button;
     }
 
@@ -197,7 +162,6 @@ final class FunctionController extends BaseController
             $div .= '<option title="'. $anim["COMMENTANIM"] .'" value="' . $anim["CODEANIM"] . '">' . $anim['NOMANIM'] . ' | ' . $anim['DESCRIPTANIM'] . '</option>';
         }
 
-
         $div .= '
                         </select>
                     </div>
@@ -218,34 +182,6 @@ final class FunctionController extends BaseController
                          <button class="middle-table-div-button" onclick="document.location.href = `../Views/edit_animation.php`" style="width: 100%;">Éditer une animation</button>';
             }
         }
-
-//        //check if session started (it mean the user is not an encadrant)
-//        if (session_status() === PHP_SESSION_DISABLED || session_status() === PHP_SESSION_NONE)
-//        {
-//            session_start();
-//            $div .= '<button class="middle-table-div-button" onclick="document.location.href = `../Views/add_animation.php`" style="width: 100%;">Ajouter une animation</button>
-//                    <button class="middle-table-div-button" style="width: 100%;" onclick="document.location.href = `../Views/test_date.php`">Debug</button>
-//
-//                </div>
-//            </div>';
-//            return $div;
-//
-//        }
-//
-//        if (array_key_exists('type_profil', $_SESSION)){
-//
-//        }
-//
-//        $div .= '
-//                    </select>
-//                </div>
-//            </div>
-//            <div class="flex-column-center" style="gap: 20px; flex-wrap: wrap; border: 1px solid black; height: 100%; width: auto; margin-left: 30px;">
-//                <button class="middle-table-div-button" onclick="document.location.href = `../Views/add_animation.php`" style="width: 100%;">Ajouter une animation</button>
-//                <button class="middle-table-div-button" style="width: 100%;" onclick="document.location.href = `../Views/test_date.php`">Debug</button>
-//
-//            </div>
-//        </div>';
 
         $div .= '
                 </div>
@@ -269,8 +205,6 @@ final class FunctionController extends BaseController
                     <p><strong>Inscrit à<span class="visible-value grey-border">&nbsp'. $total_user_inscription .'&nbsp</span>activités au total</strong></p>
                 </div>
             ';
-
-
 
         }
         return $user_card;

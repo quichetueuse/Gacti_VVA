@@ -28,7 +28,7 @@ class EtatActController extends BaseController
             return $result;
         }
 
-        //si raw_mode = false;
+        //if raw_mode = false;
         $code_etats = array();
 
         foreach ($result as $etat) {
@@ -36,7 +36,6 @@ class EtatActController extends BaseController
         }
 
         return $code_etats;
-//        return $this->etatact_controller->getAllEtat();
     }
 
 }

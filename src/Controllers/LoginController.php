@@ -9,8 +9,8 @@ final class LoginController extends BaseController
     private User $user;
     public function __construct(){
         $this->user = new User();
-        $user_email = $this->sanitize($_POST['input-email']);
-        $user_password = sha1($this->sanitize($_POST['input-password']));
+        $user_email = $_POST['input-email'];
+        $user_password = sha1($_POST['input-password']);
         $record = $this->user->verify_credentials($user_email, $user_password);
         if (!$record)
         {

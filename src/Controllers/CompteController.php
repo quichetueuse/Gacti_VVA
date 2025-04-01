@@ -30,14 +30,11 @@ class CompteController extends BaseController
      */
     public function getNomPrenomByUser($user_id): array {
 
-        //clean values
-        $cleaned_user_id = $this->sanitize($user_id);
-        $return_result = $this->user->getNomPrenomByUser($cleaned_user_id);
+        $return_result = $this->user->getNomPrenomByUser($user_id);
         if (gettype($return_result) == "boolean") {
             return array('NOMCOMPTE' => null, 'PRENOMCOMPTE' => null);
         }
         return $return_result;
-//        return $this->user->getNomPrenomByUser($cleaned_user_id);
     }
 
 }
