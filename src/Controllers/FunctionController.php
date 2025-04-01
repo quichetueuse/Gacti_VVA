@@ -198,6 +198,7 @@ final class FunctionController extends BaseController
         $date_act = $this->sanitize($date_act);
         $code_anim = $this->sanitize($code_anim);
         $users_inscits = $this->inscription_controller->getAllUserInscriptionById($code_anim, $date_act);
+        $user_card .= '<div class="user-summary-card" style="display: flex; justify-content: center; text-align: center">Nombre d\'inscrit à cette activité:<span style="font-size: 15pt; color: palegreen; text-align: center; font-size: 10em" class=" grey-border">' . count($users_inscits) . '</span></div>';
         foreach ($users_inscits as $user) {
             //get total inscription from this user on every activity
             $total_user_inscription = $this->inscription_controller->getCountInscriptionByUser($user['NOMCOMPTE'], $user['PRENOMCOMPTE']);
