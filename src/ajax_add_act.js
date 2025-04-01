@@ -25,14 +25,12 @@ function confirmFormSubmission()
         confirmButtonText: "Oui, ajouter",
         cancelButtonText: "Annuler"
     }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
             if (!areFieldsValid()){
                 updateFieldsValidity();
                 generateSweetAlertPopup('Valeurs invalides', 'Vérifiers les champs', 'error', null);
                 return;
             }
-            // Swal.fire("Animation ajoutée!", "", "success");
             submitForm();
         } else if (result.isDenied) {
             generateSweetAlertPopup('Aucun ajout effectué!', '', 'info', null);
@@ -46,8 +44,6 @@ function confirmFormSubmission()
  */
 function submitForm()
 {
-    // var $anim_form = document.getElementById('add-anim-form');
-    // $anim_form.submit();
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -118,9 +114,6 @@ function isValidDateActivite(date_time_activite) {
         document.getElementById('error-date-act').innerHTML = '';
         valid_date_activite = true;
     }
-    // document.getElementById('error-date-validite').innerHTML = new Date( ).toLocaleDateString('en-CA');
-    // document.getElementById('error-date-validite').innerHTML = new Date ( ).toLocaleString(); //date_time_validite.toString()
-    // date_time_validite = new DateTime()
 }
 
 
@@ -130,37 +123,6 @@ function isValidDateActivite(date_time_activite) {
  */
 function validateFields(sender_id) {
     switch (sender_id) {
-        // case 'add-time-arrive': {
-        //     if (document.getElementById('add-time-arrive').value > document.getElementById('add-time-depart').value || document.getElementById('add-time-arrive').value > document.getElementById('add-time-fin').value) {
-        //         document.getElementById("error-time-arrive").innerHTML = "L'heure d'arrivée ne peut pas être supérieure à celle de départ ou de fin de l'activité!";
-        //     }
-        //     else {
-        //         document.getElementById("error-time-arrive").innerHTML = "";
-        //     }
-        //     break;
-        // }
-
-        // case 'add-time-depart': {
-        //     if (document.getElementById('add-time-depart').value < document.getElementById('add-time-arrive').value || document.getElementById('add-time-depart').value > document.getElementById('add-time-fin').value) {
-        //         document.getElementById("error-time-depart").innerHTML = "L'heure de départ ne peut pas être inférieure à celle d'arrivée ou être supérieure à celle de fin de l'activité!";
-        //     }
-        //     else {
-        //         document.getElementById("error-time-depart").innerHTML = "";
-        //     }
-        //     break;
-        // }
-
-
-        // case 'add-time-fin': {
-        //     if (document.getElementById('add-time-fin').value < document.getElementById('add-time-depart').value || document.getElementById('add-time-fin').value < document.getElementById('add-time-arrive').value) {
-        //         document.getElementById("error-time-fin").innerHTML = "L'heure de fin ne peut pas être inférieure à celle de départ ou d'arrivée!";
-        //     }
-        //     else {
-        //         document.getElementById("error-time-depart").innerHTML = "";
-        //     }
-        //     break;
-        // }
-
         case 'hour': {
 
             if (document.getElementById('add-time-arrive').value > document.getElementById('add-time-depart').value || document.getElementById('add-time-arrive').value > document.getElementById('add-time-fin').value) {

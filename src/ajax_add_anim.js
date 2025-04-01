@@ -25,52 +25,6 @@ var valid_limite_age = true;
 var valid_nb_place = true;
 var valid_difficulte = false;
 
-
-
-
-//
-// function addAnimation() {
-//     if (anim === "") {
-//         document.getElementById("act-card-container").innerHTML = "";
-//         return;
-//     } else {
-//         var xmlhttp = new XMLHttpRequest();
-//         xmlhttp.onreadystatechange = function () {
-//             if (this.readyState == 4 && this.status == 200) {
-//                 document.getElementById("act-card-container").innerHTML = this.responseText;
-//             }
-//         };
-//         xmlhttp.open("GET", "../Controllers/test_ajax.php?code_anim=", true);
-//         xmlhttp.send();
-//     }
-// }
-
-//
-// function test_sweetalert() {
-//     // or via CommonJS
-//
-//     // Swal.fire({
-//     //     title: 'Error!',
-//     //     text: 'Do you want to continue',
-//     //     icon: 'error',
-//     //     confirmButtonText: 'Cool'
-//     // })
-//
-//     Swal.fire({
-//         title: "Voulez-vous ajouter l'animation?",
-//         showDenyButton: false,
-//         showCancelButton: true,
-//         confirmButtonText: "Oui",
-//         cancelButtonText: "Annuler"
-//     }).then((result) => {
-//         /* Read more about isConfirmed, isDenied below */
-//         if (result.isConfirmed) {
-//
-//             Swal.fire("Saved!", "", "success");
-//         }
-//     });
-// }
-
 /**
  * Fonction qui demande à l'utilisateur une confirmation avant l'envoie du formulaire, une vérification de la validité
  * des données saisies est effectuée
@@ -86,7 +40,6 @@ function confirmFormSubmission()
         confirmButtonText: "Oui",
         cancelButtonText: "Annuler"
     }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
             if (!areFieldsValid()){
                 updateFieldsValidity();
@@ -96,7 +49,6 @@ function confirmFormSubmission()
             submitForm();
         } else if (result.isDenied) {
             generateSweetAlertPopup('Aucun ajout effectué!', '', 'info', null);
-            // Swal.fire("Aucun ajout effectué!", "", "info");
         }
     });
 }
@@ -107,27 +59,16 @@ function confirmFormSubmission()
  */
 function submitForm()
 {
-    // var $anim_form = document.getElementById('add-anim-form');
-    // $anim_form.submit();
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            // document.getElementById("est1").innerHTML = this.responseText;
             $json_response = JSON.parse(this.responseText);
-            // console.log($json_response)
             if ($json_response['success'])
             {
                 generateSweetAlertPopup($json_response['title'], $json_response['message'], 'success', null);
-                // Swal.fire("Animation ajoutée!", "", "success");
             }
             else {
                 generateSweetAlertPopup($json_response['title'], $json_response['message'], 'error', null);
-                // Swal.fire({
-                //     icon: "error",
-                //     title: "Erreur",
-                //     text: "Vérifier les valeurs écrites ou sélectionnées dans les champs!",
-                //     // footer: '<a href="#">Why do I have this issue?</a>'
-                // });
             }
         }
     }
@@ -192,9 +133,6 @@ function isValidDatevalidite(date_time_validite)
         document.getElementById('error-date-validite').innerHTML = ''
         valid_date_validite = true;
     }
-    // document.getElementById('error-date-validite').innerHTML = new Date( ).toLocaleDateString('en-CA');
-    // document.getElementById('error-date-validite').innerHTML = new Date ( ).toLocaleString(); //date_time_validite.toString()
-    // date_time_validite = new DateTime()
 }
 
 /**
@@ -203,18 +141,12 @@ function isValidDatevalidite(date_time_validite)
  */
 function validate_field(sender_id, sender_value)
 {
-    // console.log(sender_id, sender_value)
     switch (sender_id)
     {
         //validation for title field
         case "add-num-anim": {
             if (!isValidString(sender_value, len_code_anim))
             {
-                // if (sender_value === '') {
-                //     document.getElementById("error-code-anim").innerHTML = "La description ne doit pas être vide"
-                //     valid_code_anim = false;
-                //     return;
-                // }
                 document.getElementById("error-code-anim").innerHTML = "le code doit faire moins de " + len_code_anim + " caractères! ("+ (parseInt(sender_value.length) - len_code_anim) +" caractère(s) de trop) et ne doit pas contenir de caractères spéciaux";
                 valid_code_anim = false;
             }
@@ -371,17 +303,13 @@ function updateFieldsValidity() {
  * @return
  */
 function isValidString(value, length) {
-    // console.log("^[a-z]{0," + length + "}$")
-    // console.log(value)
     const re = new RegExp("^[a-zA-Z0-9 !\.:àâäèéêëôöùûüîï',]{0," + length + "}$");
     if (re.test(value))
     {
-        // console.log("true")
         return true;
     }
     else {
         return false;
-        // console.log("false");
     }
 }
 

@@ -23,14 +23,12 @@ function confirmFormSubmission()
         confirmButtonText: "Oui, appliquer les changements",
         cancelButtonText: "Annuler"
     }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
             if (!areFieldsValid()){
                 updateFieldsValidity();
                 generateSweetAlertPopup('Valeurs invalides', 'Vérifiers les champs', 'error', null);
                 return;
             }
-            // Swal.fire("Animation ajoutée!", "", "success");
             submitForm();
         } else if (result.isDenied) {
             generateSweetAlertPopup('Aucun ajout effectué!', '', 'info', null);
@@ -44,13 +42,10 @@ function confirmFormSubmission()
  */
 function submitForm()
 {
-    // var $anim_form = document.getElementById('add-anim-form');
-    // $anim_form.submit();
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             let $json_response = JSON.parse(this.responseText);
-            // console.log($json_response)
             if ($json_response['success'])
             {
                 generateSweetAlertPopup($json_response['title'], $json_response['message'], 'success', null);

@@ -39,7 +39,6 @@ function confirmFormSubmission()
         confirmButtonText: "Oui",
         cancelButtonText: "Annuler"
     }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
             if (!areFieldsValid()){
                 updateFieldsValidity();
@@ -49,7 +48,6 @@ function confirmFormSubmission()
             submitForm();
         } else if (result.isDenied) {
             generateSweetAlertPopup('Aucun changements effectués!', '', 'info', null);
-            // Swal.fire("Aucun ajout effectué!", "", "info");
         }
     });
 }
@@ -67,16 +65,9 @@ function submitForm()
             if ($json_response['success'])
             {
                 generateSweetAlertPopup($json_response['title'], $json_response['message'], 'success', null);
-                // Swal.fire("Animation ajoutée!", "", "success");
             }
             else {
                 generateSweetAlertPopup($json_response['title'], $json_response['message'], 'error', null);
-                // Swal.fire({
-                //     icon: "error",
-                //     title: "Erreur",
-                //     text: "Vérifier les valeurs écrites ou sélectionnées dans les champs!",
-                //     // footer: '<a href="#">Why do I have this issue?</a>'
-                // });
             }
         }
     }
@@ -131,7 +122,6 @@ function generateAjaxString(){
  */
 function validate_field(sender_id, sender_value)
 {
-    // console.log(sender_id, sender_value)
     switch (sender_id)
     {
 
@@ -150,7 +140,7 @@ function validate_field(sender_id, sender_value)
         }
 
 
-        //validation for
+        //validation for desc anim
         case "edit-desc-anim": {
             if (!isValidString(sender_value, len_comment_desc)){
                 document.getElementById("error-desc").innerHTML = ("la description doit faire moins de " + len_comment_desc + " caractères! ("+ (parseInt(sender_value.length) - len_comment_desc) +" caractère(s) de trop) et ne doit pas contenir de caractères spéciaux");
@@ -283,17 +273,13 @@ function isValidDatevalidite(date_time_validite, old_date='')
  * @return
  */
 function isValidString(value, length) {
-    // console.log("^[a-z]{0," + length + "}$")
-    // console.log(value)
     const re = new RegExp("^[a-zA-Z0-9 !\.:àâäèéêëôöùûüîï',]{0," + length + "}$");
     if (re.test(value))
     {
-        // console.log("true")
         return true;
     }
     else {
         return false;
-        // console.log("false");
     }
 }
 
