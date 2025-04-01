@@ -51,20 +51,8 @@ final class AnimActController extends BaseController
      * @return array - Résultat de la requête SQL (array des animations)
      */
     public function getAnimationByCodeAnim(string $code_anim, int $mode=4): array {
-        //clean value
-        $cleaned_code_anim = $this->sanitize($code_anim);
-        $cleaned_mode = $this->sanitize($mode);
 
-        return $this->animation->getAnimationInformationsByCodeAnim($cleaned_code_anim, $cleaned_mode);
-    }
-
-
-    public function getCountAnimations(): int {
-        return $this->animation->getCountAnimations();
-    }
-
-    public function getAllActivites(): array {
-        return $this->activite->getActivities('all');
+        return $this->animation->getAnimationInformationsByCodeAnim($code_anim, $mode);
     }
 
     /**
@@ -77,9 +65,7 @@ final class AnimActController extends BaseController
     public function getAllActivitesByAnim(string $code_anim, string $select_mode=''): array {
 
         //sanitize values
-        $cleaned_code_anim = $this->sanitize($code_anim);
-        $cleaned_select_mode = $this->sanitize($select_mode);
-        return $this->activite->getActivities($cleaned_code_anim, $cleaned_select_mode);
+        return $this->activite->getActivities($code_anim, $select_mode);
     }
 
     /**
@@ -108,8 +94,6 @@ final class AnimActController extends BaseController
      *   le méssage du popup à afficher
      */
     public function addAnimation(array $anim_to_add) : array {
-        //sanitizing every array values
-        $cleaned_anim = $this->sanitizeArray($anim_to_add);
 
         // return if validation criteria are not met
         if (!$this->checkAnimValuesValidity($anim_to_add)) {
@@ -117,7 +101,7 @@ final class AnimActController extends BaseController
         }
 
         //get query result state a.k.a if insert worked
-        return $this->animation->addAnimation($cleaned_anim);
+        return $this->animation->addAnimation($anim_to_add);
     }
 
     /**
@@ -134,7 +118,7 @@ final class AnimActController extends BaseController
             $user_id = $inscription['USER'];
             $this->inscription_model->desincritUserToAct($user_id, $act_id, $date_act);
         }
-        return $this->activite->deleteActivite($this->sanitize($act_id), $this->sanitize($date_act));
+        return $this->activite->deleteActivite($act_id, $date_act);
     }
 
     /**
@@ -145,22 +129,22 @@ final class AnimActController extends BaseController
      * @return bool - Retourne true si les valeurs sont bonnes et false si l'une d'entres elles n'est pas bonne
      */
     public function checkAnimValuesValidity($anim_array) : bool {
-        //validité code anim
+        //code anim validity
         if (strlen($anim_array[0]) > 8){
             return false;
         }
 
-        //validité type anim
+        //type anim validity
         if (!in_array($anim_array[1], $this->type_anim->getTypesName())) {
             return false;
         }
 
-        //validité titre anim
+        //title anim validity
         if (strlen($anim_array[2]) > 40) {
             return false;
         }
 
-        //validité date validité anim
+        //date validity anim validity
         if ($anim_array[3] < date('Y-m-d')) {
             return false;
         }
@@ -222,10 +206,8 @@ final class AnimActController extends BaseController
      * @return int - Nombre d'inscrit
      */
     public function checkNbrePlaceAnim(string $code_anim): int {
-        //sanitize values
-        $cleaned_code_anim = $this->sanitize($code_anim);
 
-        return $this->animation->checkNbrePlaceAnim($cleaned_code_anim);
+        return $this->animation->checkNbrePlaceAnim($code_anim);
     }
 
 
@@ -238,21 +220,18 @@ final class AnimActController extends BaseController
      */
     public function addActivite(array $new_act): array {
 
-        //clean array values
-        $cleaned_act = $this->sanitizeArray($new_act);
-
         //if values are not valid
         if (!$this->checkActValuesValidity($new_act)) {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'Valeurs invalides!'];
         }
 
-        if ($this->activite->doesActiviteExist($cleaned_act[0], $cleaned_act[3])) {
+        if ($this->activite->doesActiviteExist($new_act[0], $new_act[3])) {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'L\'activité éxiste déja!'];
         }
 
 
-        $resp_array = $this->compte_controller->getNomPrenomByUser($cleaned_act[2]);
-        $new_act_array = array($cleaned_act[0], $cleaned_act[1], $resp_array['NOMCOMPTE'], $resp_array['PRENOMCOMPTE'], $cleaned_act[3], $cleaned_act[4], $cleaned_act[5], $cleaned_act[6], $cleaned_act[7]);
+        $resp_array = $this->compte_controller->getNomPrenomByUser($new_act[2]);
+        $new_act_array = array($new_act[0], $new_act[1], $resp_array['NOMCOMPTE'], $resp_array['PRENOMCOMPTE'], $new_act[3], $new_act[4], $new_act[5], $new_act[6], $new_act[7]);
 
         return $this->activite->addActivite($new_act_array);
     }
@@ -336,12 +315,7 @@ final class AnimActController extends BaseController
      *    le méssage du popup à afficher
      */
     public function restoreActivite(string $act_id, string $date_act): array {
-
-        //cleaned_value
-        $cleaned_act_id = $this->sanitize($act_id);
-        $cleaned_date_act = $this->sanitize($date_act);
-
-        return $this->activite->restoreActivite($cleaned_act_id, $cleaned_date_act);
+        return $this->activite->restoreActivite($act_id, $date_act);
     }
 
 
@@ -353,21 +327,19 @@ final class AnimActController extends BaseController
      *    le méssage du popup à afficher
      */
     public function updateAnimation(array $anim): array {
-        //clean array
-        $cleaned_anim = $this->sanitizeArray($anim);
 
         //return if no changes were made to values
-        $old_anim = $this->animation->getAnimationInformationsByCodeAnim($cleaned_anim[0], PDO::FETCH_NUM);
-        if ($this->areArraysDifferent($cleaned_anim, $old_anim)) {
+        $old_anim = $this->animation->getAnimationInformationsByCodeAnim($anim[0], PDO::FETCH_NUM);
+        if ($this->areArraysDifferent($anim, $old_anim)) {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'Aucuns changements ont été effectués sur l\'animation!'];
         }
 
         // return if validation criteria are not met
-        if (!$this->checkAnimValueForUpdate($cleaned_anim, $old_anim[3])) {
+        if (!$this->checkAnimValueForUpdate($anim, $old_anim[3])) {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'Valeurs invalides!'];
         }
 
-        return $this->animation->updateAnimation($cleaned_anim);
+        return $this->animation->updateAnimation($anim);
     }
 
 
@@ -471,12 +443,7 @@ final class AnimActController extends BaseController
      * @return array - Résultat de la requête SQL (array des activité)
      */
     public function getActiviteById(string $code_anim, string $date_act, int $mode=4): array {
-        //clean value
-        $cleaned_code_anim = $this->sanitize($code_anim);
-        $cleaned_date_act = $this->sanitize($date_act);
-        $cleaned_mode = $this->sanitize($mode);
-
-        return $this->activite->getActiviteInformationById($cleaned_code_anim, $cleaned_date_act, $cleaned_mode);
+        return $this->activite->getActiviteInformationById($code_anim, $date_act, $mode);
     }
 
     /**
@@ -488,21 +455,18 @@ final class AnimActController extends BaseController
      */
     public function updateActivite(array $new_act): array {
 
-        //clean array values
-        $cleaned_act = $this->sanitizeArray($new_act);
-
         //return if no changes where made to values
-        $old_act = $this->activite->getActiviteInformationById($cleaned_act[0], $cleaned_act[3], PDO::FETCH_NUM);
-        if ($this->areArraysDifferent($cleaned_act, $old_act)) {
+        $old_act = $this->activite->getActiviteInformationById($new_act[0], $new_act[3], PDO::FETCH_NUM);
+        if ($this->areArraysDifferent($new_act, $old_act)) {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'Aucuns changements ont été effectués sur l\'activité!'];
         }
         //if values are not valid
-        if (!$this->checkActValuesValidityForUpdate($cleaned_act)) {
+        if (!$this->checkActValuesValidityForUpdate($new_act)) {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'Valeurs invalides!'];
         }
 
-        $resp_array = $this->compte_controller->getNomPrenomByUser($cleaned_act[2]);
-        $new_act_array = array($cleaned_act[0], $cleaned_act[1], $resp_array['NOMCOMPTE'], $resp_array['PRENOMCOMPTE'], $cleaned_act[3], $cleaned_act[4], $cleaned_act[5], $cleaned_act[6], $cleaned_act[7]);
+        $resp_array = $this->compte_controller->getNomPrenomByUser($new_act[2]);
+        $new_act_array = array($new_act[0], $new_act[1], $resp_array['NOMCOMPTE'], $resp_array['PRENOMCOMPTE'], $new_act[3], $new_act[4], $new_act[5], $new_act[6], $new_act[7]);
 
         return $this->activite->updateActivite($new_act_array);
     }
@@ -579,12 +543,7 @@ final class AnimActController extends BaseController
      * @return bool - Return True if the activity is cancelled, else false
      */
     public function isActCancelled(string $code_anim, string $date_act): bool {
-
-        //clean value
-        $cleaned_code_anim = $this->sanitize($code_anim);
-        $cleaned_date_act = $this->sanitize($date_act);
-
-        return $this->activite->isActCancelled($cleaned_code_anim, $cleaned_date_act);
+        return $this->activite->isActCancelled($code_anim, $date_act);
     }
 
 }

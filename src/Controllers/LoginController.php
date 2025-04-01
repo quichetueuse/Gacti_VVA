@@ -28,7 +28,6 @@ final class LoginController extends BaseController
         $this->redirect();
     }
 
-    #[\Override]
     protected function redirect() {
         header('location: ../Views/main_window.php', true, 302);
         exit();
