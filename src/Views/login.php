@@ -47,7 +47,7 @@ else {
             <p class="error-p"><?php echo $error_msg; ?></p>
             <div style="margin-left: 15px; margin-right: 15px;">
                 <button class="btn btn-primary w-100 py-2" style="margin-bottom: 10px;" type="submit">Connexion</button>
-                <button class="btn btn-primary w-100 py-2" style="margin-bottom: 10px;" onclick="document.location.href = 'new_animation2.php'" type="button">Continuer sans s'inscrire</button>
+                <button class="btn btn-primary w-100 py-2" style="margin-bottom: 10px;" onclick="document.location.href = 'main_window.php'" type="button">Continuer sans s'inscrire</button>
             </div>
         </div>
     </form>

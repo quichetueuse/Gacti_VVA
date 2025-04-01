@@ -215,7 +215,7 @@ final class FunctionController extends BaseController
         if (array_key_exists('type_profil', $_SESSION)) {
             if ($_SESSION['type_profil'] == 1) {
                 $div .= '<button class="middle-table-div-button" onclick="document.location.href = `../Views/add_animation.php`" style="width: 100%;">Ajouter une animation</button>
-                         <button class="middle-table-div-button" onclick="document.location.href = `../Views/edit_animation2.php`" style="width: 100%;">Éditer une animation</button>';
+                         <button class="middle-table-div-button" onclick="document.location.href = `../Views/edit_animation.php`" style="width: 100%;">Éditer une animation</button>';
             }
         }
 

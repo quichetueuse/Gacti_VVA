@@ -7,12 +7,12 @@ session_start();
 
 //if user is not connected
 if (!array_key_exists('type_profil',$_SESSION)) {
-    header('location: new_animation2.php');
+    header('location: main_window.php');
 }
 
 //if user is not an encadrant
 if ($_SESSION['type_profil'] == '0') {
-    header('location: new_animation2.php');
+    header('location: main_window.php');
 }
 
 $function_controller = new FunctionController();

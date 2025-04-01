@@ -30,7 +30,7 @@ final class LoginController extends BaseController
 
     #[\Override]
     protected function redirect() {
-        header('location: ../Views/new_animation2.php', true, 302);
+        header('location: ../Views/main_window.php', true, 302);
         exit();
     }
 

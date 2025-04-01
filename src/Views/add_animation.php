@@ -4,10 +4,10 @@ require_once('../autoloader.php');
 
 session_start();
 if (!array_key_exists('type_profil',$_SESSION)) {
-    header('location: new_animation2.php');
+    header('location: main_window.php');
 }
 if ($_SESSION['type_profil'] == '0') {
-    header('location: new_animation2.php');
+    header('location: main_window.php');
 }
 
 $animation_controller = new AnimActController();
