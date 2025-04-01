@@ -2,7 +2,6 @@
 
 namespace Models;
 require_once('../autoloader.php');
-//require_once ("../_config.inc");
 use Exception;
 use PDO;
 
@@ -24,21 +23,10 @@ class Db
 
     public function getPdoClient(){
         try {
-            // $pdoClient = new PDO('mysql:host=localhost;dbname=bd_actionportal;charset=utf8', 'root', '');
-            // $pdoClient = new PDO('mysql:host=localhost;dbname=bd_actionportal;charset=utf8', 'root', 'mysql');
-            // $pdoClient = new PDO('mysql:host=localhost;dbname=bd_actionportal;charset=utf8', 'AdminACTIONPORTAL', 'AdminACTIONPORTAL');
-            $pdoClient = new PDO('mysql:host='. $this->host .';dbname='. $this->db_name .';charset=utf8', $this->user, $this->password);
+            $pdoClient = new PDO('mysql:host='. $this->host .';dbname='. $this->db_name .';charset=utf8', $this->user, $this->password, [PDO::FETCH_ASSOC]);
         } catch (Exception $e) {
             die('Error : ' . $e->getMessage());
         }
-//        $pdoClient->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $pdoClient;
     }
 }
-
-//$test = new Db('localhost', 'gacti', 'root', '');
-//$pdoClient = $test->getPdoClient();
-//$sqlQuery = 'SELECT * FROM compte WHERE USER=:user';
-//$actionStatement = $pdoClient->prepare($sqlQuery);
-//$actionStatement->execute(['user' => 'fokrfr']);
-//echo $actionStatement->fetch()['USER'];
