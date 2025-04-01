@@ -46,9 +46,6 @@ $etatact_controller = new EtatActController();
                     <?php
                     foreach ($animation_controller->getAllCodeAnim() as $code_anim)
                     {
-//                         if ($user['username'] == $resp_suivi)
-//                             echo '<option selected="selected" value="'. $user["username"] .'">'. $user['username']. ' | ' . $user['email'] . ' | ' . $user['trigramm'] .'</option>';
-//                         else
                         echo '<option value="'. $code_anim["CODEANIM"] .'">'. $code_anim['NOMANIM'].'</option>';
                     } ?>
                 </select>

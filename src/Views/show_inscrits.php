@@ -34,9 +34,6 @@ $date_act = $_GET['date_act'];
 </head>
 <body>
     <?php echo $function_controller->generateHeaderDiv(); ?>
-<!--<div style="height: 15rem; width: 20rem; background-color: grey; border: 1px solid black; border-radius: 10px;">-->
-<!--    haha-->
-<!--</div>-->
     <div class="return-control-div">
         <button class="middle-table-div-button" onclick="window.history.go(-1); return false;">Retour</button>
     </div>

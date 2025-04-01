@@ -22,11 +22,8 @@ else {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="stylesheet" href="../style.css">
         <script src="../login.js"></script>
-    <!--    <link rel="stylesheet" href="' . SITE_URL . '/accueil.css">-->
-    <!--    <script src="' . SITE_URL . '/Services/globals_functions.js"></script>-->
     </head>
     <body class="body-middle-div">
-<!--    <form method="post" action="--><?php //echo SITE_URL.'/';?><!--Login/login_connecdatation.php">-->
     <form method="post" action="../Controllers/LoginController.php">
         <div class="login-div">
             <h1 class="h3 mb-3 fw-normal white-bold grey-border login-title">Connectez-vous</h1>
