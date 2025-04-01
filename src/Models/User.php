@@ -33,7 +33,7 @@ class User extends BaseModel
         $sqlQuery = 'SELECT NOMCOMPTE, PRENOMCOMPTE FROM compte WHERE USER=:user_id';
         $userStatement = $this->pdoClient->prepare($sqlQuery);
         $userStatement->execute(['user_id' => $user_id]);
-        //si aucun utilisateur n'est trouvé
+        //if no users are found
         if ($userStatement->rowCount() == 0) {
             return false;
         } else {

@@ -36,9 +36,7 @@ class TypeAnimation extends BaseModel
         $types = array();
         foreach ($query_result as $arr){
             array_push($types, $arr[0]);
-//            echo $arr[0] . '/ <br>';
         }
         return $types;
-//        return $animstatement->fetchAll(PDO::FETCH_NUM);
     }
 }
