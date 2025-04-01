@@ -35,7 +35,6 @@ final class AnimActController extends BaseController
         $this->type_anim = new TypeAnimation();
         $this->compte_controller = new CompteController();
         $this->etatact_controller = new EtatActController();
-//        $this->$inscription_model = new Inscription();
         $this->inscription_model = new Inscription();
     }
 
@@ -83,14 +82,6 @@ final class AnimActController extends BaseController
         return $this->activite->getActivities($cleaned_code_anim, $cleaned_select_mode);
     }
 
-//    public function getCountActivites(): int {
-//        return $this->activite->getCountActivites('all');
-//    }
-//    public function getCountActivitesByAnim(string $code_anim): int {
-//        $code_anim = $this->sanitize($code_anim);
-//        return $this->activite->getCountActivites($code_anim);
-//    }
-
     /**
      * Méthode permettant de récupérer tout les types d'animations afin de les mettre dans un
      * sélect (formulaire d'ajout d'animation)
@@ -108,11 +99,6 @@ final class AnimActController extends BaseController
     public function getAllCodeAnim(): array {
         return $this->animation->getAllCodeAnim();
     }
-
-
-//    public function addAnimation() {
-//        echo '<script>window.location.href = "../Views/new_animation2.php";</script>';
-//    }
 
     /**
      * Méthode permettant de faire le lien entre l'exterieur (la vue) et l'intérieur (le modele) pour la méthode d'ajout
@@ -133,25 +119,6 @@ final class AnimActController extends BaseController
         //get query result state a.k.a if insert worked
         return $this->animation->addAnimation($cleaned_anim);
     }
-//    public function addAnimation(array $anim_to_add) : bool {
-//        //sanitizing every array values
-//        $cleaned_anim = $this->sanitizeArray($anim_to_add);
-//
-//        // return if validation criteria are not met
-//        if (!$this->checkAnimValuesValidity($anim_to_add))
-//        {
-//            return false;
-//        }
-//
-//        //get query result state a.k.a if insert worked
-//        $query_success = $this->animation->addAnimation($cleaned_anim);
-//        return $query_success;
-//    }
-
-//    public function deleteAnimation(array $act): bool {
-//        $query_success = $this->activite->deleteActivite($this->sanitizeArray($act));
-//        return $query_success;
-//    }
 
     /**
      *  Méthode permettant de faire le lien entre l'exterieur (la vue) et l'intérieur (le modele) pour la méthode de
@@ -166,10 +133,6 @@ final class AnimActController extends BaseController
         foreach ($inscriptions as $inscription) {
             $user_id = $inscription['USER'];
             $this->inscription_model->desincritUserToAct($user_id, $act_id, $date_act);
-//            $state = $this->inscription_model->desincritUserToAct($user_id, $act_id, $date_act);
-//            if (!$state['success']) {
-//
-//            }
         }
         return $this->activite->deleteActivite($this->sanitize($act_id), $this->sanitize($date_act));
     }
@@ -184,87 +147,71 @@ final class AnimActController extends BaseController
     public function checkAnimValuesValidity($anim_array) : bool {
         //validité code anim
         if (strlen($anim_array[0]) > 8){
-//            echo 'blocage code anim';
             return false;
         }
 
         //validité type anim
         if (!in_array($anim_array[1], $this->type_anim->getTypesName())) {
-//            echo 'blocage type anim';
             return false;
         }
 
         //validité titre anim
         if (strlen($anim_array[2]) > 40) {
-//            echo 'blocage titre anim';
             return false;
         }
 
         //validité date validité anim
         if ($anim_array[3] < date('Y-m-d')) {
-//            echo 'blocage date validité anim <br> ' . date('Y-m-d');
             return false;
         }
 
         //validation for duree
         if (!is_numeric($anim_array[4])) {
-//            echo 'blocage durée anim1';
             return false;
         }
         if (intval($anim_array[4]) < 1) {
-//            echo 'blocage durée anim2';
             return false;
         }
 
         //validation for tarif
         if (!is_numeric($anim_array[5])) {
-//            echo 'blocage tarif1';
             return false;
         }
         if (intval($anim_array[5]) < 0) {
-//            echo 'blocage tarif2';
             return false;
         }
 
         //validation for limite age
         if (!is_numeric($anim_array[6])) {
-//            echo 'blocage limite age1';
             return false;
         }
         if (intval($anim_array[6]) < 4 || intval($anim_array[6]) > 100) {
-//            echo 'blocage limite age 2';
             return false;
         }
 
         //validation for nb place
         if (!is_numeric($anim_array[7])) {
-//            echo 'blocage nb place1';
             return false;
         }
         if (intval($anim_array[7]) < 1 || intval($anim_array[7]) > 50) {
-//            echo 'blocage nb place2';
             return false;
         }
 
         //validation for desciption
         if (strlen($anim_array[8]) > 250) {
-//            echo 'blocage desc anim';
             return false;
         }
 
         //validation for commentaire
         if (strlen($anim_array[9]) > 250) {
-//            echo 'blocage comment anim';
             return false;
         }
 
         //validation for difficulté
         if (strlen($anim_array[10]) > 40) {
-//            echo 'blocage diff anim';
             return false;
         }
 
-//        return false;
         return true;
     }
 
@@ -290,11 +237,9 @@ final class AnimActController extends BaseController
      *   le méssage du popup à afficher
      */
     public function addActivite(array $new_act): array {
-//        return ['success'=> false, 'title' => $this->compte_controller->getNomPrenomByUser($new_act[2]), 'message' => ''];
 
         //clean array values
         $cleaned_act = $this->sanitizeArray($new_act);
-//        return ['success' => false, 'title' => $cleaned_act[4] . ' | ' . gettype($cleaned_act[5]) . ' | '. $cleaned_act[6] . ' | ' . preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/", $cleaned_act[4]), 'message' => ''];
 
         //if values are not valid
         if (!$this->checkActValuesValidity($new_act)) {
@@ -309,11 +254,6 @@ final class AnimActController extends BaseController
         $resp_array = $this->compte_controller->getNomPrenomByUser($cleaned_act[2]);
         $new_act_array = array($cleaned_act[0], $cleaned_act[1], $resp_array['NOMCOMPTE'], $resp_array['PRENOMCOMPTE'], $cleaned_act[3], $cleaned_act[4], $cleaned_act[5], $cleaned_act[6], $cleaned_act[7]);
 
-//        if (!$this->activite->doesActiviteExist($new_act[0], $new_act[4])) {
-//            return false;
-//        }
-
-
         return $this->activite->addActivite($new_act_array);
     }
 
@@ -326,38 +266,22 @@ final class AnimActController extends BaseController
      */
     public function checkActValuesValidity(array $act_array): bool {
 
-        //si le code n'appartient à aucune animation
+        // if anim code exist
         if (!$this->animation->getAnimationByCodeAnim($act_array[0])){
             return false;
         }
 
-        //si l'état de l'activité n'éxiste pas
+        // if etat activité don't exist
         if (!in_array($act_array[1], $this->etatact_controller->getAllEtat(false))){
             return false;
         }
 
-//        if (strlen($act_array[0]) > 8){
-//            return false;
-//        }
-//
-//        if (strlen($act_array[1]) > 2){
-//            return false;
-//        }
-
-//        if (strlen($act_array[2]) > 40){
-//            return false;
-//        }
-
-        //si aucun utilisateur n'est trouvé
+        //if user (encadrant) is not found
         if ($this->compte_controller->getNomPrenomByUser($act_array[2])['NOMCOMPTE'] === null){
             return false;
         }
 
-//        if (in_array($act_array[2], $this->compte_controller->getNomPrenomByUser($act_array[2]))){
-//            return false;
-//        }
-
-        //si les heures sont bien des heures
+        //if hours are hours
         if (!preg_match("/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/", $act_array[4])) {
             return false;
         }
@@ -370,47 +294,38 @@ final class AnimActController extends BaseController
             return false;
         }
 
-        //si l'heure de fin est inférieure à celle d'arrivée ou de départ
+        // if end hour is lower than done hour or start hour
         if (strtotime($act_array[6]) < strtotime($act_array[5]) || strtotime($act_array[6]) < strtotime($act_array[4])) {
             return false;
         }
 
-        //si l'heure de départ est supérieur à celle de fin ou si l'heure de départ est inférieur à celle d'arrivée
+        // if start hour is bigger than end hour or if start hour is bigger than done hour
         if (strtotime($act_array[5]) > strtotime($act_array[6]) || strtotime($act_array[5]) < strtotime($act_array[4])) {
             return false;
         }
 
-        //si l'heure d'arrivée est supérieure à celle de fin ou de départ
+        // if done hour is bigger than end hour or start hour
         if (strtotime($act_array[4]) > strtotime($act_array[6]) || strtotime($act_array[4]) > strtotime($act_array[5])) {
             return false;
         }
 
-        //si la date de l'activité est minimum 24h après
+        // if 24 hours minimum have passed
         if ($act_array[3] < date("Y-m-d", strtotime('tomorrow'))) {
             return false;
         }
 
-        //si le prix est un nombre
+        //if price is a number
         if (!is_numeric($act_array[7])) {
             return false;
         }
 
-        //si il est compris entre 0 et 10000
+        //if price is between 0 and 10 000
         if ($act_array[7] < 0 || $act_array[7] > 10000){
             return false;
         }
 
         return true;
     }
-
-//    public function restoreActivite(string $act_id, string $date_act): bool {
-//
-//        //cleaned_value
-//        $cleaned_act_id = $this->sanitize($act_id);
-//        $cleaned_date_act = $this->sanitize($date_act);
-//
-//        return $this->activite->restoreActivite($cleaned_act_id, $cleaned_date_act);
-//    }
 
     /**
      *  Méthode permettant de faire le lien entre l'exterieur (la vue) et l'intérieur (le modele) pour la méthode de
@@ -444,7 +359,6 @@ final class AnimActController extends BaseController
         //return if no changes were made to values
         $old_anim = $this->animation->getAnimationInformationsByCodeAnim($cleaned_anim[0], PDO::FETCH_NUM);
         if ($this->areArraysDifferent($cleaned_anim, $old_anim)) {
-//            return ['success' => false, 'title' => 'Erreur', 'message' => $anim[5] . ' ' . $old_anim[5]];
             return ['success' => false, 'title' => 'Erreur', 'message' => 'Aucuns changements ont été effectués sur l\'animation!'];
         }
 
@@ -454,7 +368,6 @@ final class AnimActController extends BaseController
         }
 
         return $this->animation->updateAnimation($cleaned_anim);
-//        return ['success' => true, 'title' => 'You\'ve been trolled!', 'message' => 'HAHAHAHAH!'];
     }
 
 
@@ -471,13 +384,6 @@ final class AnimActController extends BaseController
             return true;
         }
 
-//        //looping through every item in array to check if they are the same
-//        for ($i = 0; $i < sizeof($array_1); $i++) {
-//            if ($array_1[$i] != $array_2[$i]) {
-//                return true;
-//            }
-//        }
-
         return $array_1 == $array_2;
     }
 
@@ -490,85 +396,70 @@ final class AnimActController extends BaseController
      * @return boolean - retourne true si les valeurs sont valides, sinon false
      */
     private function checkAnimValueForUpdate($anim_array, $old_validity_date): bool {
-        //validité code anim
+        //check code anim validity
         if (strlen($anim_array[0]) > 8){
-//            echo 'blocage code anim';
             return false;
         }
 
-        //validité type anim
+        // check type anim validity
         if (!in_array($anim_array[1], $this->type_anim->getTypesName())) {
-//            echo 'blocage type anim';
             return false;
         }
 
-        //validité titre anim
+        //check title anim validity
         if (strlen($anim_array[2]) > 40) {
-//            echo 'blocage titre anim';
             return false;
         }
 
-        //validité date validité anim
+        //check validity date validity
         if ($anim_array[3] < $old_validity_date) {
-//            echo 'blocage date validité anim <br> ' . date('Y-m-d');
             return false;
         }
 
-        //validation for duree
+        //duree validity
         if (!is_numeric($anim_array[4])) {
-//            echo 'blocage durée anim1';
             return false;
         }
         if (intval($anim_array[4]) < 1) {
-//            echo 'blocage durée anim2';
             return false;
         }
 
-        //validation for limite age
+        //limite age validity
         if (!is_numeric($anim_array[5])) {
-//            echo 'blocage limite age1';
             return false;
         }
         if (intval($anim_array[5]) < 4 || intval($anim_array[5]) > 100) {
-//            echo 'blocage limite age 2';
             return false;
         }
 
-        //validation for tarif
+        //tarif validity
         if (!is_numeric($anim_array[6])) {
-//            echo 'blocage tarif1';
             return false;
         }
         if (intval($anim_array[6]) < 0) {
-//            echo 'blocage tarif2';
             return false;
         }
 
-        //validation for nb place
+        //nb place validity
         if (!is_numeric($anim_array[7])) {
-//            echo 'blocage nb place1';
             return false;
         }
         if (intval($anim_array[7]) < 1 || intval($anim_array[7]) > 50) {
-//            echo 'blocage nb place2';
             return false;
         }
 
-        //validation for desciption
+        //description validity
         if (strlen($anim_array[8]) > 250) {
-//            echo 'blocage desc anim';
             return false;
         }
 
-        //validation for commentaire
+        //commentaire validity
         if (strlen($anim_array[9]) > 250) {
-//            echo 'blocage comment anim';
             return false;
         }
 
-        //validation for difficulté
+        //difficulte validity
         if (strlen($anim_array[10]) > 40) {
-//            echo 'blocage diff anim';
             return false;
         }
 
@@ -599,15 +490,12 @@ final class AnimActController extends BaseController
 
         //clean array values
         $cleaned_act = $this->sanitizeArray($new_act);
-//        return ['success' => false, 'title' => $cleaned_act[4] . ' | ' . $cleaned_act[5] . ' | '. $cleaned_act[6] . ' | ' . preg_match("/^((?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$)/", $cleaned_act[4]), 'message' => ''];
 
         //return if no changes where made to values
         $old_act = $this->activite->getActiviteInformationById($cleaned_act[0], $cleaned_act[3], PDO::FETCH_NUM);
         if ($this->areArraysDifferent($cleaned_act, $old_act)) {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'Aucuns changements ont été effectués sur l\'activité!'];
         }
-//        $test = $this->etatact_controller->getAllEtat(false);
-//        return ['success' => false, 'title' => $test[2], 'message' => $cleaned_act[1]];
         //if values are not valid
         if (!$this->checkActValuesValidityForUpdate($cleaned_act)) {
             return ['success' => false, 'title' => 'Erreur', 'message' => 'Valeurs invalides!'];
@@ -628,37 +516,22 @@ final class AnimActController extends BaseController
      */
     public function checkActValuesValidityForUpdate(array $act_array): bool {
 
-        //si le code n'appartient à aucune animation
+        // if anim code exist
         if (!$this->animation->getAnimationByCodeAnim($act_array[0])){
             return false;
         }
 
-        //si l'état de l'activité n'éxiste pas
+        // if etat activité don't exist
         if (!in_array($act_array[1], $this->etatact_controller->getAllEtat(false))){
             return false;
         }
 
-        //si aucun utilisateur n'est trouvé
+        //if user (encadrant) is not found
         if ($this->compte_controller->getNomPrenomByUser($act_array[2])['NOMCOMPTE'] === null){
             return false;
         }
 
-//        //if hour string can be converted to datertime (it mean the time is valid)
-//        if (!DateTime::createFromFormat('H:i', $act_array[4]) !== false) {
-//            return false;
-//        }
-//
-//        //if hour string can be converted to datertime (it mean the time is valid)
-//        if (!DateTime::createFromFormat('H:i', $act_array[5]) !== false) {
-//            return false;
-//        }
-//
-//        //if hour string can be converted to datertime (it mean the time is valid)
-//        if (!DateTime::createFromFormat('H:i', $act_array[5]) !== false) {
-//            return false;
-//        }
-
-        //si les heures sont bien des heures
+        //if hours are hours
         if (!preg_match("/^((?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$)/", $act_array[4])) {
             return false;
         }
@@ -671,27 +544,27 @@ final class AnimActController extends BaseController
             return false;
         }
 
-        //si l'heure de fin est inférieure à celle d'arrivée ou de départ
+        // if end hour is lower than done hour or start hour
         if (strtotime($act_array[6]) < strtotime($act_array[5]) || strtotime($act_array[6]) < strtotime($act_array[4])) {
             return false;
         }
 
-        //si l'heure de départ est supérieur à celle de fin ou si l'heure de départ est inférieur à celle d'arrivée
+        // if start hour is bigger than end hour or if start hour is bigger than done hour
         if (strtotime($act_array[5]) > strtotime($act_array[6]) || strtotime($act_array[5]) < strtotime($act_array[4])) {
             return false;
         }
 
-        //si l'heure d'arrivée est supérieure à celle de fin ou de départ
+        // if done hour is bigger than end hour or start hour
         if (strtotime($act_array[4]) > strtotime($act_array[6]) || strtotime($act_array[4]) > strtotime($act_array[5])) {
             return false;
         }
-//
-        //si le prix est un nombre
+
+        //if price is a number
         if (!is_numeric($act_array[7])) {
             return false;
         }
 
-        //si le prix est compris entre 0 et 10000
+        //if price is between 0 and 10 000
         if ($act_array[7] < 0 || $act_array[7] > 10000){
             return false;
         }

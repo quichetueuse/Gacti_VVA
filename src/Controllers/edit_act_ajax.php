@@ -5,6 +5,7 @@ require_once('../autoloader.php');
 $act_controller = new AnimActController();
 $compte_controller = new CompteController();
 
+// gather values from form
 $code_anim = $_POST['code_anim'];
 $etat_act = $_POST['etat_act'];
 $user_id = $_POST['resp_act'];
@@ -16,6 +17,6 @@ $tarif = $_POST['tarif'];
 
 $new_act = array($code_anim, $etat_act, $user_id, $date_act, $heure_arrive, $heure_depart, $heure_fin, $tarif);
 
-//$query_success = json_encode(['success' => true, 'title' => $new_act[0], 'message' => 'You\'ve been trolled!']);
+// encode result array
 $query_success = json_encode($act_controller->updateActivite($new_act));
 echo $query_success;
