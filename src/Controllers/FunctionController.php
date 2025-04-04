@@ -162,7 +162,7 @@ final class FunctionController extends BaseController
                         <option selected value="all">Toutes les animations</option>';
 
         foreach ($anim_list as $anim) {
-            $div .= '<option title="'. $anim["COMMENTANIM"] .'" value="' . $anim["CODEANIM"] . '">' . $anim['NOMANIM'] . ' | ' . $anim['DESCRIPTANIM'] . '</option>';
+            $div .= '<option title="'. $anim["COMMENTANIM"] .'" value="' . $anim["CODEANIM"] . '">' . $anim['NOMANIM'] . '</option>';
         }
 
         $div .= '
