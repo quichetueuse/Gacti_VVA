@@ -115,6 +115,6 @@ Les diagrammes suivants représentent la conception technique du projet :
 
 ### Installation
 
-1. Cloner le dépot git sur lequel vous êtes
-2. Importer `gacti.sql` dans la base de données du serveur LAMP
-3. Ouvrir le projet dans le navigateur
+1. Clonez le dépot git sur lequel vous êtes
+2. Importez `gacti.sql` dans la base de données du serveur LAMP
+3. Ouvrez le projet dans le navigateur
